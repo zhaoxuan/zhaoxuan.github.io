@@ -1,4 +1,3 @@
-require 'debugger'
 desc 'create a new draft post'
 task :post, :title do |t, args|
   title = args.title

@@ -7,12 +7,12 @@
     <meta name="generator" content="Jekyll" />
     <meta name="author" content="John" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="http://localhost:4000/css/style.css" type="text/css" />
-    <link rel="stylesheet" href="http://localhost:4000/css/syntax.css" type="text/css" />
+    <link rel="stylesheet" href="http://zhaoxuan.github.com/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://zhaoxuan.github.com/css/syntax.css" type="text/css" />
     <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
-    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://zhaoxuan.github.com/favicon.ico" type="image/x-icon" />
     <!--[if lt IE 9]>
-    <script src="http://localhost:4000/js/html5.js" type="text/javascript"></script>
+    <script src="http://zhaoxuan.github.com/js/html5.js" type="text/javascript"></script>
     <![endif]-->
 </head>
 <body id="default">
@@ -26,9 +26,9 @@
         </div>
         <nav id="nav">
             <ul>
-                <li class="fn-clear"><a href="http://localhost:4000" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
-                <li class="fn-clear"><a href="http://localhost:4000/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
-                <li class="fn-clear"><a href="http://localhost:4000/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://zhaoxuan.github.com" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://zhaoxuan.github.com/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://zhaoxuan.github.com/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
                 <li class="fn-clear"><a href="http://www.twitter.com/piznlin"><i class="icon-twitter"></i> Twitter</a></li>
             </ul>
         </nav>
@@ -39,16 +39,67 @@
         </header>
 		
 	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://localhost:4000/travel/2013/09/30/qingdao_free_travel.html" title="青岛 free travel" rel="bookmark">青岛 free travel</a></h2>
+        <h2 class="post-title"><a href="http://zhaoxuan.github.com/ruby/2013/09/30/create-new-jekyll-posts-rake-task.html" title="create new jekyll posts rake task " rel="bookmark">create new jekyll posts rake task </a></h2>
+        <p class="time"><time pubdate="2013-09-30 16:03:00 +0800">30 Sep 2013</time></p>
+        
+        <p>Jekyll, a static site generator, is blog-aware. That means it tracks posts and publication dates. Working with such files can be tricky, but here is one way of using Rake to ease the pain.</p>
+
+<h4>What we need</h4>
+
+<p>Jekyll requires blog posts to be saved in files with a specific filename. It should include the title of the post and the publication date. Example: 2009-06-15-hello-world.markdown. The extension tells Jekyll what text filter to use (Markdown in this case).</p>
+
+<h4>What we want</h4>
+
+<p>Manually typing filenames in the form yyyy-mm-dd-title.filter is a pain. I want to be able to create a post, given a title, and let it figure out the date itself.</p>
+
+<h4>What we get</h4>
+
+<p>I use the following Rake task to create post files:</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">desc</span> <span class="s1">&#39;create a new draft post&#39;</span>
+<span class="n">task</span> <span class="ss">:post</span><span class="p">,</span> <span class="ss">:title</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="p">,</span> <span class="n">args</span><span class="o">|</span>
+  <span class="n">title</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">title</span>
+  <span class="n">slug</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">Date</span><span class="o">.</span><span class="n">today</span><span class="si">}</span><span class="s2">-</span><span class="si">#{</span><span class="n">title</span><span class="o">.</span><span class="n">downcase</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/[^\w]+/</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+  <span class="n">file</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">),</span>
+    <span class="s1">&#39;_posts&#39;</span><span class="p">,</span>
+    <span class="n">slug</span> <span class="o">+</span> <span class="s1">&#39;.markdown&#39;</span>
+  <span class="p">)</span>
+
+  <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exist?</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="nb">abort</span><span class="p">(</span><span class="s2">&quot;rake aborted!</span><span class="se">\n</span><span class="s2"> </span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="s2"> already exists.&quot;</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+    <span class="n">f</span> <span class="o">&lt;&lt;</span> <span class="o">&lt;&lt;-</span><span class="no">EOS</span>
+<span class="sh">---</span>
+<span class="sh">layout: post</span>
+<span class="sh">title: &quot;#{title}&quot;</span>
+<span class="sh">date: #{Time.now.strftime(&#39;%Y-%m-%d %H:%M&#39;)}</span>
+<span class="sh">comments: true</span>
+<span class="sh">categories:</span>
+<span class="sh">---</span>
+<span class="no">EOS</span>
+  <span class="k">end</span>
+  <span class="nb">puts</span> <span class="s2">&quot;Creating new page: </span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+</code></pre></div>
+
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://zhaoxuan.github.com/travel/2013/09/30/qingdao_free_travel.html" title="青岛 free travel" rel="bookmark">青岛 free travel</a></h2>
         <p class="time"><time pubdate="2013-09-30 15:52:00 +0800">30 Sep 2013</time></p>
         
         <p>准备了一个多月的青岛之行明天就要开始了。</p>
 
-<p><img src="http://localhost:4000/images/qingdao_free_travel/IMG_3069.JPG" alt="thumb" width='500' hight='500' ></p>
+<p><img src="http://zhaoxuan.github.com/images/qingdao_free_travel/IMG_3069.JPG" alt="thumb" width='500' hight='500' ></p>
 
 <p>新买的小箱子，就是为了这次出行用的，看起来是不是非常粉嫩？</p>
 
-<p><img src="http://localhost:4000/images/qingdao_free_travel/IMG_3071.JPG" alt="thumb" width='500' hight='500' ></p>
+<p><img src="http://zhaoxuan.github.com/images/qingdao_free_travel/IMG_3071.JPG" alt="thumb" width='500' hight='500' ></p>
 
 <p>只有这么点衣服是我的，剩下的空间就是老婆大人的了。</p>
 
@@ -58,7 +109,7 @@
     </article>
 
 	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://localhost:4000/ruby/2013/09/25/ruby-robust.html" title="提高 ruby script 的健壮性" rel="bookmark">提高 ruby script 的健壮性</a></h2>
+        <h2 class="post-title"><a href="http://zhaoxuan.github.com/ruby/2013/09/25/ruby-robust.html" title="提高 ruby script 的健壮性" rel="bookmark">提高 ruby script 的健壮性</a></h2>
         <p class="time"><time pubdate="2013-09-25 10:49:00 +0800">25 Sep 2013</time></p>
         
         <p>首先必须承认 ruby 脚本确实是一个非常好用的工具。</p>
@@ -95,7 +146,7 @@
     </article>
 
 	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://localhost:4000/linux/2013/02/22/my-bash-profile.html" title="我的 bash_profile" rel="bookmark">我的 bash_profile</a></h2>
+        <h2 class="post-title"><a href="http://zhaoxuan.github.com/linux/2013/02/22/my-bash-profile.html" title="我的 bash_profile" rel="bookmark">我的 bash_profile</a></h2>
         <p class="time"><time pubdate="2013-02-22 15:56:00 +0800">22 Feb 2013</time></p>
         
         <h3>习惯</h3>
@@ -126,7 +177,7 @@
     </article>
 
 	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://localhost:4000/feeling/2013/01/31/hadoop-install.html" title="hadoop install" rel="bookmark">hadoop install</a></h2>
+        <h2 class="post-title"><a href="http://zhaoxuan.github.com/feeling/2013/01/31/hadoop-install.html" title="hadoop install" rel="bookmark">hadoop install</a></h2>
         <p class="time"><time pubdate="2013-01-31 13:43:00 +0800">31 Jan 2013</time></p>
         
         <h4>一 软件安装环境</h4>
@@ -219,73 +270,6 @@
         
     </article>
 
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://localhost:4000/feeling/2012/12/06/different-idea-in-different-companies.html" title="不同价值观in不同的公司" rel="bookmark">不同价值观in不同的公司</a></h2>
-        <p class="time"><time pubdate="2012-12-06 18:13:00 +0800">06 Dec 2012</time></p>
-        
-        <p>今天下午第一次有机会和新公司的 CTO Sidney 交流的机会。</p>
-
-<p>进公司一来，一直都是听说 Sidney 是一个非常 牛B 的人，但是没有机会详细的了解。</p>
-
-<p>今天下午，他的一个会议，相当于年终总结 -- Product Review &amp; Product Roadmap。</p>
-
-<p>首先是不得不佩服他的经历，学的是英文文学专业，毕业后的第一份工作是理发师，第二份工作是厨师。</p>
-
-<p>对于广告行业的了解，确实非常深刻，从 99 年的混乱时期开始，到 03 年的初现原型，到 05 年的一落千丈，再到现在的 rtb。</p>
-
-<p>其实这些东西都不是给我最深刻的印象，给我最深刻印象的是公司的文化和价值观。</p>
-
-<p>我经历过俩个公司，对不同公司的管理方式，公司文化有一个对比。</p>
-
-<p>一个公司的文化，是对这个公司的缩影，是一个公司奋斗的轨迹，是一个公司前进的方向。</p>
-
-<p>先说说原来公司的情况，原来公司用的是日本稻盛和夫的管理哲学，就是《活法》《干法》。</p>
-
-<p>刚如公司的时候，公司天天的稻盛和夫，人活着就是拼命工作。。。（可能总结的不对）。</p>
-
-<p>慢慢的我就感觉到，公司的唯一目的就是要你拼命工作，公司的思想就是奴隶。</p>
-
-<p>每次公司开会，唯一的主题就是人活着就是竭尽全力的工作（我自己的总结，应该比较极端）。</p>
-
-<p>开始的时候还不觉得有什么，感觉现在努力学东西，将来就有前途了。</p>
-
-<p>但是越来越觉得，这就是在奴隶，就是赤裸裸的压迫。</p>
-
-<p>后来对公司的态度就是越来越有抵触心理。</p>
-
-<p>每次看公司做的什么东西都觉得不喜欢。</p>
-
-<p>而且每次看见新来的小同事对公司的新政策不光没有一点抵触，反而非常高兴，非常兴奋。</p>
-
-<p>从这些小同事的身上，我看到自己一年前来公司的影子。</p>
-
-<p>见到所有的东西都是没有一点思考的，感觉都是对的。</p>
-
-<p>但是后来就越来越反感，思考公司的文化，信仰和自己的方向越来越远了。</p>
-
-<p>最后发展到离开了公司。。。</p>
-
-<p>前面公司的告一段落。</p>
-
-<p>进入的新的公司，不像原来的公司一样，三天两头的进行文化培训。</p>
-
-<p>到目前为止我还没看到什么类似硬性教育似的的培训。</p>
-
-<p>唯一让我体验到公司文化的就是今天下午 CTO 的一个分享。</p>
-
-<p>但是一些外国公司就完全不是这样的，一些招聘虽然面试的时候非常难，最后考官基本不看你的成绩，只要基本过关即可。</p>
-
-<p>公司考察的就是这个新同事在和原来的老员工这一起工作能不能让你舒服。</p>
-
-<p>你能不能在团队中迸发出新的 idea。</p>
-
-<p>目前只能说这么多，因为新的公司我了解的还太少了，到目前为止只有一个月零 14 天。</p>
-
-<p>但是已经感觉到文化的不同了，可能是新公司我还不了解，所以还没反感。</p>
-
-        
-    </article>
-
 
     <nav id="pagination" class="fn-clear">
         <ul class="pagination">
@@ -295,27 +279,27 @@
                 
             
                 
-                    <li><a href="http://localhost:4000/page2/">2</a></li>
+                    <li><a href="http://zhaoxuan.github.com/page2/">2</a></li>
                 
             
                 
-                    <li><a href="http://localhost:4000/page3/">3</a></li>
+                    <li><a href="http://zhaoxuan.github.com/page3/">3</a></li>
                 
             
                 
-                    <li><a href="http://localhost:4000/page4/">4</a></li>
+                    <li><a href="http://zhaoxuan.github.com/page4/">4</a></li>
                 
             
                 
-                    <li><a href="http://localhost:4000/page5/">5</a></li>
+                    <li><a href="http://zhaoxuan.github.com/page5/">5</a></li>
                 
             
                 
-                    <li><a href="http://localhost:4000/page6/">6</a></li>
+                    <li><a href="http://zhaoxuan.github.com/page6/">6</a></li>
                 
             
                 
-                    <li><a href="http://localhost:4000/page7/">7</a></li>
+                    <li><a href="http://zhaoxuan.github.com/page7/">7</a></li>
                 
             
         </ul>
@@ -328,9 +312,9 @@
     </section>
 </div>
 <div id="foot-line"></div>
-<script src="http://localhost:4000/js/jquery.js" type="text/javascript"></script>
-<script src="http://localhost:4000/js/jquery.scrollTo.js" type="text/javascript"></script>
-<script src="http://localhost:4000/js/theOne.js" type="text/javascript"></script>
+<script src="http://zhaoxuan.github.com/js/jquery.js" type="text/javascript"></script>
+<script src="http://zhaoxuan.github.com/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://zhaoxuan.github.com/js/theOne.js" type="text/javascript"></script>
 
 </body>
 </html>

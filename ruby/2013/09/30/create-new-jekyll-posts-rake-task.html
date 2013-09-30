@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>create new jekyll posts rake task  | The Simple</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="John" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://zhaoxuan.github.com/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://zhaoxuan.github.com/css/syntax.css" type="text/css" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://zhaoxuan.github.com/favicon.ico" type="image/x-icon" />
+    <!--[if lt IE 9]>
+    <script src="http://zhaoxuan.github.com/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <!-- <img src="http://mmistakes.github.io/minimal-mistakes/images/bio-photo.jpg" class="bio-photo" alt=" bio photo"> -->
+            <img src="http://zhaoxuan.github.io/static_files/images/head_portrait.png" class="bio-photo" alt=" bio photo">
+            <h2>Simple</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://zhaoxuan.github.com" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://zhaoxuan.github.com/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://zhaoxuan.github.com/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://www.twitter.com/piznlin"><i class="icon-twitter"></i> Twitter</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <span>2013-09-30 16:03:00 +0800</span>
+        </header>
+		<article class="post">
+    <h1 class="post-title">create new jekyll posts rake task </h1>
+    <p>Jekyll, a static site generator, is blog-aware. That means it tracks posts and publication dates. Working with such files can be tricky, but here is one way of using Rake to ease the pain.</p>
+
+<h4>What we need</h4>
+
+<p>Jekyll requires blog posts to be saved in files with a specific filename. It should include the title of the post and the publication date. Example: 2009-06-15-hello-world.markdown. The extension tells Jekyll what text filter to use (Markdown in this case).</p>
+
+<h4>What we want</h4>
+
+<p>Manually typing filenames in the form yyyy-mm-dd-title.filter is a pain. I want to be able to create a post, given a title, and let it figure out the date itself.</p>
+
+<h4>What we get</h4>
+
+<p>I use the following Rake task to create post files:</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">desc</span> <span class="s1">&#39;create a new draft post&#39;</span>
+<span class="n">task</span> <span class="ss">:post</span><span class="p">,</span> <span class="ss">:title</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="p">,</span> <span class="n">args</span><span class="o">|</span>
+  <span class="n">title</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">title</span>
+  <span class="n">slug</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">Date</span><span class="o">.</span><span class="n">today</span><span class="si">}</span><span class="s2">-</span><span class="si">#{</span><span class="n">title</span><span class="o">.</span><span class="n">downcase</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/[^\w]+/</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+  <span class="n">file</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">),</span>
+    <span class="s1">&#39;_posts&#39;</span><span class="p">,</span>
+    <span class="n">slug</span> <span class="o">+</span> <span class="s1">&#39;.markdown&#39;</span>
+  <span class="p">)</span>
+
+  <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exist?</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="nb">abort</span><span class="p">(</span><span class="s2">&quot;rake aborted!</span><span class="se">\n</span><span class="s2"> </span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="s2"> already exists.&quot;</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+    <span class="n">f</span> <span class="o">&lt;&lt;</span> <span class="o">&lt;&lt;-</span><span class="no">EOS</span>
+<span class="sh">---</span>
+<span class="sh">layout: post</span>
+<span class="sh">title: &quot;#{title}&quot;</span>
+<span class="sh">date: #{Time.now.strftime(&#39;%Y-%m-%d %H:%M&#39;)}</span>
+<span class="sh">comments: true</span>
+<span class="sh">categories:</span>
+<span class="sh">---</span>
+<span class="no">EOS</span>
+  <span class="k">end</span>
+  <span class="nb">puts</span> <span class="s2">&quot;Creating new page: </span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+</code></pre></div>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://zhaoxuan.github.com/travel/2013/09/30/qingdao_free_travel.html" rel="bookmark">&laquo;&nbsp;青岛 free travel</a>
+        
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>  
+
+<!-- disqus -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<!-- end_disqus -->
+        <footer id="foot">
+            <p>&copy; 2013 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>
+        </footer>
+    </section>
+</div>
+<div id="foot-line"></div>
+<script src="http://zhaoxuan.github.com/js/jquery.js" type="text/javascript"></script>
+<script src="http://zhaoxuan.github.com/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://zhaoxuan.github.com/js/theOne.js" type="text/javascript"></script>
+
+</body>
+</html>
