@@ -2,17 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>hadoop install | The One Theme</title>
+    <title>hadoop install | The Simple</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Jekyll" />
     <meta name="author" content="John" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="http://zhaoxuan.github.com/css/style.css" type="text/css" />
-    <link rel="stylesheet" href="http://zhaoxuan.github.com/css/syntax.css" type="text/css" />
+    <link rel="stylesheet" href="http://localhost:4000/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://localhost:4000/css/syntax.css" type="text/css" />
     <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
-    <link rel="shortcut icon" href="http://zhaoxuan.github.com/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico" type="image/x-icon" />
     <!--[if lt IE 9]>
-    <script src="http://zhaoxuan.github.com/js/html5.js" type="text/javascript"></script>
+    <script src="http://localhost:4000/js/html5.js" type="text/javascript"></script>
     <![endif]-->
 </head>
 <body id="default">
@@ -26,9 +26,9 @@
         </div>
         <nav id="nav">
             <ul>
-                <li class="fn-clear"><a href="http://zhaoxuan.github.com" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
-                <li class="fn-clear"><a href="http://zhaoxuan.github.com/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
-                <li class="fn-clear"><a href="http://zhaoxuan.github.com/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://localhost:4000" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://localhost:4000/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://localhost:4000/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
                 <li class="fn-clear"><a href="http://www.twitter.com/piznlin"><i class="icon-twitter"></i> Twitter</a></li>
             </ul>
         </nav>
@@ -57,28 +57,81 @@
 
 <p>现在确认能否不输入口令就用ssh登录localhost:</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="err">$</span> <span class="n">ssh</span> <span class="n">localhost</span>
-<span class="err">如果不输入口令就无法用</span><span class="n">ssh</span><span class="err">登陆</span><span class="n">localhost</span><span class="err">，执行下面的命令：</span>
-<span class="err">$</span> <span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span> <span class="o">-</span><span class="n">t</span> <span class="n">dsa</span> <span class="o">-</span><span class="n">P</span> <span class="s1">&#39;&#39;</span> <span class="o">-</span><span class="n">f</span> <span class="o">~</span><span class="sr">/.ssh/i</span><span class="n">d_dsa</span> 
-<span class="err">$</span> <span class="n">cat</span> <span class="o">~</span><span class="sr">/.ssh/i</span><span class="n">d_dsa</span><span class="o">.</span><span class="n">pub</span> <span class="o">&gt;&gt;</span> <span class="o">~</span><span class="sr">/.ssh/</span><span class="n">authorized_keys</span>
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ssh localhost
 </code></pre></div>
 
-<p>$ ssh localhost
-如果不输入口令就无法用ssh登陆localhost，执行下面的命令：
-$ ssh-keygen -t dsa -P &#39;&#39; -f ~/.ssh/id<em>dsa 
-$ cat ~/.ssh/id</em>dsa.pub &gt;&gt; ~/.ssh/authorized_keys</p>
+<p>如果不输入口令就无法用ssh登陆localhost，执行下面的命令：</p>
 
-<p>三、安装 hadoop
-1、下载 hadoop 解压的任意目录
-2、修改 hadoop<em>path/confi/hadoop</em>env.sh
-     export JAVA<em>HOME=/usr/java/jdk1.7.0</em>07</p>
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ssh-keygen -t dsa -P <span class="s1">&#39;&#39;</span> -f ~/.ssh/id_dsa 
+<span class="nv">$ </span>cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys
+</code></pre></div>
+
+<h4>三、安装 hadoop</h4>
+
+<p>1、下载 hadoop 解压的任意目录</p>
+
+<p>2、修改 hadoop<em>path/confi/hadoop</em>env.sh</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>path_to_java
+<span class="nb">export </span><span class="nv">HADOOP_INSTALL</span><span class="o">=</span>path_to_hadoop
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HADOOP_INSTALL</span>/bin
+</code></pre></div>
+
+<h4>四、配置 hadoop</h4>
+
+<p>这里看你是用什么方式启动，我这里是使用 单机伪分布式，使用三个文件 core-site.xml, mapred-site.xml and hdfs-site.xml</p>
+
+<h4>五、格式分布式文件</h4>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop namenode -format
+</code></pre></div>
+
+<h4>六、启动Hadoop守护进程：</h4>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/start-all.sh
+</code></pre></div>
+
+<p>Hadoop守护进程的日志写入到 ${HADOOP<em>LOG</em>DIR} 目录 (默认是 ${HADOOP_HOME}/logs).
+浏览NameNode和JobTracker的网络接口，它们的地址默认为：</p>
+
+<p><code>NameNode - http://localhost:50070/</code></p>
+
+<p><code>JobTracker - http://localhost:50030/</code></p>
+
+<p>将输入文件拷贝到分布式文件系统:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop fs -put conf input
+</code></pre></div>
+
+<p>运行发行版提供的示例程序：</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop jar hadoop-*-examples.jar grep input output <span class="s1">&#39;dfs[a-z.]+&#39;</span>
+</code></pre></div>
+
+<p>查看输出文件：
+将输出文件从分布式文件系统拷贝到本地文件系统查看：</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop fs -get output output 
+<span class="nv">$ </span>cat output/*
+</code></pre></div>
+
+<p>或者
+在分布式文件系统上查看输出文件：</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop fs -cat output/*
+</code></pre></div>
+
+<p>完成全部操作后，停止守护进程：</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/stop-all.sh
+</code></pre></div>
 
     <nav class="pagination-link">
         
-        <a class="prev" href="http://zhaoxuan.github.com/feeling/2012/12/06/different-idea-in-different-companies.html" rel="bookmark">&laquo;&nbsp;不同价值观in不同的公司</a>
+        <a class="prev" href="http://localhost:4000/feeling/2012/12/06/different-idea-in-different-companies.html" rel="bookmark">&laquo;&nbsp;不同价值观in不同的公司</a>
         
         
-        <a class="next" href="http://zhaoxuan.github.com/linux/2013/02/22/my-bash-profile.html" rel="bookmark">我的 bash_profile&nbsp;&raquo;</a>
+        <a class="next" href="http://localhost:4000/linux/2013/02/22/my-bash-profile.html" rel="bookmark">我的 bash_profile&nbsp;&raquo;</a>
         
      </nav>
      <div id="disqus_thread"></div>
@@ -106,9 +159,9 @@ $ cat ~/.ssh/id</em>dsa.pub &gt;&gt; ~/.ssh/authorized_keys</p>
     </section>
 </div>
 <div id="foot-line"></div>
-<script src="http://zhaoxuan.github.com/js/jquery.js" type="text/javascript"></script>
-<script src="http://zhaoxuan.github.com/js/jquery.scrollTo.js" type="text/javascript"></script>
-<script src="http://zhaoxuan.github.com/js/theOne.js" type="text/javascript"></script>
+<script src="http://localhost:4000/js/jquery.js" type="text/javascript"></script>
+<script src="http://localhost:4000/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://localhost:4000/js/theOne.js" type="text/javascript"></script>
 
 </body>
 </html>
