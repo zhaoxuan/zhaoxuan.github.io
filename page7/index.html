@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>The Simple</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="John" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://localhost:4000/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://localhost:4000/css/syntax.css" type="text/css" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico" type="image/x-icon" />
+    <!--[if lt IE 9]>
+    <script src="http://localhost:4000/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <!-- <img src="http://mmistakes.github.io/minimal-mistakes/images/bio-photo.jpg" class="bio-photo" alt=" bio photo"> -->
+            <img src="http://localhost:4000/images/head_portrait.png" class="bio-photo" alt=" bio photo">
+            <h2>Simple</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://localhost:4000" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://localhost:4000/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://localhost:4000/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://www.twitter.com/piznlin"><i class="icon-twitter"></i> Twitter</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <span>Entities should not be multiplied unnecessarily</span>
+        </header>
+		
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://localhost:4000/ruby/2012/07/13/first-blog.html" title="octopress 安装" rel="bookmark">octopress 安装</a></h2>
+        <p class="time"><time pubdate="2012-07-13 15:12:00 +0800">13 Jul 2012</time></p>
+        
+        <h2>octopress 安装</h2>
+
+<p>安装与发布</p>
+
+<p>Octopress如果你不了解Ruby以及Git，不建议急着上手安装Octopress。安装步骤你可以参考官网文档，也可以按照以下步骤来安装。
+a. Octopress需要基于ruby 1.9.2版本环境，通过RVM切换</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">rvm install 1.9.2 &amp;&amp; rvm use 1.9.2
+</code></pre></div>
+<p>b. 通过git clone获取octopress源代码</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">git clone git://github.com/imathis/octopress.git octopress
+</code></pre></div>
+<p>c. 进入octopress文件夹，将Gemfile的source改用淘宝镜像</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">source &quot;http://ruby.taobao.org&quot;
+</code></pre></div>
+<p>d. 运行命令进行安装</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">bundle install
+rake install
+</code></pre></div>
+<p>e. 建立github pages repo，假设你的用户名是username，则建立repo名为username.github.com/repo。具体可参见github pages。</p>
+
+<p>f. 通过以下命令，自动建立github pages所需的配置</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">rake setup_github_pages[git@github.com:username/username.github.com.git]
+</code></pre></div>
+<p>当提示输入github url时，请输入git@github.com:username/username.github.com.git，当然需要替换username。
+该命令将自动建立两个branch，分别是master和source。master用来发布octopress生成的静态内容，在deploy文件夹里的静态文件。source用来发布除了deploy之外的所有文件，既octopress程序本身。</p>
+
+<p>g. 通过_config.yml配置octopress博客信息，请注意冒号之后需要空格，具体详见Octopress Configuring。
+h. 生成以及预览功能</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">rake generate # generate your blog static pages content according to your input. 
+rake preview # start a web server on &quot;http://localhost:4000&quot;, you can preview your blog content.
+</code></pre></div>
+<p>第一条命令将生成静态页面到_deploy文件夹；第二条命令通过http://localhost:4000来预览生成的页面，这时候还没有写文章，先看看是否config信息是否正确。</p>
+
+<p>i. 设置 github ssh 验证</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">cd ~/.ssh
+ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot;
+# Creates a new ssh key using the provided email
+</code></pre></div>
+<p>j. 增加 ssh_key 到 github 里面</p>
+
+<blockquote>
+<p>1 Go to your <a href="https://github.com/settings/profile">Account Settings</a></p>
+
+<p>2 Click &quot;<a href="https://github.com/settings/ssh">SSH Keys</a>&quot; in the left sidebar</p>
+
+<p>3 Click &quot;Add SSH key&quot;</p>
+
+<p>4 Paste your key into the &quot;Key&quot; field</p>
+
+<p>5 Click &quot;Add key&quot;</p>
+
+<p>6 Confirm the action by entering your GitHub password</p>
+</blockquote>
+
+<p>k. 测试 github ssh_key
+    ssh -T git@github.com
+    Hi zhaoxuan! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</p>
+
+<p>l. 发布生成的静态内容到master branch，在 deploy 之前，你还不能直接提交代码到 github 里面，因为 ssh 还要验证身份，所以必须要在账户里面设置 ssh</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">rake deploy # push your static pages content to your github pages repo (&quot;master&quot; branch)
+</code></pre></div>
+<p>m. OK 打开你的 blog，好好编辑你的 blog 吧
+    http://username.github.com/repo</p>
+
+        
+    </article>
+
+
+    <nav id="pagination" class="fn-clear">
+        <ul class="pagination">
+            
+                
+                    <li><a href="http://localhost:4000/">1</a></li>
+                
+            
+                
+                    <li><a href="http://localhost:4000/page2/">2</a></li>
+                
+            
+                
+                    <li><a href="http://localhost:4000/page3/">3</a></li>
+                
+            
+                
+                    <li><a href="http://localhost:4000/page4/">4</a></li>
+                
+            
+                
+                    <li><a href="http://localhost:4000/page5/">5</a></li>
+                
+            
+                
+                    <li><a href="http://localhost:4000/page6/">6</a></li>
+                
+            
+                
+                    <li class="current"><a href="javascript:void(0);">7</a></li>
+                
+            
+        </ul>
+    </nav>
+	
+
+        <footer id="foot">
+            <p>&copy; 2013 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>
+        </footer>
+    </section>
+</div>
+<div id="foot-line"></div>
+<script src="http://localhost:4000/js/jquery.js" type="text/javascript"></script>
+<script src="http://localhost:4000/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://localhost:4000/js/theOne.js" type="text/javascript"></script>
+
+</body>
+</html>

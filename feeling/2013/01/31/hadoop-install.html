@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>hadoop install | The Simple</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="John" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://localhost:4000/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://localhost:4000/css/syntax.css" type="text/css" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico" type="image/x-icon" />
+    <!--[if lt IE 9]>
+    <script src="http://localhost:4000/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <!-- <img src="http://mmistakes.github.io/minimal-mistakes/images/bio-photo.jpg" class="bio-photo" alt=" bio photo"> -->
+            <img src="http://localhost:4000/images/head_portrait.png" class="bio-photo" alt=" bio photo">
+            <h2>Simple</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://localhost:4000" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://localhost:4000/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://localhost:4000/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://www.twitter.com/piznlin"><i class="icon-twitter"></i> Twitter</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <span>2013-01-31 13:43:00 +0800</span>
+        </header>
+		<article class="post">
+    <h1 class="post-title">hadoop install</h1>
+    <h4>一 软件安装环境</h4>
+
+<blockquote>
+<p>1、 OS：ubuntu-12.10</p>
+
+<p>2、 JDK：jdk1.7.0_07</p>
+
+<p>3、 Hadoop：hadoop-1.0.4</p>
+
+<p>4、 ssh ssh-server</p>
+</blockquote>
+
+<p>安装的方法就自己去 google 搜索吧，这里就不啰嗦了。</p>
+
+<h4>二 配置 ssh</h4>
+
+<p>现在确认能否不输入口令就用ssh登录localhost:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ssh localhost
+</code></pre></div>
+
+<p>如果不输入口令就无法用ssh登陆localhost，执行下面的命令：</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ssh-keygen -t dsa -P <span class="s1">&#39;&#39;</span> -f ~/.ssh/id_dsa 
+<span class="nv">$ </span>cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys
+</code></pre></div>
+
+<h4>三、安装 hadoop</h4>
+
+<p>1、下载 hadoop 解压的任意目录</p>
+
+<p>2、修改 hadoop<em>path/confi/hadoop</em>env.sh</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>path_to_java
+<span class="nb">export </span><span class="nv">HADOOP_INSTALL</span><span class="o">=</span>path_to_hadoop
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HADOOP_INSTALL</span>/bin
+</code></pre></div>
+
+<h4>四、配置 hadoop</h4>
+
+<p>这里看你是用什么方式启动，我这里是使用 单机伪分布式，使用三个文件 core-site.xml, mapred-site.xml and hdfs-site.xml</p>
+
+<h4>五、格式分布式文件</h4>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop namenode -format
+</code></pre></div>
+
+<h4>六、启动Hadoop守护进程：</h4>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/start-all.sh
+</code></pre></div>
+
+<p>Hadoop守护进程的日志写入到 ${HADOOP<em>LOG</em>DIR} 目录 (默认是 ${HADOOP_HOME}/logs).
+浏览NameNode和JobTracker的网络接口，它们的地址默认为：</p>
+
+<p><code>NameNode - http://localhost:50070/</code></p>
+
+<p><code>JobTracker - http://localhost:50030/</code></p>
+
+<p>将输入文件拷贝到分布式文件系统:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop fs -put conf input
+</code></pre></div>
+
+<p>运行发行版提供的示例程序：</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop jar hadoop-*-examples.jar grep input output <span class="s1">&#39;dfs[a-z.]+&#39;</span>
+</code></pre></div>
+
+<p>查看输出文件：
+将输出文件从分布式文件系统拷贝到本地文件系统查看：</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop fs -get output output 
+<span class="nv">$ </span>cat output/*
+</code></pre></div>
+
+<p>或者
+在分布式文件系统上查看输出文件：</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop fs -cat output/*
+</code></pre></div>
+
+<p>完成全部操作后，停止守护进程：</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/stop-all.sh
+</code></pre></div>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://localhost:4000/feeling/2012/12/06/different-idea-in-different-companies.html" rel="bookmark">&laquo;&nbsp;不同价值观in不同的公司</a>
+        
+        
+        <a class="next" href="http://localhost:4000/linux/2013/02/22/my-bash-profile.html" rel="bookmark">我的 bash_profile&nbsp;&raquo;</a>
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>  
+
+<!-- disqus -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<!-- end_disqus -->
+        <footer id="foot">
+            <p>&copy; 2013 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>
+        </footer>
+    </section>
+</div>
+<div id="foot-line"></div>
+<script src="http://localhost:4000/js/jquery.js" type="text/javascript"></script>
+<script src="http://localhost:4000/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://localhost:4000/js/theOne.js" type="text/javascript"></script>
+
+</body>
+</html>
