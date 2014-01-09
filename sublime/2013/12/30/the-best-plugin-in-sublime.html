@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>总是感觉缺少点什么 | The Simple</title>
+    <title>The Best Plugin in Sublime Text | The Simple</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Jekyll" />
     <meta name="author" content="John" />
@@ -35,42 +35,45 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <span>2012-10-23 23:05:00 +0800</span>
+            <span>2013-12-30 23:20:00 +0800</span>
         </header>
 		<article class="post">
-    <h1 class="post-title">总是感觉缺少点什么</h1>
-    <p>今天是第二天到新公司上班了，但是突然有种异样的感觉。</p>
+    <h1 class="post-title">The Best Plugin in Sublime Text</h1>
+    <p>这是我用过 Sublime 最好用的插件，没有之一。</p>
 
-<p>第一是感觉环境好陌生啊，一切都是这么不了解，一切都是这么新，有种让人难以呼吸的感觉。</p>
+<p>CodeIntel 可以使一个简单的文本编辑器变成一个强大的 IDE。</p>
 
-<p>第二是好长时间都没有工作了，感觉不会工作了，不知道从什么地方开始？</p>
+<h3>Installing</h3>
 
-<p>第三是有点害怕，新的环境让我感觉好孤独。</p>
+<p>With the Package Control plugin: The easiest way to install SublimeCodeIntel is through Package Control, which can be found at this site: <a href="http://wbond.net/sublime_packages/package_control" target="_blank">Package Control</a></p>
 
-<p>因为好多人都不认识，突然见感觉不知道找谁说话了。</p>
+<p>Once you install Package Control, restart Sublime Text and bring up the Command Palette (Command+Shift+P on OS X, Control+Shift+P on Linux/Windows). Select &quot;Package Control: Install Package&quot;, wait while Package Control fetches the latest package list, then select SublimeCodeIntel when the list appears. The advantage of using this method is that Package Control will automatically keep SublimeCodeIntel up to date with the latest version.</p>
 
-<p>原来可以依靠的，帮助自己的人也不在身边，有问题都不知道向谁请教了。</p>
+<h3>Configuring</h3>
 
-<p>感觉自己就是插入这个环境里面的外来生物，不知道如何生存。</p>
+<p>For adding additional library paths (django and extra libs paths for Python or extra paths to look for .js files for JavaScript for example), either add those paths as folders to your project, or create an optional codeintel configuration file in your home or in your project&#39;s root.</p>
 
-<p>虽然说到一个新环境都会有这样的不自在的感觉，但是有种莫名奇妙的害怕。</p>
+<p>Configuration files (~/.codeintel/config or project_root/.codeintel/config). All configurations are optional.</p>
 
-<p>这个害怕来自未来的，来自不确定。</p>
+<p>This is my configuration file:</p>
 
-<p>害怕自己不能被这个环境接受。</p>
+<div class="highlight"><pre><code class="bash"><span class="o">{</span>
+  <span class="s2">&quot;Python&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;python&quot;</span>: <span class="s1">&#39;/usr/bin/python&#39;</span>,
+    <span class="s2">&quot;pythonExtraPaths&quot;</span>: <span class="o">[</span><span class="s2">&quot;/Library/Python/2.7/site-packages&quot;</span><span class="o">]</span>
+  <span class="o">}</span>,
 
-<p>害怕自己没有人帮助。</p>
-
-<p>害怕一切。</p>
-
-<p>希望这个过程可以快一点。</p>
+  <span class="s2">&quot;Ruby&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;ruby&quot;</span>: <span class="s2">&quot;~/.rvm/bin/default_ruby&quot;</span>,
+    <span class="s2">&quot;rubyExtraPaths&quot;</span>:<span class="o">[</span><span class="s2">&quot;~/.rvm/gems/ruby-1.9.3-p448@r9/bin&quot;</span><span class="o">]</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
 
     <nav class="pagination-link">
         
-        <a class="prev" href="http://zhaoxuan.github.io/feeling/2012/10/13/to-face-leaving.html" rel="bookmark">&laquo;&nbsp;面对离开</a>
+        <a class="prev" href="http://zhaoxuan.github.io/ruby/2013/09/30/create-new-jekyll-posts-rake-task.html" rel="bookmark">&laquo;&nbsp;create new jekyll posts rake...</a>
         
-        
-        <a class="next" href="http://zhaoxuan.github.io/ruby/2012/10/31/ruby-mechanize.html" rel="bookmark">使用 mechanize 模拟浏览器提交数据&nbsp;&raquo;</a>
         
      </nav>
      <div id="disqus_thread"></div>
