@@ -14,6 +14,10 @@
     <!--[if lt IE 9]>
     <script src="http://zhaoxuan.github.io/js/html5.js" type="text/javascript"></script>
     <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
 </head>
 <body id="default">
 <div id="head-line"></div>
@@ -35,10 +39,11 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <span>2012-08-23 19:05:00 +0800</span>
+            <!-- <span>转 ruby  从一个字符串创建一个对象</span> -->
+            <h1 class="post-title">转 ruby  从一个字符串创建一个对象</h1>
         </header>
 		<article class="post">
-    <h1 class="post-title">转 ruby  从一个字符串创建一个对象</h1>
+    <!-- <h1 class="post-title">转 ruby  从一个字符串创建一个对象</h1> -->
     <p>在 ruby 中，根据一个类名创建一个实例</p>
 
 <p>在Ruby On Rails中文社区的的Ruby版上，karl问了一个有趣的问题，如何根据类名生成一个类的实例。
@@ -68,7 +73,7 @@
 <span class="nb">p</span> <span class="n">obj</span>
 </code></pre></div>
 
-<p>这里故意使用了p方法，因为对于一个空串，它可以打出&quot;&quot;，而不是无声无息，便于查看。</p>
+<p>这里故意使用了p方法，因为对于一个空串，它可以打出”“，而不是无声无息，便于查看。</p>
 
 <p>这样的代码是无法运行的，异常如下：</p>
 
@@ -129,6 +134,9 @@
 
 <p>这里用到的<a href="http://extensions.rubyforge.org/">扩展</a>在从方法的命名上来说，它比上一种方法更恰当一些。算上这两种实现，我最喜欢的仍然是qiezi给出的那种方法。</p>
 
+
+    <nav class="pagination-published">Published by John — 23 Aug 2012</nav>
+
     <nav class="pagination-link">
         
         <a class="prev" href="http://zhaoxuan.github.io/feeling/2012/08/23/qixijiyu.html" rel="bookmark">&laquo;&nbsp;花落有声，七夕寄语</a>
@@ -138,10 +146,10 @@
         
      </nav>
      <div id="disqus_thread"></div>
-</article>  
+</article>
 
 <!-- disqus -->
-<div id="disqus_thread"></div>
+<!-- <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
@@ -154,7 +162,7 @@
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->
 <!-- end_disqus -->
         <footer id="foot">
             <p>&copy; 2014 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>The Simple</title>
+    <title>Entities should not be multiplied unnecessarily | The Simple</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Jekyll" />
     <meta name="author" content="John" />
@@ -14,6 +14,10 @@
     <!--[if lt IE 9]>
     <script src="http://zhaoxuan.github.io/js/html5.js" type="text/javascript"></script>
     <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
 </head>
 <body id="default">
 <div id="head-line"></div>
@@ -35,9 +39,137 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <span>Entities should not be multiplied unnecessarily</span>
+            <!-- <span>Entities should not be multiplied unnecessarily</span> -->
+            <h1 class="post-title">Entities should not be multiplied unnecessarily</h1>
         </header>
 		
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2013/01/31/hadoop-install.html" title="hadoop install" rel="bookmark">hadoop install</a></h2>
+        <p class="time"><time pubdate="2013-01-31 13:43:00 +0800">31 Jan 2013</time></p>
+        
+        <h4 id="section">一 软件安装环境</h4>
+<blockquote>
+  <p>1、 OS：ubuntu-12.10</p>
+</blockquote>
+
+<blockquote>
+  <p>2、 JDK：jdk1.7.0_07</p>
+</blockquote>
+
+<blockquote>
+  <p>3、 Hadoop：hadoop-1.0.4</p>
+</blockquote>
+
+<blockquote>
+  <p>4、 ssh ssh-server</p>
+</blockquote>
+
+<p>安装的方法就自己去 google 搜索吧，这里就不啰嗦了。</p>
+
+<h4 id="ssh">二 配置 ssh</h4>
+
+<p>现在确认能否不输入口令就用ssh登录localhost:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ssh localhost
+</code></pre></div>
+
+<p>如果不输入口令就无法用ssh登陆localhost，执行下面的命令：</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ssh-keygen -t dsa -P <span class="s1">&#39;&#39;</span> -f ~/.ssh/id_dsa 
+<span class="nv">$ </span>cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys
+</code></pre></div>
+
+<h4 id="hadoop">三、安装 hadoop</h4>
+<p>1、下载 hadoop 解压的任意目录</p>
+
+<p>2、修改 hadoop_path/confi/hadoop_env.sh</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>path_to_java
+<span class="nb">export </span><span class="nv">HADOOP_INSTALL</span><span class="o">=</span>path_to_hadoop
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HADOOP_INSTALL</span>/bin
+</code></pre></div>
+
+<h4 id="hadoop-1">四、配置 hadoop</h4>
+
+<p>这里看你是用什么方式启动，我这里是使用 单机伪分布式，使用三个文件 core-site.xml, mapred-site.xml and hdfs-site.xml</p>
+
+<h4 id="section-1">五、格式分布式文件</h4>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop namenode -format
+</code></pre></div>
+
+<h4 id="hadoop-2">六、启动Hadoop守护进程：</h4>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/start-all.sh
+</code></pre></div>
+
+<p>Hadoop守护进程的日志写入到 ${HADOOP_LOG_DIR} 目录 (默认是 ${HADOOP_HOME}/logs).
+浏览NameNode和JobTracker的网络接口，它们的地址默认为：</p>
+
+<p><code>NameNode - http://localhost:50070/</code></p>
+
+<p><code>JobTracker - http://localhost:50030/</code></p>
+
+<p>将输入文件拷贝到分布式文件系统:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop fs -put conf input
+</code></pre></div>
+
+<p>运行发行版提供的示例程序：</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop jar hadoop-*-examples.jar grep input output <span class="s1">&#39;dfs[a-z.]+&#39;</span>
+</code></pre></div>
+
+<p>查看输出文件：
+将输出文件从分布式文件系统拷贝到本地文件系统查看：</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop fs -get output output 
+<span class="nv">$ </span>cat output/*
+</code></pre></div>
+
+<p>或者
+在分布式文件系统上查看输出文件：</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop fs -cat output/*
+</code></pre></div>
+
+<p>完成全部操作后，停止守护进程：</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/stop-all.sh
+</code></pre></div>
+
+
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://zhaoxuan.github.io/algorithm/2012/12/07/information-theory.html" title="信息论 信息熵" rel="bookmark">信息论 信息熵</a></h2>
+        <p class="time"><time pubdate="2012-12-07 16:00:00 +0800">07 Dec 2012</time></p>
+        
+        <p>信息是个很抽象的概念。人们常常说信息很多，或者信息较少，但却很难说清楚信息到底有多少。</p>
+
+<p>信息论之父克劳德·艾尔伍德·香农第一次用数学语言阐明了概率与信息冗余度的关系。</p>
+
+<script type="math/tex; mode=display">H=-\sum_{i} p_i \log p_i</script>
+
+<p>熵，热力学中的熵就是表示一个系统中的混乱程度，扯远了让人更难理解，信息熵，个人理解，就是用数字来衡量信息的复杂程度。</p>
+
+<p>说一个简单的例子：</p>
+
+<ol>
+  <li>2013 年 NBA 中冠军是东部球队。</li>
+  <li>2013 年 NBA 中冠军是热火队。</li>
+</ol>
+
+<p>这俩个假设哪一个让人容易理解？1 假设 所包含的可能有 15 种，而 2 假设 是一个 100% 确定的。</p>
+
+<p>其实在大学的必修课中，《信息论基础》中已经用信息熵公式来求信道的带宽。</p>
+
+<p>现在感觉，大学的课虽然读起来感觉没有什么用，但是在工作中确实有太大的帮助了。庆幸大学学的东西虽然不是掌握的非常好，但是现在起码一看到就能知道大概，还有一个给我学习的机会。</p>
+
+        
+    </article>
+
 	<article class="post fn-clear">
         <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/12/06/different-idea-in-different-companies.html" title="不同价值观in不同的公司" rel="bookmark">不同价值观in不同的公司</a></h2>
         <p class="time"><time pubdate="2012-12-06 18:13:00 +0800">06 Dec 2012</time></p>
@@ -46,7 +178,7 @@
 
 <p>进公司一来，一直都是听说 Sidney 是一个非常 牛B 的人，但是没有机会详细的了解。</p>
 
-<p>今天下午，他的一个会议，相当于年终总结 -- Product Review &amp; Product Roadmap。</p>
+<p>今天下午，他的一个会议，相当于年终总结 – Product Review &amp; Product Roadmap。</p>
 
 <p>首先是不得不佩服他的经历，学的是英文文学专业，毕业后的第一份工作是理发师，第二份工作是厨师。</p>
 
@@ -101,6 +233,7 @@
 <p>目前只能说这么多，因为新的公司我了解的还太少了，到目前为止只有一个月零 14 天。</p>
 
 <p>但是已经感觉到文化的不同了，可能是新公司我还不了解，所以还没反感。</p>
+
 
         
     </article>
@@ -235,102 +368,6 @@
         
     </article>
 
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/11/26/a-disappointed-weekend.html" title="一个失落的周末" rel="bookmark">一个失落的周末</a></h2>
-        <p class="time"><time pubdate="2012-11-26 09:10:00 +0800">26 Nov 2012</time></p>
-        
-        <p>今天是星期一，一大早起来，看了新闻感觉非常失望。</p>
-
-<p>尤文输了。</p>
-
-<p>法拉利的阿隆索失去了冠军。</p>
-
-<p>湖人也不给力。</p>
-
-<p>首先是看到尤文输给了米兰。这场比赛真让我感觉失望，看了集锦，真的为尤文的前锋担心。</p>
-
-<p>然后看了 F1 阿隆索距离最近的冠军只有三秒钟。</p>
-
-<p>不得不好好说说阿隆索。</p>
-
-<p>原来我是对阿隆索非常的不喜欢，其中的主要原因大概是抢了舒马赫的两个世界冠军。</p>
-
-<p>尤其是最后一个冠军，不然车王就能完美的退役了。</p>
-
-<p>当时没有一点好感。</p>
-
-<p>但是命运就是这样多变，直到一天阿隆索披上了法拉利的队服。</p>
-
-<p>这个时候我开始对阿隆索产生了改变。</p>
-
-<p>真正打的变化是从这个赛季开始的。</p>
-
-<p>法拉利的赛车真的不是非常给力。</p>
-
-<p>但是就是这样一部赛车，阿隆索在工程师的配合下，达到了平衡。</p>
-
-<p>可以在积分上面领跑在第一集团，直到赛季最后阶段，依然有冠军希望。</p>
-
-<p>不得不佩服阿隆索，把这样一部赛车开到了极限，我感觉也只有舒马赫能有这样的能力。</p>
-
-<p>但是阿隆索做到了，对于阿隆索这样的精神，这样的技术，我只能是非常的佩服。</p>
-
-<p>对阿隆索的喜欢，就是从这个赛季开始，也会一直下去，就像喜爱舒马赫一样。</p>
-
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/11/22/a-month.html" title="一个月" rel="bookmark">一个月</a></h2>
-        <p class="time"><time pubdate="2012-11-22 22:24:00 +0800">22 Nov 2012</time></p>
-        
-        <p>回顾下到新公司的一个月。</p>
-
-<p>还记得一个月前的今天，也就是 10 月 22 号，第一天来到 i-click 的时候是那么的陌生。</p>
-
-<p>陌生的环境都让我感觉有点害怕，开始对自己的信心开始动摇。</p>
-
-<p>我当初的决定对吗？</p>
-
-<p>我能完成当初的承诺吗？</p>
-
-<p>我应该怎么说服自己的？</p>
-
-<p>第一天到公司，只有 mike 和我主动说了第一句话：</p>
-
-<p>“你是新来公司吗？你应该到 E 座去先报道去。”</p>
-
-<p>这样我才开始了新的工作。</p>
-
-<p>因为如果不是 mike 我还在发呆，一切都是这么茫然。</p>
-
-<p>经过一个月的工作，感觉其实在哪一个公司都是差不多。</p>
-
-<p>每天的工作都是这么简单，再有挑战的工作都是这样一天一天积累起来的。</p>
-
-<p>开始天天就在研究 mechanize 去抓取 comscore 和 wm123 的页面，提取页面里面的用户信息。（当时不知道有什么用）</p>
-
-<p>后来又在 xmo 里面做了一个新功能，export ineligible keyword and ineligible adtext 的功能。</p>
-
-<p>直到这周完成了对千万级别 keywords 的导出测试。</p>
-
-<p>最新的任务就是 GDN。</p>
-
-<p>什么是 GDN？</p>
-
-<p>中国估计没有几个人知道，全称 google display network。</p>
-
-<p>也就是 google 的一个广告展示平台。</p>
-
-<p>突然感觉自己什么事都没有做一样。</p>
-
-<p>一晃就过去了 1 月的时间呢。</p>
-
-<p>回头看看自己的做的东西，真的没有什么惊天动地的。</p>
-
-        
-    </article>
-
 
     <nav id="pagination" class="fn-clear">
         <ul class="pagination">
@@ -361,6 +398,10 @@
             
                 
                     <li><a href="http://zhaoxuan.github.io/page7/">7</a></li>
+                
+            
+                
+                    <li><a href="http://zhaoxuan.github.io/page8/">8</a></li>
                 
             
         </ul>

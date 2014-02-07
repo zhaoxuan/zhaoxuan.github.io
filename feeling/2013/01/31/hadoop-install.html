@@ -14,6 +14,10 @@
     <!--[if lt IE 9]>
     <script src="http://zhaoxuan.github.io/js/html5.js" type="text/javascript"></script>
     <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
 </head>
 <body id="default">
 <div id="head-line"></div>
@@ -35,25 +39,31 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <span>2013-01-31 13:43:00 +0800</span>
+            <!-- <span>hadoop install</span> -->
+            <h1 class="post-title">hadoop install</h1>
         </header>
 		<article class="post">
-    <h1 class="post-title">hadoop install</h1>
-    <h4>一 软件安装环境</h4>
+    <!-- <h1 class="post-title">hadoop install</h1> -->
+    <h4 id="section">一 软件安装环境</h4>
+<blockquote>
+  <p>1、 OS：ubuntu-12.10</p>
+</blockquote>
 
 <blockquote>
-<p>1、 OS：ubuntu-12.10</p>
+  <p>2、 JDK：jdk1.7.0_07</p>
+</blockquote>
 
-<p>2、 JDK：jdk1.7.0_07</p>
+<blockquote>
+  <p>3、 Hadoop：hadoop-1.0.4</p>
+</blockquote>
 
-<p>3、 Hadoop：hadoop-1.0.4</p>
-
-<p>4、 ssh ssh-server</p>
+<blockquote>
+  <p>4、 ssh ssh-server</p>
 </blockquote>
 
 <p>安装的方法就自己去 google 搜索吧，这里就不啰嗦了。</p>
 
-<h4>二 配置 ssh</h4>
+<h4 id="ssh">二 配置 ssh</h4>
 
 <p>现在确认能否不输入口令就用ssh登录localhost:</p>
 
@@ -66,32 +76,31 @@
 <span class="nv">$ </span>cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys
 </code></pre></div>
 
-<h4>三、安装 hadoop</h4>
-
+<h4 id="hadoop">三、安装 hadoop</h4>
 <p>1、下载 hadoop 解压的任意目录</p>
 
-<p>2、修改 hadoop<em>path/confi/hadoop</em>env.sh</p>
+<p>2、修改 hadoop_path/confi/hadoop_env.sh</p>
 
 <div class="highlight"><pre><code class="bash"><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>path_to_java
 <span class="nb">export </span><span class="nv">HADOOP_INSTALL</span><span class="o">=</span>path_to_hadoop
 <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HADOOP_INSTALL</span>/bin
 </code></pre></div>
 
-<h4>四、配置 hadoop</h4>
+<h4 id="hadoop-1">四、配置 hadoop</h4>
 
 <p>这里看你是用什么方式启动，我这里是使用 单机伪分布式，使用三个文件 core-site.xml, mapred-site.xml and hdfs-site.xml</p>
 
-<h4>五、格式分布式文件</h4>
+<h4 id="section-1">五、格式分布式文件</h4>
 
 <div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop namenode -format
 </code></pre></div>
 
-<h4>六、启动Hadoop守护进程：</h4>
+<h4 id="hadoop-2">六、启动Hadoop守护进程：</h4>
 
 <div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/start-all.sh
 </code></pre></div>
 
-<p>Hadoop守护进程的日志写入到 ${HADOOP<em>LOG</em>DIR} 目录 (默认是 ${HADOOP_HOME}/logs).
+<p>Hadoop守护进程的日志写入到 ${HADOOP_LOG_DIR} 目录 (默认是 ${HADOOP_HOME}/logs).
 浏览NameNode和JobTracker的网络接口，它们的地址默认为：</p>
 
 <p><code>NameNode - http://localhost:50070/</code></p>
@@ -126,19 +135,23 @@
 <div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/stop-all.sh
 </code></pre></div>
 
+
+
+    <nav class="pagination-published">Published by John — 31 Jan 2013</nav>
+
     <nav class="pagination-link">
         
-        <a class="prev" href="http://zhaoxuan.github.io/feeling/2012/12/06/different-idea-in-different-companies.html" rel="bookmark">&laquo;&nbsp;不同价值观in不同的公司</a>
+        <a class="prev" href="http://zhaoxuan.github.io/algorithm/2012/12/07/information-theory.html" rel="bookmark">&laquo;&nbsp;信息论 信息熵</a>
         
         
         <a class="next" href="http://zhaoxuan.github.io/linux/2013/02/22/my-bash-profile.html" rel="bookmark">我的 bash_profile&nbsp;&raquo;</a>
         
      </nav>
      <div id="disqus_thread"></div>
-</article>  
+</article>
 
 <!-- disqus -->
-<div id="disqus_thread"></div>
+<!-- <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
@@ -151,7 +164,7 @@
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->
 <!-- end_disqus -->
         <footer id="foot">
             <p>&copy; 2014 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>

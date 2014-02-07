@@ -14,6 +14,10 @@
     <!--[if lt IE 9]>
     <script src="http://zhaoxuan.github.io/js/html5.js" type="text/javascript"></script>
     <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
 </head>
 <body id="default">
 <div id="head-line"></div>
@@ -35,29 +39,32 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <span>2012-09-26 14:11:00 +0800</span>
+            <!-- <span>在 octopress 使用 disqus 的评论功能</span> -->
+            <h1 class="post-title">在 octopress 使用 disqus 的评论功能</h1>
         </header>
 		<article class="post">
-    <h1 class="post-title">在 octopress 使用 disqus 的评论功能</h1>
+    <!-- <h1 class="post-title">在 octopress 使用 disqus 的评论功能</h1> -->
     <p>看见别人一直都是有 comments 在每一篇 blog 下面的，但是为什么我的没有呢？马上加入一个。</p>
 
-<h3>1.配置 _config.yml 文件</h3>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">disqus_short_name: your_shortname
+<h3 id="configyml-">1.配置 _config.yml 文件</h3>
+<pre><code>disqus_short_name: your_shortname
 disqus_show_comment_count: true
-</code></pre></div>
-<h3>2.申请一个 DISQUS 帐号</h3>
+</code></pre>
 
+<h3 id="disqus-">2.申请一个 DISQUS 帐号</h3>
 <p><a href="http://www.disqus.com">DISQUS</a></p>
 
 <blockquote>
-<p>在 DISQUS 里面加入一个 blog 页面
+  <p>在 DISQUS 里面加入一个 blog 页面
 /images/yujinxiang.jpeg
-<img src="/images/yujinxiang.jpeg" alt="Alt text"></p>
+<img src="/images/yujinxiang.jpeg" alt="Alt text" /></p>
 </blockquote>
 
-<h3>3.复制代码</h3>
+<h3 id="section">3.复制代码</h3>
+<p>把最下面的脚本复制到 source/_includes/post/disqus_thread.html 里面去。ok 刷新页面把，你能看到别人的评论了。</p>
 
-<p>把最下面的脚本复制到 source/<em>includes/post/disqus</em>thread.html 里面去。ok 刷新页面把，你能看到别人的评论了。</p>
+
+    <nav class="pagination-published">Published by John — 26 Sep 2012</nav>
 
     <nav class="pagination-link">
         
@@ -68,10 +75,10 @@ disqus_show_comment_count: true
         
      </nav>
      <div id="disqus_thread"></div>
-</article>  
+</article>
 
 <!-- disqus -->
-<div id="disqus_thread"></div>
+<!-- <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
@@ -84,7 +91,7 @@ disqus_show_comment_count: true
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->
 <!-- end_disqus -->
         <footer id="foot">
             <p>&copy; 2014 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>

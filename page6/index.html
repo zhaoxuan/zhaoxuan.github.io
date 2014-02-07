@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>The Simple</title>
+    <title>Entities should not be multiplied unnecessarily | The Simple</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Jekyll" />
     <meta name="author" content="John" />
@@ -14,6 +14,10 @@
     <!--[if lt IE 9]>
     <script src="http://zhaoxuan.github.io/js/html5.js" type="text/javascript"></script>
     <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
 </head>
 <body id="default">
 <div id="head-line"></div>
@@ -35,173 +39,687 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <span>Entities should not be multiplied unnecessarily</span>
+            <!-- <span>Entities should not be multiplied unnecessarily</span> -->
+            <h1 class="post-title">Entities should not be multiplied unnecessarily</h1>
         </header>
 		
 	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/08/17/gcsfenxiang.html" title="GCS 分享" rel="bookmark">GCS 分享</a></h2>
-        <p class="time"><time pubdate="2012-08-17 18:36:00 +0800">17 Aug 2012</time></p>
+        <h2 class="post-title"><a href="http://zhaoxuan.github.io/ruby/2012/09/19/drb-distributed.html" title="转自 windy 分布式 DRb 的简介" rel="bookmark">转自 windy 分布式 DRb 的简介</a></h2>
+        <p class="time"><time pubdate="2012-09-19 19:31:00 +0800">19 Sep 2012</time></p>
         
-        <blockquote>
-<p>同一个 GCS，不同的分享。</p>
-
-<p>部门里面，两个表现最好的员工进行一次 GCS 案例分享，我也有点自己的体会。</p>
-
-<p>两个人的分享明显给我感觉不同啊，大斌的 PPT，里面文字非常少，都是图片，明显看着让人喜欢，而且愿意聆听，第二个人的就比较古板了，全是文字，会让人有点分心。</p>
-
-<p>首先必须承认两个人都是花费了非常多的时间去做 PPT，努力程度是肯定的，但是出来的成绩不一样，效果不一样，为啥？</p>
-
-<p>一件事做的好与坏，并不是你做的出来的东西有多少，功能有多强，就是好东西，只有客户说了好，才是真的好。你的评价都是在客户手里。明显感觉做技术的人，关注点都在技术上面，认为自己的东西技术牛逼，就是最好的。但是没有用户体验，没有给用户价值，还有用吗？</p>
-
-<p>哈哈，果断要下大斌的 PPT ，以后每次做 PPT 都要先看看。嗯嗯恩</p>
+        <h3 id="ruby---dr">分布式Ruby解决之道 - DR</h3>
+<blockquote>
+  <h4 id="ruby">分布式Ruby解决之道</h4>
+  <p>其实用Druby很久了，今天需要完成一个进程数据同步的机制，我需要的不是运行速度快，不是用 linux / mac 下的扩展，而是独立，快速开发效率，方便最简单的Ruby环境可运行，可以吗？ DRb(即分布式Ruby，下面都这样说它)是内置于Ruby标准库中的对象代理的实现。什么是对象代理，现在不明白不要紧，一会就知道了。</p>
 </blockquote>
 
-        
-    </article>
+<h3 id="section">解决什么样的问题？</h3>
+<blockquote>
+  <p>有的时候，我们需要提供远程的服务，比如提供远程API调用（如果你听过RPC，或WDSL），这样，我们可以很大程度上解耦各大模块，对外提供服务。</p>
 
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/08/04/work-control-me.html" title="感觉被工作控制了" rel="bookmark">感觉被工作控制了</a></h2>
-        <p class="time"><time pubdate="2012-08-04 13:26:00 +0800">04 Aug 2012</time></p>
-        
-        <p>最近工作有点多，两个专项任务，忙得头晕，其中还穿插着各种会议，分享···我想说说今天的感受，早上一来，打开电脑，按照惯例就是看看it的新闻，有什么大事，还是和往常一样平静。接着就打开了netbeans开始了对webservice测试的代码编写工作，才做了没有30分钟，一个邮件过来了，cbb部门例会要求完成一个ppt做月度的总结和下一个月的工作汇报，而且是上午11点要发给尚进看看。</p>
+  <p>还有的时候，我们需要在两个进程中通信，以获得互相的同步或资源。</p>
 
-<p>我一看到邮件，来不及任何准备，马上放下手中的活，开始了做ppt的工作，但是ppt还没有做了10分钟，尚进就过来问我，例会小明说了，你们不是我们部门的可以参加，可以不参加，你想不想参加？我当然不想参加了，我的时间真的是有点不够啊，两边的任务忙得我不能分心，还有这么多例会。</p>
+  <p>更有，我想实现实现某种透明的对象，让对象可以在不同的进程或主机上传递。</p>
 
-<p>我回想最近的工作，感觉最近我被工作给控制了，本来有计划的上午准备做关于测试的工作，但是突然的一个邮件，发过来，我马上就要转头去做另一件事，每天的工作都是这样，被手头的事完全给控制了，原来早上的计划定的很好，但是一个突然的任务会打乱我一天的工作。前几天也是，sso的代码重构问题一直困扰着我，刘文民突然一个消息，说测试有一个接口需要更改，我马上就要下去，讨论问题，接着回来又掉头在测试上面，一天的工作没有重心，总是在被任务牵着走。</p>
+  <p>这些，都可以通过 DRb 来实现。DRb 的相关文档非常少，但在想快速实现一个轻量级分布应用，依赖最少化时，使用它是非常方便的。我对分布式的研究不多，欢迎各位看了本文后能提出更多解决方案。</p>
+</blockquote>
 
-<p>和小明面谈了关于上午我发现的问题，给我讲了很多关于这个方面的东西，其实我处理的还是不好，交谈中，我知道了其实我对这个时间的管理有很多缺少实践的地方，有待加强。</p>
+<h3 id="section-1">使用方法</h3>
+<blockquote>
+  <p>依官方的例子为主，各位看官建议看的时候复制下试试。因为是分布式解决方案，肯定是 服务端 与 客户端 双方的代码。</p>
+</blockquote>
 
-<p>在会上有一个最关键的问题，就是其实对于我们来说，代码行是很重要的，小明看到的我的关键问题，在外围管理上，我是有点深刻的认识，但是我没有在工作上面下决心，代码行才是我们的立身之本，这个问题，我在这里要讲的就是代码行问题，这个是要一定积累的，不是一朝一夕可以解决的问题。代码行。</p>
+<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
 
-        
-    </article>
+<span class="c1"># 监听的地址，你可以改为 0.0.0.0 来支持远程连接</span>
+<span class="no">URI</span><span class="o">=</span><span class="s2">&quot;druby://localhost:8787&quot;</span>
 
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/08/03/low-key-life.html" title="转载一篇文章" rel="bookmark">转载一篇文章</a></h2>
-        <p class="time"><time pubdate="2012-08-03 18:23:00 +0800">03 Aug 2012</time></p>
-        
-        <p>很多人表面上看着老实巴交的，实际上内心比谁都好强、自负、虚荣、甚至阴险。工作中见的多了，也就习惯了。
-有一些人，什么事都写在脸上，表面上经常得罪人，甚至让人讨厌。但是他们所表现的又未必不是真性情。</p>
+<span class="k">class</span> <span class="nc">TimeServer</span>
+  <span class="k">def</span> <span class="nf">get_current_time</span>
+    <span class="k">return</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-<p>我相信大多数人都看过《豪门夜宴》这部香港老电影。张学友、梁朝伟演的拍马屁的场景太有意思了，其中有这样一段：当两马屁精帮老板说出主意，老板马上叫停，然后拍一下脑门：“哦。。。我想到了。。。”，把别人的idea当成自己的说出来。我在工作中还真不止一次遇到这种事，我提出来的想法老被别人拿来当作自己的原创，当然个别小偷洋洋得意的描述自己的‘原创’时还会偷偷的瞄我一下，看我有没有不高兴，，，我并没有不高兴，大概是因为想到那个电影段子被逗乐了。天下学术都一大抄，更何况什么想法，什么创新，通通都是浮云！君不见创新项目一大堆，都被抄死化成灰！但是不能因此而放弃创新，大地不可以因为有畜牲吃草而不复生机，山泉也不会因为有王八偷水而不冒活水。第一点：保持有一颗生机灵动的心。因为这个东西是别人偷不走的，也是最大的财富。如果你不俱备这个东西，那么请用一颗善心去培养它。人人都是耀眼的珍珠，只是被灰尘蒙蔽了眼。</p>
+<span class="c1"># 被代理的对象，客户端获取的到的对象就是它</span>
+<span class="no">FRONT_OBJECT</span><span class="o">=</span><span class="no">TimeServer</span><span class="o">.</span><span class="n">new</span>
 
-<p>记得刚进公司那会踏踏实实工作，满怀激情。不过第一周就把自己的顶头上司给得罪了，我并没有做错什么，记得当时还有同事帮我说话，后来慢慢发现他是一个相当自负的人。不过话说回来搞技术的在技术方面有几个不自负。这次事之后我并没有学乖。对于别人设计不合理的地方，我会指出来，并提出该如何做。对于语言基础薄弱，设计模式薄弱的同事，我会好心推荐一些书籍，，，，，，本是好心帮助别人，却并没有得到别人的感激。相反，大部分会觉得你看不起他们，更有甚者不但不会反思改进自己的弱点，反而打击报复”看不起“他的人。所以千万请记住第二点：不可以随便提意见。特别是新人，请务必保持低调。这一点在日常生活中同样实用。
-与第二点相对，第三点：经常肯定、称赞同事的成果和进步。注意这里并不是要你去巴结讨好。常常看到别人的优点并加以肯定也是比较正面和必要的行为。这样不但可以增进关系，更重要的是可以鼓励别人。</p>
+<span class="no">DRb</span><span class="o">.</span><span class="n">start_service</span><span class="p">(</span><span class="no">URI</span><span class="p">,</span> <span class="no">FRONT_OBJECT</span><span class="p">)</span>
+<span class="c1"># </span>
+<span class="no">DRb</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">join</span>
+</code></pre></div>
 
-<p>我一直认为一个人没有自知之明就等同于垃圾。要随时随地知道自己小名叫什么。话说我有一位同事，基础相当薄弱，但又太爱去表现自己，经常到处指指点点，生怕别人不知道自己是“高手”。由于老开“黄腔”常被人背后偷笑而不自知。第四点：低调一些，谦虚一些，不断提高自己的实力。</p>
+<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
 
-<p>进公司时所在部门是刚成立的，工作一段时间后，我发现由于部门团队开发的特殊性很有必要在公司通用编码规范基础上再制定内部的编码和设计规范，于是向上司提了我的想法，他同意了。于是我起草了一个内部规范手册。但是执行过程中，有人按手册来，有人不按手册来。产生这种局面的根本原因是上司并没有支持。在这里没有必要分析原因，直接给出要记住的第五点：不在其位，不言其事。做好本职工作就好。无论在什么地方，开明而大度的好上司并不多，所以这一点相当重要。</p>
+<span class="no">SERVER_URI</span><span class="o">=</span><span class="s2">&quot;druby://localhost:8787&quot;</span>
 
-<p>经常在开会讨论设计方案的时候，会发现一个非常有意思的事情。会议本来进行的正常而和谐，当轮到某个优秀的人上去讲的时候，气氛一下子不和谐了。大家都迫不及待的想挑出他的毛病，就算没理解别人的意思也会乱说一气。秀才遇到兵了，，，，，，以前实习的公司中也时常见到这种情况。每当此时我都会在下面感叹：好一幅百鸟”嘲“凤图。请记住第六点：木秀于林风必摧之，要懂得韬光养晦，不要时时锋芒毕露。</p>
+<span class="c1"># 这句是必要的，因为我们很快会用到回调与引用，一会说。</span>
+<span class="c1"># 所以纯粹的客户端是不存在的。</span>
+<span class="no">DRb</span><span class="o">.</span><span class="n">start_service</span>
 
-<p>公司里有个老员工，实力比较强，算是一个独挡一面的人。不过在一次部门改组中并没有得到提升，被提升为经理的反而是一个能力不算太强，还比他晚来的人。在此之前我听到过那个老员工在和其它公司接触并准备跳槽的传闻。第七点：不到最后一刻，自己离职的想法决不可以和公司内部任何人分享。因为站在公司的角度来看你已经不忠诚了，不愿意重用你了。但是在员工自己的立场来看，公司给的待遇与能力不成正比、不认同公司的文化、想换个环境、想要一个更好的发展机会，这些都是合情合理的。我个人发现一个规律：在一般的公司里，凡是坚持到最后经受住了“考验”的“忠诚”者，往往都是没什么能力的庸才。如果你是一个公司高层管理者，那么你会如何对待类似的“叛徒”呢？</p>
-
-<p>第八点：不得罪办公室里的女人。此处女人定义如下：（1）国宝级的女程序员；（2）女测试，这个不稀罕 ；（3）女助理，到处都是；（4）女上司，这个最要命！   男的处在一起，有什么冲突矛盾吵吵过了就忘了。但女的不一样，一不小心就得罪了，后边一逮到机会就会摆你一道，还没完没了！最要命的是：背地里狠狠的阴你，而当着面表现得像你温馨的亲人。</p>
-
-<p>我们研发中心有个领导很可爱，不太清楚上面给他灌了什么迷魂汤，以至于自己职位被降了，职权被销了很大一部分，还整天手舞足蹈高兴得很。事后一两个月才反应过来不对劲，然后整天愁眉苦脸、、、、、、以这种交际反应的速度，被撤是必然的事情，确实不适合搞管理。技术男大多脑袋是‘方’的，不太善与处理人际关系。第九点：加强交际能力。程序员大多还算是聪明的，平常稍稍注意一下就没什么大问题。不过不要自我感觉良好，我们公司有个工作了十多年的IT男，几年前就开始被派除去和客户沟通，丫的，至今那一口吞吞吐吐的蹩脚的普通话让人听了就伤心。</p>
-
-<p>第十点：若无特殊情况，一定不要跨级汇报。这一点细节很重要。某种意义上你的顶头上司就是你的老板，直接决定了你的发展，你就是他手下的兵。并不是谁官大就听谁的，要不然历史上那么多兵变都不可能成功，因为大家都只听皇帝的，呵呵。从另一个方面讲，你‘忠于’你上司的上司，他也不敢用你，因为谁知道提拔你之后，你会不会再越一次级？！！</p>
-
-<p>第十一点：要善于向上司汇报工作。国家干部是不是人民的公仆本人不太清楚。但公司里那些大大小小的管理者一定是（如果不是这样那他就不是一个好上司）！那群夹板男，看着是个官，其实过得很苦。既要应付好上面的领导，又要充分调动下面群众做出业绩，整天搞得焦头烂额。上面的唱白脸，那么夹板男就唱黑脸。总之挺不容易。他们的猜疑心很重！时常会怀疑下面的人没尽心工作。虽然一般公司都有什么任务分配管理系统，但是那东西远远不够。你需要找准时机让他清楚你工作进展，你所做出的努力。</p>
-
-<p>第十二点：不要轻易造成情绪污染。不要因为你一个人不高兴，而让别人都看你的脸色。要学会雪藏自己的情绪。你若是一个领导，那这一点就太要紧了。</p>
-
-<p>第十三点：一举一动找准自己的位置、别人的位置。比如：吃饭时的座次，照相时的排列位置，群发邮件时收件人的排名顺序，文档作者的位置顺序、、、、、、这些都很重要。《易经》中有讲：明相位，立德业。要是你连自己在哪儿都不知道，你又如何到得了目的地。</p>
-
-<p>第十四点：没有必要做一个愤青。刚毕业那会，我很愤青，看不惯这看不惯那。但是又能怎么样呢？弱肉强食的本质从来没有改变过，你要学会尝试去理解这个社会，理解种种关系。到某个时候你会发现：一切理所当然。你若真的不满意某个现状，那么就去尽自己的能力去改变它。势者，不均也！均则无势。</p>
-
-<p>第十五点：记住别人的善，忘记别人的恶。一个人心里不应该有太多仇恨，仇恨是别人扔给你的垃圾，你又不是垃圾桶，老装着它做什么?在公司当算法工程师近三年了，别人怎么对我，我的心里跟明镜似的一清二楚。对我不好的人我并没太在意，更别说去报复。相反，他们有事要我帮忙的时候，我总能真心实意的去帮，甚至主动帮忙解决问题。这是这几年来，我对自己唯一满意的一点。我相信一句话：活着就是修行。但是你得清楚你修的是善行还是恶行。</p>
-
-<p>毕业三年了，看看走过的路，总觉的有点荒凉。确实真正明白了许多道理。感谢帮助过我的人，也感谢打击过我的人。也许一个人只有亲身经历了困难才可能真正成长起来，由此我不得不感叹造化的残酷。</p>
-
-<p>哎，又文艺了一把。</p>
-
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/08/02/exhausted-body.html" title="最近有点累" rel="bookmark">最近有点累</a></h2>
-        <p class="time"><time pubdate="2012-08-02 18:18:00 +0800">02 Aug 2012</time></p>
-        
-        <p>最近的感觉工作非常吃力啊，不知道为什么都不进行不下去了。</p>
-
-<p>最近要帮助 G+ 从新写服务器端的代码，但是感觉有点摸不到头脑，不知道从哪里开始，第一是代码不熟悉，都是用delphi写的。</p>
+<span class="n">timeserver</span> <span class="o">=</span> <span class="no">DRbObject</span><span class="o">.</span><span class="n">new_with_uri</span><span class="p">(</span><span class="no">SERVER_URI</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">timeserver</span><span class="o">.</span><span class="n">get_current_time</span>
+</code></pre></div>
 
 <blockquote>
-<p>再烦，也别忘微笑；再急，也要注意语气； </p>
+  <p>我必须要说的是，很符合我们的 C/S 模型，但是你有没有想过如果 <code>get_current_time</code> 返回一个远程对象，会发     生什么呢？ 接下来，就是我要讲的。</p>
+</blockquote>
 
-<p>再苦，也别忘坚持；再累，也要爱自己。 </p>
+<h3 id="section-2">远程对象代理</h3>
 
-<p>低调做人，你会一次比一次 稳健；高调做事，你会一次比一次优秀。 </p>
+<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
+<span class="no">URI</span><span class="o">=</span><span class="s2">&quot;druby://localhost:8787&quot;</span>
 
-<p>成功的时候不要忘记过去；失败的时候不要忘记还有未来。 </p>
+<span class="k">class</span> <span class="nc">Logger</span>
 
-<p>有望得到的要努力，无望得到的不介意，则无论输赢姿态都会好看。</p>
+  <span class="c1"># Logger 是被远程代理，客户端不会存在，所以用这句</span>
+  <span class="c1">#注意这句话，如果要是自己来改写这个方法怎么做呢？下面会有我的一个例子</span>
+  <span class="kp">include</span> <span class="ss">DRb</span><span class="p">:</span><span class="ss">:DRbUndumped</span>
 
-<p>生活不是单行线，一条路走不通，你可以转弯。 </p>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+    <span class="vi">@name</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="vi">@filename</span> <span class="o">=</span> <span class="n">fname</span>
+  <span class="k">end</span>
 
-<p>泪水和汗水的化学成分相似，但前者只能为你换来同情，后者却可以为你赢的成功。 </p>
+  <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="vi">@filename</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+      <span class="n">f</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="vi">@name</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 
-<p>变老是人生的必修课，变成熟是选修课。 </p>
+<span class="k">end</span>
 
-<p>以锻炼为本，学会健康；以修进为本，学会求知； </p>
+<span class="k">class</span> <span class="nc">LoggerFactory</span>
 
-<p>以进德为本，学会做人；以适应为本，学会生存。 </p>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">bdir</span><span class="p">)</span>
+    <span class="vi">@basedir</span> <span class="o">=</span> <span class="n">bdir</span>
+    <span class="vi">@loggers</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="k">end</span>
 
-<p>人生四项基本原则：懂得选择，学会放弃，耐得住寂寞，经得起诱惑。 </p>
+  <span class="k">def</span> <span class="nf">get_logger</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="o">!</span><span class="vi">@loggers</span><span class="o">.</span><span class="n">has_key?</span> <span class="nb">name</span>
+      <span class="c1"># 保证文件名是合法的</span>
+      <span class="n">fname</span> <span class="o">=</span> <span class="nb">name</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/[.\/]/</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">untaint</span>
+      <span class="vi">@loggers</span><span class="o">[</span><span class="nb">name</span><span class="o">]</span> <span class="o">=</span> <span class="no">Logger</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="vi">@basedir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">fname</span><span class="p">)</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="vi">@loggers</span><span class="o">[</span><span class="nb">name</span><span class="o">]</span>
+  <span class="k">end</span>
 
-<p>当所有人都低调的时候，你可以高调，但不能跑调。 </p>
+<span class="k">end</span>
+<span class="c1"># 在执行之前你要手动创建一下dlog</span>
+<span class="no">FRONT_OBJECT</span><span class="o">=</span><span class="no">LoggerFactory</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;dlog&quot;</span><span class="p">)</span>
 
-<p>学会忘记是生活的技术，学会微笑是生活的艺术。   </p>
+<span class="no">DRb</span><span class="o">.</span><span class="n">start_service</span><span class="p">(</span><span class="no">URI</span><span class="p">,</span> <span class="no">FRONT_OBJECT</span><span class="p">)</span>
+<span class="no">DRb</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">join</span>
+</code></pre></div>
 
-<p>什么是好工作：一不影响生活作息，二不影响家庭团聚，三能养家糊口。 </p>
+<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
 
-<p>懒惰像生锈一样，比操劳更消耗身体。 </p>
+<span class="no">SERVER_URI</span><span class="o">=</span><span class="s2">&quot;druby://localhost:8787&quot;</span>
 
-<p>让梦想成真的最好办法就是醒来。</p>
+<span class="no">DRb</span><span class="o">.</span><span class="n">start_service</span>
 
-<p>哲人无忧，智者常乐。并不是因为所爱的一切他都拥有了，而是所拥有的一切他都爱。</p>
+<span class="n">log_service</span><span class="o">=</span><span class="no">DRbObject</span><span class="o">.</span><span class="n">new_with_uri</span><span class="p">(</span><span class="no">SERVER_URI</span><span class="p">)</span>
+
+<span class="o">[</span><span class="s2">&quot;loga&quot;</span><span class="p">,</span> <span class="s2">&quot;logb&quot;</span><span class="p">,</span> <span class="s2">&quot;logc&quot;</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">logname</span><span class="o">|</span>
+
+  <span class="n">logger</span><span class="o">=</span><span class="n">log_service</span><span class="o">.</span><span class="n">get_logger</span><span class="p">(</span><span class="n">logname</span><span class="p">)</span>
+
+  <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
+  <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Goodbye, world!&quot;</span><span class="p">)</span>
+  <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;=== EOT ===&quot;</span><span class="p">)</span>
+
+<span class="k">end</span>
+</code></pre></div>
+
+<blockquote>
+  <p>吐嘈，执行完，你会发现日志被写在了服务端的 dlog/ 目录里，注意 DRb::DRbUndumped 在 Logger 对象的加载，这样的对象是无须传递给客户端的，这样，客户端代码里拿到的 loggger 对象是远程代理对象，所有该对象调用的方法实际上是在远程服务端执行的。我们称这种方法是按引用传递。</p>
+
+  <p>那当然有一种传递叫，按值传递，什么情况是呢？显然，上面第一种方法即是，我们调用 get_current_time 是本地对象，再调用该对象的方法时，方法在本地执行。</p>
+
+  <p>如此，便是 DRb 的基本使用方法了，应该说不难理解。你可以这样理解，都是对象，只不是有些对象是远程的，有些是本地的，远程的对象方法的执行是在远端，本地的方法是在本地。远程的对象是包含了 DRb::DRbUpdumped 的对象。不包含的都会转换为本地对象。</p>
+
+  <p>那么，何为分布式的 Ruby，这明显是忽悠我们群众嘛？别急，我正要说，还记得一开始代码里注释的 start_service 了吧。所谓 服务端 可以随时获取 客户端 的远程对象，对吧？所以用 DRb 实现一个通信是非常简单的。为了有深入理解，我想需要将它的实现原理分析一下。</p>
+</blockquote>
+
+<h3 id="section-3">如何实现的呢</h3>
+<blockquote>
+
+  <p>DRb 的本质是，一个通信底层，一个序列化方式，一个代理器，OK？你不用看都能知道是吧？因为我也会这样实现的。</p>
+</blockquote>
+
+<h4 id="section-4">1.代理器</h4>
+<blockquote>
+
+  <p>method_missing 将一个对象的方法传递给另一个对象的神器，谓之代理，多像有关部门，不做事情，只是将事情移交给另一个有关部门。看看核心代码：</p>
+</blockquote>
+
+<div class="highlight"><pre><code class="ruby"><span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="n">msg_id</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+  <span class="k">if</span> <span class="no">DRb</span><span class="o">.</span><span class="n">here?</span><span class="p">(</span><span class="vi">@uri</span><span class="p">)</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="no">DRb</span><span class="o">.</span><span class="n">to_obj</span><span class="p">(</span><span class="vi">@ref</span><span class="p">)</span>
+    <span class="no">DRb</span><span class="o">.</span><span class="n">current_server</span><span class="o">.</span><span class="n">check_insecure_method</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">msg_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">__send__</span><span class="p">(</span><span class="n">msg_id</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">succ</span><span class="p">,</span> <span class="n">result</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">with_friend</span><span class="p">(</span><span class="vi">@uri</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">DRbConn</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="vi">@uri</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">conn</span><span class="o">|</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="n">msg_id</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="c1">#。。。处理异常</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<blockquote>
+  <p>obj显然是被代理的对象，上面除了缓存机制外，send_message 是 method_missing做的最重要的事，它引出来了下面的事情。</p>
+</blockquote>
+
+<h4 id="section-5">2.通信底层</h4>
+<blockquote>
+
+  <p>DRb 的底层是一层透明的传输协议，通过它的接口，可以将数据（或命令）无压力收取，且看它的关键接口：</p>
+</blockquote>
+
+<div class="highlight"><pre><code class="ruby"><span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">first</span><span class="o">=</span><span class="kp">true</span><span class="p">)</span>
+  <span class="vi">@protocol</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">prot</span><span class="o">|</span>
+    <span class="k">begin</span>
+      <span class="k">return</span> <span class="n">prot</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+    <span class="k">rescue</span> <span class="no">DRbBadScheme</span>
+    <span class="k">rescue</span> <span class="no">DRbConnError</span>
+      <span class="k">raise</span><span class="p">(</span><span class="vg">$!</span><span class="p">)</span>
+    <span class="k">rescue</span>
+      <span class="k">raise</span><span class="p">(</span><span class="no">DRbConnError</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">uri</span><span class="si">}</span><span class="s2"> - </span><span class="si">#{</span><span class="vg">$!</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+  <span class="k">if</span> <span class="n">first</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">config</span><span class="o">[</span><span class="ss">:auto_load</span><span class="o">]</span> <span class="o">!=</span> <span class="kp">false</span><span class="p">)</span>
+    <span class="n">auto_load</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="kp">false</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="k">raise</span> <span class="no">DRbBadURI</span><span class="p">,</span> <span class="s1">&#39;can\&#39;t parse uri:&#39;</span> <span class="o">+</span> <span class="n">uri</span>
+<span class="k">end</span>
+
+<span class="c1"># drb/drb.rb:901 发送一个请求，通俗的说，调用一个方法</span>
+<span class="k">def</span> <span class="nf">send_request</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">msg_id</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+  <span class="vi">@msg</span><span class="o">.</span><span class="n">send_request</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">msg_id</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># 在服务端，接受一个方法</span>
+<span class="k">def</span> <span class="nf">recv_request</span>
+  <span class="vi">@msg</span><span class="o">.</span><span class="n">recv_request</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># 服务端，发送一个结果</span>
+<span class="k">def</span> <span class="nf">send_reply</span><span class="p">(</span><span class="n">succ</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+  <span class="vi">@msg</span><span class="o">.</span><span class="n">send_reply</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">succ</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># 客户端，接受一个结果</span>
+<span class="k">def</span> <span class="nf">recv_reply</span>
+ <span class="vi">@msg</span><span class="o">.</span><span class="n">recv_reply</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<blockquote>
+  <p>继续吐嘈，默认 DRb 使用 DRbTCPSocket 来通信，你可以随时调整为 UnixSocket 或者 Http ，甚至 SSL。这个视你的需求而定，比如你要从公司用基于 Ruby 的方法，遥控你的家用电脑，建议你使用 SSL。</p>
+
+  <p>抽象你的接口，是实现易于维护系统的关键，是吧。如何序列化是整个 DRb 的关键，而在 Ruby 中，这一切显得如此简单。</p>
+
+  <h3 id="section-6">序列化方法（与对象引用转换）</h3>
+  <p>Marshal 神器用来序列化对象，默认直接使用即可。例如：</p>
+</blockquote>
+
+<div class="highlight"><pre><code class="ruby"><span class="k">class</span> <span class="nc">A</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="vi">@a</span> <span class="o">=</span> <span class="n">a</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="no">Marshal</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="no">Marshal</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">c</span><span class="o">.</span><span class="n">a</span>  <span class="c1"># ok, 输出 1</span>
+</code></pre></div>
+
+<blockquote>
+  <p>它被引用在 DRb 中，做为 DRbMessage 的关键，传递对象使用。</p>
+
+  <p>通过 Marshal 我们大概了解了一个序列化的例子，让我们来实现一个 Marshal example</p>
+</blockquote>
+
+<blockquote>
+  <p>服务器端代码</p>
+</blockquote>
+
+<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
+
+<span class="c1"># 监听的地址，你可以改为 0.0.0.0 来支持远程连接</span>
+<span class="no">URI</span><span class="o">=</span><span class="s2">&quot;druby://localhost:8787&quot;</span>
+
+<span class="k">class</span> <span class="nc">A</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="vi">@a</span> <span class="o">=</span> <span class="n">a</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">a</span>
+    <span class="vi">@a</span>
+  <span class="k">end</span>
+  
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">TimeServer</span>
+
+  <span class="k">def</span> <span class="nf">get_current_time</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="no">Marshal</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+  <span class="k">end</span>
+
+<span class="k">end</span>
+
+<span class="no">FRONT_OBJECT</span><span class="o">=</span><span class="no">TimeServer</span><span class="o">.</span><span class="n">new</span>
+
+<span class="no">DRb</span><span class="o">.</span><span class="n">start_service</span><span class="p">(</span><span class="no">URI</span><span class="p">,</span> <span class="no">FRONT_OBJECT</span><span class="p">)</span>
+<span class="c1"># </span>
+<span class="no">DRb</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">join</span>
+</code></pre></div>
+
+<blockquote>
+  <p>客户端代码</p>
+</blockquote>
+
+<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
+
+<span class="no">SERVER_URI</span><span class="o">=</span><span class="s2">&quot;druby://localhost:8787&quot;</span>
+
+<span class="c1"># 这句是必要的，因为我们很快会用到回调与引用，一会说。</span>
+<span class="c1"># 所以纯粹的客户端是不存在的。</span>
+<span class="no">DRb</span><span class="o">.</span><span class="n">start_service</span>
+
+<span class="k">class</span> <span class="nc">A</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="vi">@a</span> <span class="o">=</span> <span class="n">a</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">a</span>
+    <span class="vi">@a</span>
+  <span class="k">end</span>
+  
+<span class="k">end</span>
+
+<span class="n">timeserver</span> <span class="o">=</span> <span class="no">DRbObject</span><span class="o">.</span><span class="n">new_with_uri</span><span class="p">(</span><span class="no">SERVER_URI</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">timeserver</span><span class="o">.</span><span class="n">get_current_time</span>
+<span class="n">b</span> <span class="o">=</span> <span class="no">Marshal</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">p</span> <span class="n">b</span><span class="o">.</span><span class="n">a</span>
+</code></pre></div>
+
+<blockquote>
+  <p>结果非常惊讶，序列化的对象又重新调用了方法，但是这个前提是保证反序列化时，可以创建这个对象，也就是复用的 class A 里面的代码</p>
+</blockquote>
+
+<blockquote>
+  <p>于是，组合以上思路，DRb 就产生了，不过，我们还缺点什么没讲，作为安全的程序员，一定要看看。</p>
+</blockquote>
+
+<blockquote>
+  <p>代理对象如果被发送了 instance_eval(“rm -rf /”) Ok，我们系统没了。。。</p>
+</blockquote>
+
+<blockquote>
+  <p>所以，$SAFE = 1 是可以保障基本安全的， 然而，这还不够，更细的控制，应该由 Ruby 1.9.1 以后（应该是说我没深入研究过）开始的，我就不细说了，你如果有需求可以仔细看看。</p>
+</blockquote>
+
+<blockquote>
+  <p>另一个问题是，分布式要求远程对象长期生效，那么你可以去研究下 DRb::TimerIdConv 进行生存期保存。</p>
+</blockquote>
+
+<blockquote>
+  <p>最后一个问题，远程对象支持 block 调用吗？答案是，YES。 如何实现的呢？</p>
+</blockquote>
+
+<div class="highlight"><pre><code class="ruby"><span class="k">def</span> <span class="nf">perform_with_block</span>
+<span class="vi">@obj</span><span class="o">.</span><span class="n">__send__</span><span class="p">(</span><span class="vi">@msg_id</span><span class="p">,</span> <span class="o">*</span><span class="vi">@argv</span><span class="p">)</span> <span class="k">do</span> <span class="o">|*</span><span class="n">x</span><span class="o">|</span>
+ <span class="n">jump_error</span> <span class="o">=</span> <span class="kp">nil</span>
+ <span class="k">begin</span>
+   <span class="n">block_value</span> <span class="o">=</span> <span class="n">block_yield</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1">#本质是 block.call(*x)，只是特殊处理了 Array</span>
+ <span class="k">rescue</span> <span class="no">LocalJumpError</span>
+   <span class="n">jump_error</span> <span class="o">=</span> <span class="vg">$!</span>
+ <span class="k">end</span>
+ <span class="k">if</span> <span class="n">jump_error</span>
+  <span class="k">case</span> <span class="n">jump_error</span><span class="o">.</span><span class="n">reason</span>
+  <span class="k">when</span> <span class="ss">:break</span>
+    <span class="k">break</span><span class="p">(</span><span class="n">jump_error</span><span class="o">.</span><span class="n">exit_value</span><span class="p">)</span>
+  <span class="k">else</span>
+    <span class="k">raise</span> <span class="n">jump_error</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="n">block_value</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<blockquote>
+  <p>看的出来（再吐嘈），block是通过本地的调用后，将结果再传递给远程对象。详细可以继续看 drb/drb 里的 perform 实现。</p>
+</blockquote>
+
+<blockquote>
+  <p>值得注意的是，如果一个对象没有 include DRb::DRbUndumped 被返回到客户端，则会抛出 DRbUnknownError 异常。这个很容易理解。另一个注意点是，一个类无法使用 Marshal.dump 时（例如打开了一个文件句柄），则需要想办法自己实现它，或者。。。或者你应该实现为远程代理类，对吧。</p>
+</blockquote>
+
+<blockquote>
+  <p>好了，基本上都讲完了。代码里还有许多精华，例如 self.allcate 可以跳过 initialize 来创建一个类。</p>
+</blockquote>
+
+<blockquote>
+  <p>看完后，你再想想开篇的需求是否可以轻松解决掉？实际上只需要几步：</p>
+</blockquote>
+
+<blockquote>
+  <p>创建一个类，按一般方法编写它的方法。如果方法有返回自定义对象，根据是否远程代理加载 DRbUpdumped。</p>
+</blockquote>
+
+<blockquote>
+  <p>加载 DRb ， 启动服务。</p>
+</blockquote>
+
+<blockquote>
+  <p>客户端连接，获取代理对象，调用方法。</p>
+</blockquote>
+
+<h3 id="section-7">与其他语言的解决方案的对比与区别</h3>
+
+<h4 id="java-rmi">JAVA的 RMI</h4>
+<blockquote>
+  <p>RMI 是JAVA的远程调用实现方法，这里有一篇不错的介绍：http://damies.iteye.com/blog/51778 。</p>
+</blockquote>
+
+<blockquote>
+  <p>DRb 是分布式的，RMI是单向的 C/S。 DRb 不需要声明接口，直接使用。熟练后，可以极快速度完成一个通信和同步的应用。</p>
+</blockquote>
+
+<h4 id="corba">CORBA</h4>
+<blockquote>
+  <p>看这个：http://zh.wikipedia.org/wiki/CORBA ， 基本原理相同，不过 DRb 足够轻，足够快。</p>
+</blockquote>
+
+<h4 id="wdsl">WDSL</h4>
+<blockquote>
+  <p>利用xml的标准RPC调用。适合于静态语言。</p>
+</blockquote>
+
+<blockquote>
+  <p>由于对其他的了解不深入，欢迎熟悉的看客们提出你的看法。</p>
+</blockquote>
+
+<blockquote>
+  <p>其他需求</p>
+</blockquote>
+
+<blockquote>
+  <p>在公司之前的工作时，需要将 JRuby 的对象代理到 Ruby 中，这样可以复用 gems 。</p>
+</blockquote>
+
+<blockquote>
+  <p>需要远程API的方法调用另一个进程的所有方法。</p>
+</blockquote>
+
+<blockquote>
+  <p>因为要代理所有本地不存在的对象，只使用 DRb 还不够。但基本思路很简单，利用一个模块的 const_missing 动态加载远程的对象，而远程对象在创建时均自动加载 DRbUpdumped 被远程代理。根据以上，我们可以写一个看似本地代码却可以轻易转到远程执行。</p>
+</blockquote>
+
+<blockquote>
+  <p>例如：</p>
+</blockquote>
+
+<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;watir&#39;</span>
+<span class="n">ie</span> <span class="o">=</span> <span class="ss">Watir</span><span class="p">:</span><span class="ss">:IE</span><span class="o">.</span><span class="n">new</span>
+<span class="n">ie</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;www.baidu.com&quot;</span><span class="p">)</span> <span class="c1"># 本地打开一个浏览器</span>
+
+<span class="c1"># 加载为远程进程执行</span>
+<span class="no">ATU</span><span class="o">.</span><span class="n">require</span> <span class="s1">&#39;watir&#39;</span>
+<span class="n">ie</span> <span class="o">=</span> <span class="ss">ATU</span><span class="p">:</span><span class="ss">:Watir</span><span class="o">::</span><span class="no">IE</span><span class="o">.</span><span class="n">new</span>
+<span class="n">ie</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;www.baidu.com&quot;</span><span class="p">)</span> <span class="c1"># 远程的进程打开一个浏览器</span>
+</code></pre></div>
+
+<blockquote>
+  <p>有了它，几乎同一份代码可以同用两个用途。可以非常方便的以代码级的控制远程主机和对象，并且重用性很高。</p>
+</blockquote>
+
+<blockquote>
+  <p>如何实现，可以自己想想，同时可以查看这里：<a href="https://github.com/windy/ruby_proxy">ruby_proxy的实现</a></p>
+</blockquote>
+
+<blockquote>
+  <p>还有一篇 <a href="http://windy.github.com/ruby_proxy.html">slide</a></p>
+</blockquote>
+
+<blockquote>
+  <p>推荐续读</p>
+</blockquote>
+
+<blockquote>
+  <p><a href="http://www.linux-mag.com/2002-09/ruby_05.html">一个让DRb真正分布式的rinda（Dave Thomas）</a></p>
+</blockquote>
+
+<blockquote>
+  <p><a href="http://segment7.net/projects/ruby/drb/introduction.html">一些介绍的例子</a></p>
+</blockquote>
+
+<blockquote>
+  <p>转自 windy</p>
+</blockquote>
+
+<blockquote>
+  <p>本文采用 署名 - 非商业 - 复制保留本授权 的方式进行发布。</p>
 </blockquote>
 
         
     </article>
 
 	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/08/01/sb-or-nb.html" title="傻逼一样的坚持，总会见到牛逼的结果" rel="bookmark">傻逼一样的坚持，总会见到牛逼的结果</a></h2>
-        <p class="time"><time pubdate="2012-08-01 12:14:00 +0800">01 Aug 2012</time></p>
+        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/09/14/lack-of-patience.html" title="缺乏耐心" rel="bookmark">缺乏耐心</a></h2>
+        <p class="time"><time pubdate="2012-09-14 17:48:00 +0800">14 Sep 2012</time></p>
         
-        <p>如果一件事成功率是1%，那反复100次至少成功1次概率是多少？备选答案：10%，23%，38%，63%——正确答案是63%。计算方法： 成功率1%，失败率99%，尝试100次，全部失败概率为99%的100次方约37%，至少成功一次即63%。看似不可能的事在反复尝试中成功率会不断提高——傻逼一样坚持，总会看见牛逼的结果。</p>
+        <p>最近的工作压力非常大啊，给部门公共资源做一个门户网站，功能还不少，都是非常好的创意，如果可以实现，感觉是非常棒的。</p>
 
-<p>这是今天同事在RTX群里分享的每日一则，咋看之下，觉得没什么问题。因为单单从数学概率角度去计算，上面问题的答案是完全正确。但考虑到实际的操作过程会存在一些干扰因素，可能会影响到每一次尝试的成功率，我们可以深层次的讨论。</p>
+<p>比如，solr 的全文检索，使用这个就能非常简单方便的在网站，进行全文的搜索。给一个关键字，ok马上出来你想要的。但是出现一个不可预知的问题，在建立索引的时候，如果是多个表的，不能建立多个实体，那就太不方便了。</p>
 
-<p>1、如果这件事情存在完全不可操控因素，即：这件事情尝试了一次或者多次，即便都失败了，所获取的经验并不能让你在下一次尝试过程中减少一些失败的可能。那么上述问题中的思路和答案都是正确的。但是结论的表达是有一些问题：因为事件本身的单次成功率是没有提高的，还是1%。所以，这个结论前半句并不可取。如果有人能把所有的错误尝试一遍之后，对于当事人而言，下一次的尝试自然是成功。所以后半句倒是可取：傻逼一样坚持，总会看见牛逼的结果。</p>
+<p>就是在这个问题上面，我的情绪出现了变化。</p>
 
-<p>2、现在考虑第二种假设，如果这件事情是一件固定的事务，不存在随机改变的因素。可以看做是在做一道有100个选项的选择题，那么每失败一次，下一次仍然失败的概率就会减少一些。如果对自己每一次的失败都做记录，那么最糟糕的情况是，前面99次每一次都选错了，那么最后一次必然是会正确的。其实这个 过程中，每一次失败之后的下一次选择的正确率也在提高，从第一次开始分别是：1/100，1/99，1/98… 这样的话，反复去重复100次，至少成功一次的概率就是100%。最糟糕的情况就是第100次的时候成功了。</p>
+<p>感觉自己缺乏耐心，为什么这么说呢？因为看见和自己一起进入公司的同时，都受到公司的表扬了，但是自己做了不少东西，却都没有可以拿出来值得表扬的，而且愈发的急躁。</p>
 
-<p>这种情况下，第n次仍然失败的概率是：</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">(99/100)(98/99)*…*(101-n+/102-n)*(100-n/101-n) =（100-n）/100
+<p>就比如这个给网站添加索引的，本来就是一个非常庞大的工作，但是在周一的时候还是信心满满的说要一个星期就搞定。但是过度的自信，换来的是工作的延迟。</p>
+
+<p>两个方面的原因，越是急躁，越是想做出成绩来，反而越是做不出来东西，而越是做不出来东西，可能会让我更加缺乏耐心。</p>
+
+<p>昨天晚在还在和老贾谈心，说到自己最近的状态不好，给我自己总结的两点就是缺乏耐心，缺乏鼓励。缺乏耐心是我自己的原因，加上没有出成绩，缺少鼓励，我越发的急躁。反正就是连锁反应。说了这么多东西，感觉都是废话。其实就是没耐心没成绩没鼓励没耐心的一个循环。</p>
+
+<p>到底是我太浮躁了，还是我面临的环境不好呢？</p>
+
+<p>是因为我只看到别人成功的一面，没有看到别人后面的努力。所以不管什么时候，坚持自己的信仰，这才是我因该做的。</p>
+
+<p>每次遇到这样的环境时候，我都只能看看励志的书，找一句两句名言，作为自己这段时间的奋斗的目标。</p>
+
+<p>想到一句话，做你该做的事，而不是做你想做的事。</p>
+
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/08/31/a-reason-vs-a-hundred-reason.html" title="一个理由 vs 一百个理由" rel="bookmark">一个理由 vs 一百个理由</a></h2>
+        <p class="time"><time pubdate="2012-08-31 17:39:00 +0800">31 Aug 2012</time></p>
+        
+        <p>前几天看到一篇文章，一个理由 vs 一百个理由，我们往往费劲心机的去找一百个理由推脱掉一件事，也不愿意找一个理由去做它。</p>
+
+<p>其实有时候我们想得太多了，考虑的东西太多了，模糊了我们的目标，挡住了我们的视线，产生了消极的情绪。</p>
+
+<p>事情是：周六还在公司里面加班，因为手头的任务遇到一点问题，做了99%，就差最后的性能测试了，但是看到时间都是晚上6点多了，急着去吃饭所以就把这测试的任务丢下，想回家。</p>
+
+<p>走的时候和师傅说：工作完了，开发任务搞定了，就差性能测试了。</p>
+
+<p>师傅问我：你的任务的目标是什么？是开发完成，还是出测试报告？</p>
+
+<p>我说：出性能测试报告，哎呀，工作基本搞定了，就差性能测试了，这个非常简单，我到时候再作吧……</p>
+
+<p>师傅也没有多讲，我就走了。晚上和同事吃饭的时候，我就在想今天的工作，到底我的目标是什么？目标清晰吗？非常清晰，显而易见。</p>
+
+<p>到家洗完澡，我就再也按耐不住我的心情，为什么这么简单的一个任务，我要找这么多理由推脱呢？在你不想做的时候，你会发现一堆自己认为充分的理由，给自己非常多的后路，给自己找借口。</p>
+
+<p>马上穿好衣服，冲到了公司，也就没有打算晚上再回家，忙了大半夜，总算完成了任务。</p>
+
+<p>任务结果一般般，但是我对自己的这个状态还是非常满意的。</p>
+
+<p>有时候，我们不需要太多的理由，其实面前的路也非常简单就是一条直路，但是就是在这样的安逸的情况下，我们竟然还会考虑，要不要回头找找其他路，要不要休息下。如果不想继续往前走的话，我们可以找到一百个理由说不。</p>
+
+<p>但是有时候事情非常简单，只要一个我想做下去的理由，我们就能非常简单的完成任务，但是就是这样的情况下，我们也会懒惰。</p>
+
+<p>所以有时候，我们不需要太多的理由，简单点，只需两个步骤，想–&gt;做，就能很漂亮的完成。</p>
+
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://zhaoxuan.github.io/ruby/2012/08/23/rubystring2class.html" title="转 ruby  从一个字符串创建一个对象" rel="bookmark">转 ruby  从一个字符串创建一个对象</a></h2>
+        <p class="time"><time pubdate="2012-08-23 19:05:00 +0800">23 Aug 2012</time></p>
+        
+        <p>在 ruby 中，根据一个类名创建一个实例</p>
+
+<p>在Ruby On Rails中文社区的的Ruby版上，karl问了一个有趣的问题，如何根据类名生成一个类的实例。
+<a href="http://www.railscn.com/about2289.html">链接</a>：</p>
+
+<p>下面是一个Java语言的实现：</p>
+
+<div class="highlight"><pre><code class="java">    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Object</span> <span class="nf">createObject</span><span class="o">(</span><span class="n">String</span> <span class="n">className</span><span class="o">)</span> 
+        <span class="kd">throws</span> <span class="n">ClassNotFoundException</span><span class="o">,</span> <span class="n">InstantiationException</span><span class="o">,</span> <span class="n">IllegalAccessException</span> <span class="o">{</span>
+        <span class="n">Class</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">className</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">clazz</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
+    <span class="o">}</span>
 </code></pre></div>
-<p>可以看出，随着n的增加，也就是尝试次数的增加，失败的概率会越来越小。直到第一百次失败的概率减小为0。</p>
 
-<p>这种情况，完全可以得到上述结论：看似不可能的事在反复尝试中成功率会不断提高——傻逼一样坚持，总会看见牛逼的结果。</p>
+<p>在Ruby中怎么做呢？karl自己给出了第一种做法：</p>
 
-<p>3、另外一种情况，也是现实生活最常见的情况。</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;String&#39;</span>
+<span class="nb">eval</span> <span class="s2">&quot;obj=</span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
+</code></pre></div>
 
-<p>如果这件事情是存在一些不可控因素，但并不是完全无规律可循。比如创业，或者远距离的投篮。不同的人在失败的过程中所获取的信息是不同的，多数人而言，每一次尝试，如果没成功，也可以获知到对成功存在障碍的因素，下一次尝试的时候，尽量避免在同一个地方跌倒，哪怕是换一个地方跌倒。</p>
+<p>这里利用了Ruby的动态语言的特性，在代码中执行代码。不过，照着尝试了一下，我有了一个疑问，如何使用生成的对象，也就是，我们如何利用这里的obj呢？</p>
 
-<p>这个概率是无法用具体的数字来度量，但是显然，在我们每个人身边，我们可以看到，几乎所有人都会有一两个比较擅长的领域，还有些人是解决问题的高 手，总是很容易成功。因为我们生活中遇到的问题往往并不是完全随机。很多事情，比如投篮命中率，比如限时回答问题，通过不断地练习，更好的掌握力度，方向，弧度等技巧，这个不断练习，不断尝试的过程中无疑是提高了单次尝试的成功率。 同样，一个人在一个领域有一定经验之后，换一个领域也会比较容易成功。因为问题多半会有相通的部分，掌握了学习的能力和解决问题的能力，即便在不同的领域也一样。</p>
+<p>按照karl提供的方式，编写出这样的代码：</p>
 
-<p>同时，即便是同一件事情，不同人的表现是不一样的。在失败的过程中，有些人自信心受到打击，选择放弃，下一次如果不得不去做这件事情的时候，反而有了阴影，克服不了自己的障碍，成功率反而会更低。另外一部分人，越挫越勇并且善于总结失败的教训、分析事情之间的关联，那么这些人做事的成功率无疑是会越来越高的。</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;String&#39;</span>
+<span class="nb">eval</span> <span class="s2">&quot;obj = </span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
+<span class="nb">p</span> <span class="n">obj</span>
+</code></pre></div>
 
-<p>看似不可能的事在反复尝试中成功率会不断提高——傻逼一样坚持，总会看见牛逼的结果。 这种情况是很容易得出这个结论的。</p>
+<p>这里故意使用了p方法，因为对于一个空串，它可以打出”“，而不是无声无息，便于查看。</p>
 
-<p>4.但上面三种情况并不能足以证明“傻逼一样坚持，总会看见牛逼的结果”这一个结论，因为还存在一个问题。</p>
+<p>这样的代码是无法运行的，异常如下：</p>
 
-<p>反复做一件事的问题中的前提条件是：看似不可能的事件。这种事件可以分为两种的：小概率事件和不可能事件。上面三种情况分析的都是小概率事件。对于后者——不可能事件，反复尝试的结果是徒劳的。虽然都是傻逼一样的坚持，但是有些人最后牛逼了，有些人傻逼了。所以，在这个过程中，如何判断一件事情是小 概率事件还是不可能事件，就很重要。</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">undefined</span> <span class="n">local</span> <span class="n">variable</span> <span class="ow">or</span> <span class="nb">method</span> <span class="sb">`obj&#39; for main:Object (NameError)</span>
+</code></pre></div>
 
-<p>爱因斯坦说：疯狂就是重复做一件事，但期待不同的结果。</p>
+<p>然而，这段代码在irb中执行没有问题，这是irb和Ruby不兼容的一个地方。在《Programming Ruby》第二版中的第15章，谈及irb限制的时候，提到了这一点。</p>
 
-<p>所以有些人疯狂之后成功了，有些人就真的疯了。个中缘由，见仁见智吧。</p>
+<p>eval执行会有一个值，也就是它最后执行的语句的值，对应到这里就是obj的值。根据这个特性，改写得到了第二种做法，代码如下：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Array&#39;</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="nb">eval</span> <span class="s2">&quot;obj = </span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
+<span class="nb">p</span> <span class="n">obj</span>
+</code></pre></div>
+
+<p>显然eval里的obj没有发挥什么作用，再修改一下：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Array&#39;</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="nb">eval</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
+<span class="nb">p</span> <span class="n">obj</span>
+</code></pre></div>
+
+<p>这样，我们就根据字符串创建出一个可用的对象。事实上，第一种方式也是可用的，不过，要obj在前面已经存在，只不过要稍做修改：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">obj</span> <span class="o">=</span> <span class="kp">nil</span>
+<span class="nb">eval</span> <span class="s2">&quot;obj = String.new&quot;</span>
+<span class="nb">p</span> <span class="n">obj</span>
+</code></pre></div>
+
+<p>qiezi的回帖给出了一个我认为最漂亮的一种做法：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">obj</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">.</span><span class="n">new</span>
+</code></pre></div>
+
+<p>同样是利用eval，不同的是，这里是直接执行类名，结果是得到一个类对象。调用类的new方法就创建实例。这段代码看上去类似于一个普通的函数调用，很简洁。</p>
+
+<p>对应到前面的Java函数，Ruby的实现就可以这样写：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="k">def</span> <span class="nf">create_obj</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span>
+    <span class="nb">eval</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span><span class="o">.</span><span class="n">new</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p>UPDATE</p>
+
+<p>故事有了新的进展，njmzhang提供了另外的方法，按照他的说法，这几乎是一种标准用法：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">c</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">const_get</span><span class="p">(</span><span class="s2">&quot;Array&quot;</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">new</span>
+</code></pre></div>
+
+<p>这里利用到了一个事实，所有的类对象在Ruby中都是一个常量，所以，可以根据它的名字把这个常量提取出来。</p>
+
+<p>除此之外，njmzhang还给出了另一种利用扩展实现的方法：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">c</span> <span class="o">=</span> <span class="no">Class</span><span class="o">.</span><span class="n">by_name</span><span class="p">(</span><span class="s2">&quot;Array&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>这里用到的<a href="http://extensions.rubyforge.org/">扩展</a>在从方法的命名上来说，它比上一种方法更恰当一些。算上这两种实现，我最喜欢的仍然是qiezi给出的那种方法。</p>
+
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/08/23/qixijiyu.html" title="花落有声，七夕寄语" rel="bookmark">花落有声，七夕寄语</a></h2>
+        <p class="time"><time pubdate="2012-08-23 18:30:00 +0800">23 Aug 2012</time></p>
+        
+        <p>无数次沦落在繁华的街头</p>
+
+<p>马蹄和鲜花多如人流</p>
+
+<p>孤独是一个神奇的暗号</p>
+
+<p>相遇的人都心照不宣</p>
+
+<p>没有谁蓦然回首.</p>
+
+<p>有时候想摆脱下一个街口</p>
+
+<p>可是想了想还是继续走</p>
+
+<p>在人群中逆流能得到什么</p>
+
+<p>也许只是一次无知的执拗.</p>
+
+<p>爱你的人依偎在身旁</p>
+
+<p>多给他讲讲失去和拥有</p>
+
+<p>陪他听听花开与花落</p>
+
+<p>让所有平凡自私的人们</p>
+
+<p>结束失眠抱怨无知和争斗.</p>
+
+<p>上帝是块公平的木头</p>
+
+<p>斧子锯子却紧握你手</p>
+
+<p>如果有一天你决定离开所有的人们</p>
+
+<p>我会和你争论不休</p>
+
+<p>如果有一天你决定爱上所有的人们</p>
+
+<p>我依然和你争论不休.</p>
+
+<p>别再在时间里寻找尽头</p>
+
+<p>你该知道没有时间才会有尽头</p>
+
+<p><img src="/images/qixijiy.jpg" alt="Alt text" /></p>
 
         
     </article>
@@ -236,6 +754,10 @@
             
                 
                     <li><a href="http://zhaoxuan.github.io/page7/">7</a></li>
+                
+            
+                
+                    <li><a href="http://zhaoxuan.github.io/page8/">8</a></li>
                 
             
         </ul>

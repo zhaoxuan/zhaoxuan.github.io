@@ -14,6 +14,10 @@
     <!--[if lt IE 9]>
     <script src="http://zhaoxuan.github.io/js/html5.js" type="text/javascript"></script>
     <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
 </head>
 <body id="default">
 <div id="head-line"></div>
@@ -35,15 +39,16 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <span>2013-02-22 15:56:00 +0800</span>
+            <!-- <span>我的 bash_profile</span> -->
+            <h1 class="post-title">我的 bash_profile</h1>
         </header>
 		<article class="post">
-    <h1 class="post-title">我的 bash_profile</h1>
-    <h3>习惯</h3>
+    <!-- <h1 class="post-title">我的 bash_profile</h1> -->
+    <h3 id="section">习惯</h3>
 
 <p>对于我这样才接触 git 的人，总是有一个不好的习惯，就是不看 branch 就修改提交，因为原来使用 svn 根本没有分支这个概念。</p>
 
-<h3>配置 .bash_profile</h3>
+<h3 id="bashprofile">配置 .bash_profile</h3>
 
 <div class="highlight"><pre><code class="bash"><span class="c"># show git branch</span>
 <span class="k">function </span>git_branch <span class="o">{</span>
@@ -63,6 +68,9 @@
 
 <p>两个方法一个是显示 git branch 分支，一个是显示 ruby version，因为使用 rvm 所以就写了这两个。</p>
 
+
+    <nav class="pagination-published">Published by John — 22 Feb 2013</nav>
+
     <nav class="pagination-link">
         
         <a class="prev" href="http://zhaoxuan.github.io/feeling/2013/01/31/hadoop-install.html" rel="bookmark">&laquo;&nbsp;hadoop install</a>
@@ -72,10 +80,10 @@
         
      </nav>
      <div id="disqus_thread"></div>
-</article>  
+</article>
 
 <!-- disqus -->
-<div id="disqus_thread"></div>
+<!-- <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
@@ -88,7 +96,7 @@
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->
 <!-- end_disqus -->
         <footer id="foot">
             <p>&copy; 2014 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>

@@ -14,6 +14,10 @@
     <!--[if lt IE 9]>
     <script src="http://zhaoxuan.github.io/js/html5.js" type="text/javascript"></script>
     <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
 </head>
 <body id="default">
 <div id="head-line"></div>
@@ -35,25 +39,26 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <span>2012-09-19 20:16:00 +0800</span>
+            <!-- <span>sunspot 使用 jboss_solr 来代替 sunspot_solr 完成网站搜索</span> -->
+            <h1 class="post-title">sunspot 使用 jboss_solr 来代替 sunspot_solr 完成网站搜索</h1>
         </header>
 		<article class="post">
-    <h1 class="post-title">sunspot 使用 jboss_solr 来代替 sunspot_solr 完成网站搜索</h1>
-    <h3>sunspot</h3>
-
+    <!-- <h1 class="post-title">sunspot 使用 jboss_solr 来代替 sunspot_solr 完成网站搜索</h1> -->
+    <h3 id="sunspot">sunspot</h3>
 <blockquote>
-<p>使用 sunspot + sunspot_solr 非常简单方便的就能完成对网站的搜索，用起来非常简单，插件打包好了一切。让你看不到里面的实现。</p>
-
-<p>sunspot_solr 非常好用是必须要肯定的，但是就是建立索引非常慢，其实这个插件就是模拟了一个 jboss solr，那为什么不直接用这个 java 的 solr 呢？公司其他部门已经搭建完成了一个 solr 搜索引擎了，所以我只要远程调用搜索就 ok。</p>
+  <p>使用 sunspot + sunspot_solr 非常简单方便的就能完成对网站的搜索，用起来非常简单，插件打包好了一切。让你看不到里面的实现。</p>
 </blockquote>
 
-<h3>1.部署一个 jboss solr 环境，<a href="http://www.jboss.org/">网址</a>。</h3>
-
 <blockquote>
-<p>这里就不详细介绍了。</p>
+  <p>sunspot_solr 非常好用是必须要肯定的，但是就是建立索引非常慢，其实这个插件就是模拟了一个 jboss solr，那为什么不直接用这个 java 的 solr 呢？公司其他部门已经搭建完成了一个 solr 搜索引擎了，所以我只要远程调用搜索就 ok。</p>
 </blockquote>
 
-<h3>2.增加 sunspot gem 包</h3>
+<h3 id="jboss-solr-httpwwwjbossorg">1.部署一个 jboss solr 环境，<a href="http://www.jboss.org/">网址</a>。</h3>
+<blockquote>
+  <p>这里就不详细介绍了。</p>
+</blockquote>
+
+<h3 id="sunspot-gem-">2.增加 sunspot gem 包</h3>
 
 <div class="highlight"><pre><code class="ruby"><span class="n">gem</span> <span class="s1">&#39;sunspot_rails&#39;</span>
 <span class="n">gem</span> <span class="s1">&#39;sunspot&#39;</span>
@@ -65,7 +70,7 @@
 <p>Generate a default configuration file:
     rails generate sunspot_rails:install</p>
 
-<h3>3.增加 searchable block 到你希望索引的 model 里面。</h3>
+<h3 id="searchable-block--model-">3.增加 searchable block 到你希望索引的 model 里面。</h3>
 
 <div class="highlight"><pre><code class="ruby"><span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
   <span class="n">searchable</span> <span class="k">do</span>
@@ -78,7 +83,7 @@
 <span class="k">end</span>
 </code></pre></div>
 
-<h3>4.配置 solr 的 data-config.xml 文件</h3>
+<h3 id="solr--data-configxml-">4.配置 solr 的 data-config.xml 文件</h3>
 
 <div class="highlight"><pre><code class="xml"><span class="nt">&lt;dataConfig&gt;</span> 
   <span class="nt">&lt;dataSource</span> <span class="na">driver=</span><span class="s">&quot;org.postgresql.Driver&quot;</span>  <span class="na">url=</span><span class="s">&quot;jdbc:postgresql://192.168.5.13/cbb_development:5432&quot;</span>  <span class="na">user=</span><span class="s">&quot;cbb&quot;</span> <span class="na">password=</span><span class="s">&quot;bbc&quot;</span> <span class="na">transactionIsolation=</span><span class="s">&quot;TRANSACTION_READ_COMMITTED&quot;</span> <span class="na">holdability=</span><span class="s">&quot;CLOSE_CURSORS_AT_COMMIT&quot;</span><span class="nt">/&gt;</span> 
@@ -102,18 +107,26 @@
 </code></pre></div>
 
 <blockquote>
-<p>简单介绍下这里面的配置:</p>
-
-<p>dataSource 就是配置数据库，solr 可以查询到的数据源。</p>
-
-<p>document 一个 core 里面只能配置一个 document。</p>
-
-<p>entity 实体，对应的就是数据库的表或者视图，但是这里面有几个规则，首先就是数据库的 id 要重新加入 Model 名字在前面，和 id 一起变成 entity 的唯一标识。还要设置一个 type 用于区别不同的 Model，也就是区分 entity 用的。</p>
-
-<p>field 就是把数据库中的列对应的变成 solr 里面的 field 的概念，按照我的理解，field 其实也是列的意思。</p>
+  <p>简单介绍下这里面的配置:</p>
 </blockquote>
 
-<h3>5.配置 schema.xml 文件</h3>
+<blockquote>
+  <p>dataSource 就是配置数据库，solr 可以查询到的数据源。</p>
+</blockquote>
+
+<blockquote>
+  <p>document 一个 core 里面只能配置一个 document。</p>
+</blockquote>
+
+<blockquote>
+  <p>entity 实体，对应的就是数据库的表或者视图，但是这里面有几个规则，首先就是数据库的 id 要重新加入 Model 名字在前面，和 id 一起变成 entity 的唯一标识。还要设置一个 type 用于区别不同的 Model，也就是区分 entity 用的。</p>
+</blockquote>
+
+<blockquote>
+  <p>field 就是把数据库中的列对应的变成 solr 里面的 field 的概念，按照我的理解，field 其实也是列的意思。</p>
+</blockquote>
+
+<h3 id="schemaxml-">5.配置 schema.xml 文件</h3>
 
 <div class="highlight"><pre><code class="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 
@@ -257,15 +270,19 @@
 </code></pre></div>
 
 <blockquote>
-<p>fieldType 是用来定义 solr 里面的基本数据类型，这些基本数据类型有什么功能，比如是字符串，还是整型，还是 text 可以用来切词 等等</p>
+  <p>fieldType 是用来定义 solr 里面的基本数据类型，这些基本数据类型有什么功能，比如是字符串，还是整型，还是 text 可以用来切词 等等</p>
+</blockquote>
 
-<p>field 这里的 5 个 field 是 sunspot 用来区分不同 Model 的，而且是必要的。</p>
+<blockquote>
+  <p>field 这里的 5 个 field 是 sunspot 用来区分不同 Model 的，而且是必要的。</p>
+</blockquote>
 
-<p>dynamicField 这里的动态字段，是 sunspot 的规则进行查询的，在 data-config.xml 里面，所有从数据库里面到 solr 里面的 field 后面都加了一个后缀。比如一个字符串，并且 solr 存储它，那就写 column<em>ss 第一个 s 就是 string 的意思，第二个 s 是就是 stored 的意思。同理如果是 text 并且存储，就是 column</em>tests。
+<blockquote>
+  <p>dynamicField 这里的动态字段，是 sunspot 的规则进行查询的，在 data-config.xml 里面，所有从数据库里面到 solr 里面的 field 后面都加了一个后缀。比如一个字符串，并且 solr 存储它，那就写 column_ss 第一个 s 就是 string 的意思，第二个 s 是就是 stored 的意思。同理如果是 text 并且存储，就是 column_tests。
 这些都是 sunspot 自动生成的，不用多少改动。</p>
 </blockquote>
 
-<h3>6.搜索</h3>
+<h3 id="section">6.搜索</h3>
 
 <div class="highlight"><pre><code class="ruby"><span class="n">result</span> <span class="o">=</span> <span class="no">Sunspot</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="no">Model</span><span class="p">)</span> <span class="k">do</span>
   <span class="n">fulltext</span> <span class="s1">&#39;best pizza&#39;</span>
@@ -276,10 +293,15 @@
 </code></pre></div>
 
 <blockquote>
-<p>具体实现去看 <a href="http://sunspot.github.com/">sunspot</a></p>
-
-<p>sunspot <a href="http://sunspot.github.com/docs/index.html">API</a></p>
+  <p>具体实现去看 <a href="http://sunspot.github.com/">sunspot</a></p>
 </blockquote>
+
+<blockquote>
+  <p>sunspot <a href="http://sunspot.github.com/docs/index.html">API</a></p>
+</blockquote>
+
+
+    <nav class="pagination-published">Published by John — 19 Sep 2012</nav>
 
     <nav class="pagination-link">
         
@@ -290,10 +312,10 @@
         
      </nav>
      <div id="disqus_thread"></div>
-</article>  
+</article>
 
 <!-- disqus -->
-<div id="disqus_thread"></div>
+<!-- <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
@@ -306,7 +328,7 @@
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->
 <!-- end_disqus -->
         <footer id="foot">
             <p>&copy; 2014 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>
