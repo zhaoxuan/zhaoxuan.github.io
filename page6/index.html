@@ -44,6 +44,304 @@
         </header>
 		
 	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/09/25/new-super-laptop.html" title="超级本，累死我" rel="bookmark">超级本，累死我</a></h2>
+        <p class="time"><time pubdate="2012-09-25 16:16:00 +0800">25 Sep 2012</time></p>
+        
+        <blockquote>
+  <p>最近新买了一个超级本惠普的 ENVY4 外观感觉确实不错，也非常薄，性能也算满意，但是谁知道呢，AMD 的显卡让你痛苦死。</p>
+</blockquote>
+
+<blockquote>
+  <p>不得不说我是一个自虐狂，一个本来非常好的本本，我非要安装 linux 系统，为了证明什么？只能证明自己特立独行。想到了一本书–《一只特立独行的猪》。</p>
+</blockquote>
+
+<blockquote>
+  <p>首先要说的是 AMD 的显卡，非常蛋疼，linux 里面对这个支持非常不好，第二就是我的机器是双显卡的 linux 更加不靠谱。</p>
+</blockquote>
+
+<blockquote>
+  <p>在安装系统的时候，每次都出现一个 bug，加载内核，然后好好的，突然就黑了，没有任何提示信息。试过了 fedora ubuntu centos 都是一样的情况。实在是折腾了两天没招了，问了问亮哥，他给我了一个提示：你把 acpi 的内核参数禁止掉试试。</p>
+</blockquote>
+
+<blockquote>
+  <p>还是亮哥牛，果然，能进去安装了，但是发现最后我的4核 CPU 就只有一个核心可以使用。最后只能再次修改，ACPI 是一个非常重要电源管理，这个在台式机上面比较简单，但是笔记本和台式机最大的不同就是在电源管理。因为笔记本设计到节能的问题，所以笔记本的 ACPI 很可能和台式机不太一样。</p>
+</blockquote>
+
+<blockquote>
+  <p>上网找了不少这方面的东西，也算是入门了。但是这两天花费了不少时间呢，天天就在折腾我的笔记本，开机关机，重装。总算有点收获。</p>
+</blockquote>
+
+<blockquote>
+  <p>生命在于折腾，确实，一个全新的本本被我 GJ 了不知道多少下，这样的感觉，谁用谁知道。</p>
+</blockquote>
+
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://zhaoxuan.github.io/ruby/2012/09/19/sunspot-with-jboss-solr.html" title="sunspot 使用 jboss_solr 来代替 sunspot_solr 完成网站搜索" rel="bookmark">sunspot 使用 jboss_solr 来代替 sunspot_solr 完成网站搜索</a></h2>
+        <p class="time"><time pubdate="2012-09-19 20:16:00 +0800">19 Sep 2012</time></p>
+        
+        <h3 id="sunspot">sunspot</h3>
+<blockquote>
+  <p>使用 sunspot + sunspot_solr 非常简单方便的就能完成对网站的搜索，用起来非常简单，插件打包好了一切。让你看不到里面的实现。</p>
+</blockquote>
+
+<blockquote>
+  <p>sunspot_solr 非常好用是必须要肯定的，但是就是建立索引非常慢，其实这个插件就是模拟了一个 jboss solr，那为什么不直接用这个 java 的 solr 呢？公司其他部门已经搭建完成了一个 solr 搜索引擎了，所以我只要远程调用搜索就 ok。</p>
+</blockquote>
+
+<h3 id="jboss-solr-httpwwwjbossorg">1.部署一个 jboss solr 环境，<a href="http://www.jboss.org/">网址</a>。</h3>
+<blockquote>
+  <p>这里就不详细介绍了。</p>
+</blockquote>
+
+<h3 id="sunspot-gem-">2.增加 sunspot gem 包</h3>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">gem</span> <span class="s1">&#39;sunspot_rails&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;sunspot&#39;</span>
+</code></pre></div>
+
+<p>Bundle it!
+    bundle install</p>
+
+<p>Generate a default configuration file:
+    rails generate sunspot_rails:install</p>
+
+<h3 id="searchable-block--model-">3.增加 searchable block 到你希望索引的 model 里面。</h3>
+
+<div class="highlight"><pre><code class="ruby"><span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+  <span class="n">searchable</span> <span class="k">do</span>
+    <span class="n">text</span> <span class="ss">:title</span>
+    <span class="nb">test</span><span class="ss">:body</span>
+    <span class="n">integer</span> <span class="ss">:author_id</span>
+    <span class="n">integer</span> <span class="ss">:category_ids</span><span class="p">,</span> <span class="ss">:multiple</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+    <span class="n">time</span> <span class="ss">:published_at</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<h3 id="solr--data-configxml-">4.配置 solr 的 data-config.xml 文件</h3>
+
+<div class="highlight"><pre><code class="xml"><span class="nt">&lt;dataConfig&gt;</span> 
+  <span class="nt">&lt;dataSource</span> <span class="na">driver=</span><span class="s">&quot;org.postgresql.Driver&quot;</span>  <span class="na">url=</span><span class="s">&quot;jdbc:postgresql://192.168.5.13/cbb_development:5432&quot;</span>  <span class="na">user=</span><span class="s">&quot;cbb&quot;</span> <span class="na">password=</span><span class="s">&quot;bbc&quot;</span> <span class="na">transactionIsolation=</span><span class="s">&quot;TRANSACTION_READ_COMMITTED&quot;</span> <span class="na">holdability=</span><span class="s">&quot;CLOSE_CURSORS_AT_COMMIT&quot;</span><span class="nt">/&gt;</span> 
+
+  <span class="nt">&lt;document&gt;</span>
+    <span class="nt">&lt;entity</span> <span class="na">name=</span><span class="s">&quot;posts&quot;</span> <span class="na">pk=</span><span class="s">&#39;id&#39;</span>
+            <span class="na">transformer=</span><span class="s">&quot;RegexTransformer&quot;</span>
+            <span class="na">query=</span><span class="s">&quot;select &#39;Product&#39;||&#39; &#39;||id as class_id, &#39;Product&#39; as class_name,  name,language,platform,description,author,developer,add_cbb_time,maintainer from posts&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;field</span> <span class="na">column=</span><span class="s">&#39;class_id&#39;</span> <span class="na">name=</span><span class="s">&#39;id&#39;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;field</span> <span class="na">column=</span><span class="s">&#39;class_name&#39;</span> <span class="na">name=</span><span class="s">&#39;type&#39;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;field</span> <span class="na">column=</span><span class="s">&#39;name&#39;</span> <span class="na">name=</span><span class="s">&#39;name_ss&#39;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;field</span> <span class="na">column=</span><span class="s">&#39;language&#39;</span> <span class="na">name=</span><span class="s">&#39;language_ss&#39;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;field</span> <span class="na">column=</span><span class="s">&#39;platform&#39;</span> <span class="na">name=</span><span class="s">&#39;platform_ss&#39;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;field</span> <span class="na">column=</span><span class="s">&#39;author&#39;</span> <span class="na">name=</span><span class="s">&#39;author_ss&#39;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;field</span> <span class="na">column=</span><span class="s">&#39;developer&#39;</span> <span class="na">name=</span><span class="s">&#39;developer_ss&#39;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;field</span> <span class="na">column=</span><span class="s">&#39;maintainer&#39;</span> <span class="na">name=</span><span class="s">&#39;maintainer&#39;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/entity&gt;</span>
+
+  <span class="nt">&lt;/document&gt;</span>
+<span class="nt">&lt;/dataConfig&gt;</span> 
+</code></pre></div>
+
+<blockquote>
+  <p>简单介绍下这里面的配置:</p>
+</blockquote>
+
+<blockquote>
+  <p>dataSource 就是配置数据库，solr 可以查询到的数据源。</p>
+</blockquote>
+
+<blockquote>
+  <p>document 一个 core 里面只能配置一个 document。</p>
+</blockquote>
+
+<blockquote>
+  <p>entity 实体，对应的就是数据库的表或者视图，但是这里面有几个规则，首先就是数据库的 id 要重新加入 Model 名字在前面，和 id 一起变成 entity 的唯一标识。还要设置一个 type 用于区别不同的 Model，也就是区分 entity 用的。</p>
+</blockquote>
+
+<blockquote>
+  <p>field 就是把数据库中的列对应的变成 solr 里面的 field 的概念，按照我的理解，field 其实也是列的意思。</p>
+</blockquote>
+
+<h3 id="schemaxml-">5.配置 schema.xml 文件</h3>
+
+<div class="highlight"><pre><code class="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+
+<span class="nt">&lt;schema</span> <span class="na">name=</span><span class="s">&quot;sunspot&quot;</span> <span class="na">version=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;types&gt;</span>
+    <span class="c">&lt;!-- field type definitions. The &quot;name&quot; attribute is</span>
+<span class="c">       just a label to be used by field definitions.  The &quot;class&quot;</span>
+<span class="c">       attribute and any other attributes determine the real</span>
+<span class="c">       behavior of the fieldType.</span>
+<span class="c">         Class names starting with &quot;solr&quot; refer to java classes in the</span>
+<span class="c">       org.apache.solr.analysis package.</span>
+<span class="c">    --&gt;</span>
+    <span class="c">&lt;!-- *** This fieldType is used by Sunspot! *** --&gt;</span>
+    <span class="nt">&lt;fieldType</span> <span class="na">name=</span><span class="s">&quot;string&quot;</span> <span class="na">class=</span><span class="s">&quot;solr.StrField&quot;</span> <span class="na">omitNorms=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;fieldType</span> <span class="na">name=</span><span class="s">&quot;tdouble&quot;</span> <span class="na">class=</span><span class="s">&quot;solr.TrieDoubleField&quot;</span> <span class="na">omitNorms=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;fieldType</span> <span class="na">name=</span><span class="s">&quot;rand&quot;</span> <span class="na">class=</span><span class="s">&quot;solr.RandomSortField&quot;</span> <span class="na">omitNorms=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;fieldType</span> <span class="na">name=</span><span class="s">&quot;text&quot;</span> <span class="na">class=</span><span class="s">&quot;solr.TextField&quot;</span> <span class="na">omitNorms=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;analyzer</span> <span class="na">type=</span><span class="s">&#39;index&#39;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;filter</span> <span class="na">class=</span><span class="s">&quot;solr.SynonymFilterFactory&quot;</span> <span class="na">synonyms=</span><span class="s">&quot;synonyms.txt&quot;</span> <span class="na">ignoreCase=</span><span class="s">&quot;true&quot;</span> <span class="na">expand=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;tokenizer</span> <span class="na">class=</span><span class="s">&quot;org.wltea.analyzer.solr.IKTokenizerFactory&quot;</span> <span class="na">isMaxWordLength=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;filter</span> <span class="na">class=</span><span class="s">&quot;solr.LowerCaseFilterFactory&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/analyzer&gt;</span>
+      <span class="nt">&lt;analyzer</span> <span class="na">type=</span><span class="s">&#39;query&#39;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;filter</span> <span class="na">class=</span><span class="s">&quot;solr.SynonymFilterFactory&quot;</span> <span class="na">synonyms=</span><span class="s">&quot;synonyms.txt&quot;</span> <span class="na">ignoreCase=</span><span class="s">&quot;true&quot;</span> <span class="na">expand=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;tokenizer</span> <span class="na">class=</span><span class="s">&quot;org.wltea.analyzer.solr.IKTokenizerFactory&quot;</span> <span class="na">isMaxWordLength=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;filter</span> <span class="na">class=</span><span class="s">&quot;solr.LowerCaseFilterFactory&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/analyzer&gt;</span>
+    <span class="nt">&lt;/fieldType&gt;</span>
+    <span class="nt">&lt;fieldType</span> <span class="na">name=</span><span class="s">&quot;boolean&quot;</span> <span class="na">class=</span><span class="s">&quot;solr.BoolField&quot;</span> <span class="na">omitNorms=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;fieldType</span> <span class="na">name=</span><span class="s">&quot;date&quot;</span> <span class="na">class=</span><span class="s">&quot;solr.DateField&quot;</span> <span class="na">omitNorms=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;fieldType</span> <span class="na">name=</span><span class="s">&quot;sdouble&quot;</span> <span class="na">class=</span><span class="s">&quot;solr.SortableDoubleField&quot;</span> <span class="na">omitNorms=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;fieldType</span> <span class="na">name=</span><span class="s">&quot;sint&quot;</span> <span class="na">class=</span><span class="s">&quot;solr.SortableIntField&quot;</span> <span class="na">omitNorms=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;fieldType</span> <span class="na">name=</span><span class="s">&quot;slong&quot;</span> <span class="na">class=</span><span class="s">&quot;solr.SortableLongField&quot;</span> <span class="na">omitNorms=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;fieldType</span> <span class="na">name=</span><span class="s">&quot;tint&quot;</span> <span class="na">class=</span><span class="s">&quot;solr.TrieIntField&quot;</span> <span class="na">omitNorms=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;fieldType</span> <span class="na">name=</span><span class="s">&quot;tfloat&quot;</span> <span class="na">class=</span><span class="s">&quot;solr.TrieFloatField&quot;</span> <span class="na">omitNorms=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;fieldType</span> <span class="na">name=</span><span class="s">&quot;tdate&quot;</span> <span class="na">class=</span><span class="s">&quot;solr.TrieDateField&quot;</span> <span class="na">omitNorms=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/types&gt;</span>
+
+  <span class="nt">&lt;fields&gt;</span>
+    <span class="c">&lt;!-- Valid attributes for fields:</span>
+<span class="c">     name: mandatory - the name for the field</span>
+<span class="c">     type: mandatory - the name of a previously defined type from the </span>
+<span class="c">       &lt;types&gt; section</span>
+<span class="c">     indexed: true if this field should be indexed (searchable or sortable)</span>
+<span class="c">     stored: true if this field should be retrievable</span>
+<span class="c">     compressed: [false] if this field should be stored using gzip compression</span>
+<span class="c">       (this will only apply if the field type is compressable; among</span>
+<span class="c">       the standard field types, only TextField and StrField are)</span>
+<span class="c">     multiValued: true if this field may contain multiple values per document</span>
+<span class="c">     omitNorms: (expert) set to true to omit the norms associated with</span>
+<span class="c">       this field (this disables length normalization and index-time</span>
+<span class="c">       boosting for the field, and saves some memory).  Only full-text</span>
+<span class="c">       fields or fields that need an index-time boost need norms.</span>
+<span class="c">     termVectors: [false] set to true to store the term vector for a</span>
+<span class="c">       given field.</span>
+<span class="c">       When using MoreLikeThis, fields used for similarity should be</span>
+<span class="c">       stored for best performance.</span>
+<span class="c">     termPositions: Store position information with the term vector.  </span>
+<span class="c">       This will increase storage costs.</span>
+<span class="c">     termOffsets: Store offset information with the term vector. This </span>
+<span class="c">       will increase storage costs.</span>
+<span class="c">     default: a value that should be used if no value is specified</span>
+<span class="c">       when adding a document.</span>
+<span class="c">   --&gt;</span>
+    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&quot;text&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&quot;id&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+ 
+    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&quot;type&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&quot;class_name&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&quot;lat&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;tdouble&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&quot;lng&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;tdouble&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+
+    <span class="c">&lt;!-- *** This dynamicField is used by Sunspot! *** --&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;random_*&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;rand&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;_local*&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;tdouble&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_text&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_texts&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_b&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;boolean&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_bm&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;boolean&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_bs&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;boolean&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_bms&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;boolean&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_d&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;date&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_dm&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;date&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_ds&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;date&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_dms&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;date&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_e&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;sdouble&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_em&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;sdouble&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_es&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;sdouble&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_ems&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;sdouble&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_f&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;sfloat&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_fm&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;sfloat&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_fs&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;sfloat&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_fms&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;sfloat&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_i&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;sint&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_im&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;sint&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_is&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;sint&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_ims&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;sint&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_l&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;slong&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_lm&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;slong&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_ls&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;slong&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_lms&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;slong&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_s&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_sm&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_ss&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_sms&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_it&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;tint&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_itm&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;tint&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_its&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;tint&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_itms&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;tint&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_ft&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;tfloat&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_ftm&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;tfloat&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_fts&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;tfloat&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_ftms&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;tfloat&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_dt&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;tdate&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_dtm&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">type=</span><span class="s">&quot;tdate&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_dts&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;tdate&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_dtms&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;tdate&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_textv&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">termVectors=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_textsv&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">termVectors=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_et&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">termVectors=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;tdouble&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_etm&quot;</span> <span class="na">stored=</span><span class="s">&quot;false&quot;</span> <span class="na">termVectors=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;tdouble&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_ets&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">termVectors=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;tdouble&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;false&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;dynamicField</span> <span class="na">name=</span><span class="s">&quot;*_etms&quot;</span> <span class="na">stored=</span><span class="s">&quot;true&quot;</span> <span class="na">termVectors=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;tdouble&quot;</span> <span class="na">multiValued=</span><span class="s">&quot;true&quot;</span> <span class="na">indexed=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/fields&gt;</span>
+  <span class="c">&lt;!-- Field to use to determine and enforce document uniqueness. </span>
+<span class="c">      Unless this field is marked with required=&quot;false&quot;, it will be a required field</span>
+<span class="c">   --&gt;</span>
+  <span class="nt">&lt;uniqueKey&gt;</span>id<span class="nt">&lt;/uniqueKey&gt;</span>
+  <span class="c">&lt;!-- field for the QueryParser to use when an explicit fieldname is absent --&gt;</span>
+  <span class="nt">&lt;defaultSearchField&gt;</span>text<span class="nt">&lt;/defaultSearchField&gt;</span>
+  <span class="c">&lt;!-- SolrQueryParser configuration: defaultOperator=&quot;AND|OR&quot; --&gt;</span>
+  <span class="nt">&lt;solrQueryParser</span> <span class="na">defaultOperator=</span><span class="s">&quot;AND&quot;</span><span class="nt">/&gt;</span>
+  <span class="c">&lt;!-- copyField commands copy one field to another at the time a document</span>
+<span class="c">        is added to the index.  It&#39;s used either to index the same field differently,</span>
+<span class="c">        or to add multiple fields to the same field for easier/faster searching.  --&gt;</span>
+<span class="nt">&lt;/schema&gt;</span>
+</code></pre></div>
+
+<blockquote>
+  <p>fieldType 是用来定义 solr 里面的基本数据类型，这些基本数据类型有什么功能，比如是字符串，还是整型，还是 text 可以用来切词 等等</p>
+</blockquote>
+
+<blockquote>
+  <p>field 这里的 5 个 field 是 sunspot 用来区分不同 Model 的，而且是必要的。</p>
+</blockquote>
+
+<blockquote>
+  <p>dynamicField 这里的动态字段，是 sunspot 的规则进行查询的，在 data-config.xml 里面，所有从数据库里面到 solr 里面的 field 后面都加了一个后缀。比如一个字符串，并且 solr 存储它，那就写 column_ss 第一个 s 就是 string 的意思，第二个 s 是就是 stored 的意思。同理如果是 text 并且存储，就是 column_tests。
+这些都是 sunspot 自动生成的，不用多少改动。</p>
+</blockquote>
+
+<h3 id="section">6.搜索</h3>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">result</span> <span class="o">=</span> <span class="no">Sunspot</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="no">Model</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">fulltext</span> <span class="s1">&#39;best pizza&#39;</span>
+  <span class="n">with</span> <span class="ss">:blog_id</span><span class="p">,</span> <span class="mi">1</span>
+  <span class="n">order_by</span> <span class="ss">:created_at</span><span class="p">,</span> <span class="ss">:desc</span>
+  <span class="n">paginate</span> <span class="ss">:page</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">:per_page</span> <span class="o">=&gt;</span> <span class="mi">15</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<blockquote>
+  <p>具体实现去看 <a href="http://sunspot.github.com/">sunspot</a></p>
+</blockquote>
+
+<blockquote>
+  <p>sunspot <a href="http://sunspot.github.com/docs/index.html">API</a></p>
+</blockquote>
+
+        
+    </article>
+
+	<article class="post fn-clear">
         <h2 class="post-title"><a href="http://zhaoxuan.github.io/ruby/2012/09/19/drb-distributed.html" title="转自 windy 分布式 DRb 的简介" rel="bookmark">转自 windy 分布式 DRb 的简介</a></h2>
         <p class="time"><time pubdate="2012-09-19 19:31:00 +0800">19 Sep 2012</time></p>
         
@@ -570,156 +868,6 @@
 <p>但是有时候事情非常简单，只要一个我想做下去的理由，我们就能非常简单的完成任务，但是就是这样的情况下，我们也会懒惰。</p>
 
 <p>所以有时候，我们不需要太多的理由，简单点，只需两个步骤，想–&gt;做，就能很漂亮的完成。</p>
-
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://zhaoxuan.github.io/ruby/2012/08/23/rubystring2class.html" title="转 ruby  从一个字符串创建一个对象" rel="bookmark">转 ruby  从一个字符串创建一个对象</a></h2>
-        <p class="time"><time pubdate="2012-08-23 19:05:00 +0800">23 Aug 2012</time></p>
-        
-        <p>在 ruby 中，根据一个类名创建一个实例</p>
-
-<p>在Ruby On Rails中文社区的的Ruby版上，karl问了一个有趣的问题，如何根据类名生成一个类的实例。
-<a href="http://www.railscn.com/about2289.html">链接</a>：</p>
-
-<p>下面是一个Java语言的实现：</p>
-
-<div class="highlight"><pre><code class="java">    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Object</span> <span class="nf">createObject</span><span class="o">(</span><span class="n">String</span> <span class="n">className</span><span class="o">)</span> 
-        <span class="kd">throws</span> <span class="n">ClassNotFoundException</span><span class="o">,</span> <span class="n">InstantiationException</span><span class="o">,</span> <span class="n">IllegalAccessException</span> <span class="o">{</span>
-        <span class="n">Class</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">className</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">clazz</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
-    <span class="o">}</span>
-</code></pre></div>
-
-<p>在Ruby中怎么做呢？karl自己给出了第一种做法：</p>
-
-<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;String&#39;</span>
-<span class="nb">eval</span> <span class="s2">&quot;obj=</span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
-</code></pre></div>
-
-<p>这里利用了Ruby的动态语言的特性，在代码中执行代码。不过，照着尝试了一下，我有了一个疑问，如何使用生成的对象，也就是，我们如何利用这里的obj呢？</p>
-
-<p>按照karl提供的方式，编写出这样的代码：</p>
-
-<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;String&#39;</span>
-<span class="nb">eval</span> <span class="s2">&quot;obj = </span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
-<span class="nb">p</span> <span class="n">obj</span>
-</code></pre></div>
-
-<p>这里故意使用了p方法，因为对于一个空串，它可以打出”“，而不是无声无息，便于查看。</p>
-
-<p>这样的代码是无法运行的，异常如下：</p>
-
-<div class="highlight"><pre><code class="ruby"><span class="n">undefined</span> <span class="n">local</span> <span class="n">variable</span> <span class="ow">or</span> <span class="nb">method</span> <span class="sb">`obj&#39; for main:Object (NameError)</span>
-</code></pre></div>
-
-<p>然而，这段代码在irb中执行没有问题，这是irb和Ruby不兼容的一个地方。在《Programming Ruby》第二版中的第15章，谈及irb限制的时候，提到了这一点。</p>
-
-<p>eval执行会有一个值，也就是它最后执行的语句的值，对应到这里就是obj的值。根据这个特性，改写得到了第二种做法，代码如下：</p>
-
-<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Array&#39;</span>
-<span class="n">obj</span> <span class="o">=</span> <span class="nb">eval</span> <span class="s2">&quot;obj = </span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
-<span class="nb">p</span> <span class="n">obj</span>
-</code></pre></div>
-
-<p>显然eval里的obj没有发挥什么作用，再修改一下：</p>
-
-<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Array&#39;</span>
-<span class="n">obj</span> <span class="o">=</span> <span class="nb">eval</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
-<span class="nb">p</span> <span class="n">obj</span>
-</code></pre></div>
-
-<p>这样，我们就根据字符串创建出一个可用的对象。事实上，第一种方式也是可用的，不过，要obj在前面已经存在，只不过要稍做修改：</p>
-
-<div class="highlight"><pre><code class="ruby"><span class="n">obj</span> <span class="o">=</span> <span class="kp">nil</span>
-<span class="nb">eval</span> <span class="s2">&quot;obj = String.new&quot;</span>
-<span class="nb">p</span> <span class="n">obj</span>
-</code></pre></div>
-
-<p>qiezi的回帖给出了一个我认为最漂亮的一种做法：</p>
-
-<div class="highlight"><pre><code class="ruby"><span class="n">obj</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">.</span><span class="n">new</span>
-</code></pre></div>
-
-<p>同样是利用eval，不同的是，这里是直接执行类名，结果是得到一个类对象。调用类的new方法就创建实例。这段代码看上去类似于一个普通的函数调用，很简洁。</p>
-
-<p>对应到前面的Java函数，Ruby的实现就可以这样写：</p>
-
-<div class="highlight"><pre><code class="ruby"><span class="k">def</span> <span class="nf">create_obj</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span>
-    <span class="nb">eval</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span><span class="o">.</span><span class="n">new</span>
-<span class="k">end</span>
-</code></pre></div>
-
-<p>UPDATE</p>
-
-<p>故事有了新的进展，njmzhang提供了另外的方法，按照他的说法，这几乎是一种标准用法：</p>
-
-<div class="highlight"><pre><code class="ruby"><span class="n">c</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">const_get</span><span class="p">(</span><span class="s2">&quot;Array&quot;</span><span class="p">)</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">new</span>
-</code></pre></div>
-
-<p>这里利用到了一个事实，所有的类对象在Ruby中都是一个常量，所以，可以根据它的名字把这个常量提取出来。</p>
-
-<p>除此之外，njmzhang还给出了另一种利用扩展实现的方法：</p>
-
-<div class="highlight"><pre><code class="ruby"><span class="n">c</span> <span class="o">=</span> <span class="no">Class</span><span class="o">.</span><span class="n">by_name</span><span class="p">(</span><span class="s2">&quot;Array&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<p>这里用到的<a href="http://extensions.rubyforge.org/">扩展</a>在从方法的命名上来说，它比上一种方法更恰当一些。算上这两种实现，我最喜欢的仍然是qiezi给出的那种方法。</p>
-
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/08/23/qixijiyu.html" title="花落有声，七夕寄语" rel="bookmark">花落有声，七夕寄语</a></h2>
-        <p class="time"><time pubdate="2012-08-23 18:30:00 +0800">23 Aug 2012</time></p>
-        
-        <p>无数次沦落在繁华的街头</p>
-
-<p>马蹄和鲜花多如人流</p>
-
-<p>孤独是一个神奇的暗号</p>
-
-<p>相遇的人都心照不宣</p>
-
-<p>没有谁蓦然回首.</p>
-
-<p>有时候想摆脱下一个街口</p>
-
-<p>可是想了想还是继续走</p>
-
-<p>在人群中逆流能得到什么</p>
-
-<p>也许只是一次无知的执拗.</p>
-
-<p>爱你的人依偎在身旁</p>
-
-<p>多给他讲讲失去和拥有</p>
-
-<p>陪他听听花开与花落</p>
-
-<p>让所有平凡自私的人们</p>
-
-<p>结束失眠抱怨无知和争斗.</p>
-
-<p>上帝是块公平的木头</p>
-
-<p>斧子锯子却紧握你手</p>
-
-<p>如果有一天你决定离开所有的人们</p>
-
-<p>我会和你争论不休</p>
-
-<p>如果有一天你决定爱上所有的人们</p>
-
-<p>我依然和你争论不休.</p>
-
-<p>别再在时间里寻找尽头</p>
-
-<p>你该知道没有时间才会有尽头</p>
-
-<p><img src="/images/qixijiy.jpg" alt="Alt text" /></p>
 
         
     </article>

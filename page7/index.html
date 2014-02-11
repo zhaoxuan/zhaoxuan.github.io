@@ -44,6 +44,156 @@
         </header>
 		
 	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://zhaoxuan.github.io/ruby/2012/08/23/rubystring2class.html" title="转 ruby  从一个字符串创建一个对象" rel="bookmark">转 ruby  从一个字符串创建一个对象</a></h2>
+        <p class="time"><time pubdate="2012-08-23 19:05:00 +0800">23 Aug 2012</time></p>
+        
+        <p>在 ruby 中，根据一个类名创建一个实例</p>
+
+<p>在Ruby On Rails中文社区的的Ruby版上，karl问了一个有趣的问题，如何根据类名生成一个类的实例。
+<a href="http://www.railscn.com/about2289.html">链接</a>：</p>
+
+<p>下面是一个Java语言的实现：</p>
+
+<div class="highlight"><pre><code class="java">    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Object</span> <span class="nf">createObject</span><span class="o">(</span><span class="n">String</span> <span class="n">className</span><span class="o">)</span> 
+        <span class="kd">throws</span> <span class="n">ClassNotFoundException</span><span class="o">,</span> <span class="n">InstantiationException</span><span class="o">,</span> <span class="n">IllegalAccessException</span> <span class="o">{</span>
+        <span class="n">Class</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">className</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">clazz</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
+    <span class="o">}</span>
+</code></pre></div>
+
+<p>在Ruby中怎么做呢？karl自己给出了第一种做法：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;String&#39;</span>
+<span class="nb">eval</span> <span class="s2">&quot;obj=</span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
+</code></pre></div>
+
+<p>这里利用了Ruby的动态语言的特性，在代码中执行代码。不过，照着尝试了一下，我有了一个疑问，如何使用生成的对象，也就是，我们如何利用这里的obj呢？</p>
+
+<p>按照karl提供的方式，编写出这样的代码：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;String&#39;</span>
+<span class="nb">eval</span> <span class="s2">&quot;obj = </span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
+<span class="nb">p</span> <span class="n">obj</span>
+</code></pre></div>
+
+<p>这里故意使用了p方法，因为对于一个空串，它可以打出”“，而不是无声无息，便于查看。</p>
+
+<p>这样的代码是无法运行的，异常如下：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">undefined</span> <span class="n">local</span> <span class="n">variable</span> <span class="ow">or</span> <span class="nb">method</span> <span class="sb">`obj&#39; for main:Object (NameError)</span>
+</code></pre></div>
+
+<p>然而，这段代码在irb中执行没有问题，这是irb和Ruby不兼容的一个地方。在《Programming Ruby》第二版中的第15章，谈及irb限制的时候，提到了这一点。</p>
+
+<p>eval执行会有一个值，也就是它最后执行的语句的值，对应到这里就是obj的值。根据这个特性，改写得到了第二种做法，代码如下：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Array&#39;</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="nb">eval</span> <span class="s2">&quot;obj = </span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
+<span class="nb">p</span> <span class="n">obj</span>
+</code></pre></div>
+
+<p>显然eval里的obj没有发挥什么作用，再修改一下：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Array&#39;</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="nb">eval</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
+<span class="nb">p</span> <span class="n">obj</span>
+</code></pre></div>
+
+<p>这样，我们就根据字符串创建出一个可用的对象。事实上，第一种方式也是可用的，不过，要obj在前面已经存在，只不过要稍做修改：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">obj</span> <span class="o">=</span> <span class="kp">nil</span>
+<span class="nb">eval</span> <span class="s2">&quot;obj = String.new&quot;</span>
+<span class="nb">p</span> <span class="n">obj</span>
+</code></pre></div>
+
+<p>qiezi的回帖给出了一个我认为最漂亮的一种做法：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">obj</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">.</span><span class="n">new</span>
+</code></pre></div>
+
+<p>同样是利用eval，不同的是，这里是直接执行类名，结果是得到一个类对象。调用类的new方法就创建实例。这段代码看上去类似于一个普通的函数调用，很简洁。</p>
+
+<p>对应到前面的Java函数，Ruby的实现就可以这样写：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="k">def</span> <span class="nf">create_obj</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span>
+    <span class="nb">eval</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span><span class="o">.</span><span class="n">new</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p>UPDATE</p>
+
+<p>故事有了新的进展，njmzhang提供了另外的方法，按照他的说法，这几乎是一种标准用法：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">c</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">const_get</span><span class="p">(</span><span class="s2">&quot;Array&quot;</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">new</span>
+</code></pre></div>
+
+<p>这里利用到了一个事实，所有的类对象在Ruby中都是一个常量，所以，可以根据它的名字把这个常量提取出来。</p>
+
+<p>除此之外，njmzhang还给出了另一种利用扩展实现的方法：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">c</span> <span class="o">=</span> <span class="no">Class</span><span class="o">.</span><span class="n">by_name</span><span class="p">(</span><span class="s2">&quot;Array&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>这里用到的<a href="http://extensions.rubyforge.org/">扩展</a>在从方法的命名上来说，它比上一种方法更恰当一些。算上这两种实现，我最喜欢的仍然是qiezi给出的那种方法。</p>
+
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/08/23/qixijiyu.html" title="花落有声，七夕寄语" rel="bookmark">花落有声，七夕寄语</a></h2>
+        <p class="time"><time pubdate="2012-08-23 18:30:00 +0800">23 Aug 2012</time></p>
+        
+        <p>无数次沦落在繁华的街头</p>
+
+<p>马蹄和鲜花多如人流</p>
+
+<p>孤独是一个神奇的暗号</p>
+
+<p>相遇的人都心照不宣</p>
+
+<p>没有谁蓦然回首.</p>
+
+<p>有时候想摆脱下一个街口</p>
+
+<p>可是想了想还是继续走</p>
+
+<p>在人群中逆流能得到什么</p>
+
+<p>也许只是一次无知的执拗.</p>
+
+<p>爱你的人依偎在身旁</p>
+
+<p>多给他讲讲失去和拥有</p>
+
+<p>陪他听听花开与花落</p>
+
+<p>让所有平凡自私的人们</p>
+
+<p>结束失眠抱怨无知和争斗.</p>
+
+<p>上帝是块公平的木头</p>
+
+<p>斧子锯子却紧握你手</p>
+
+<p>如果有一天你决定离开所有的人们</p>
+
+<p>我会和你争论不休</p>
+
+<p>如果有一天你决定爱上所有的人们</p>
+
+<p>我依然和你争论不休.</p>
+
+<p>别再在时间里寻找尽头</p>
+
+<p>你该知道没有时间才会有尽头</p>
+
+<p><img src="/images/qixijiy.jpg" alt="Alt text" /></p>
+
+        
+    </article>
+
+	<article class="post fn-clear">
         <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/08/17/gcsfenxiang.html" title="GCS 分享" rel="bookmark">GCS 分享</a></h2>
         <p class="time"><time pubdate="2012-08-17 18:36:00 +0800">17 Aug 2012</time></p>
         
@@ -130,95 +280,6 @@
 <p>毕业三年了，看看走过的路，总觉的有点荒凉。确实真正明白了许多道理。感谢帮助过我的人，也感谢打击过我的人。也许一个人只有亲身经历了困难才可能真正成长起来，由此我不得不感叹造化的残酷。</p>
 
 <p>哎，又文艺了一把。</p>
-
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/08/02/exhausted-body.html" title="最近有点累" rel="bookmark">最近有点累</a></h2>
-        <p class="time"><time pubdate="2012-08-02 18:18:00 +0800">02 Aug 2012</time></p>
-        
-        <p>最近的感觉工作非常吃力啊，不知道为什么都不进行不下去了。</p>
-
-<p>最近要帮助 G+ 从新写服务器端的代码，但是感觉有点摸不到头脑，不知道从哪里开始，第一是代码不熟悉，都是用delphi写的。</p>
-
-<blockquote>
-  <p>再烦，也别忘微笑；再急，也要注意语气； </p>
-
-  <p>再苦，也别忘坚持；再累，也要爱自己。 </p>
-
-  <p>低调做人，你会一次比一次 稳健；高调做事，你会一次比一次优秀。 </p>
-
-  <p>成功的时候不要忘记过去；失败的时候不要忘记还有未来。 </p>
-
-  <p>有望得到的要努力，无望得到的不介意，则无论输赢姿态都会好看。</p>
-
-  <p>生活不是单行线，一条路走不通，你可以转弯。 </p>
-
-  <p>泪水和汗水的化学成分相似，但前者只能为你换来同情，后者却可以为你赢的成功。 </p>
-
-  <p>变老是人生的必修课，变成熟是选修课。 </p>
-
-  <p>以锻炼为本，学会健康；以修进为本，学会求知； </p>
-
-  <p>以进德为本，学会做人；以适应为本，学会生存。 </p>
-
-  <p>人生四项基本原则：懂得选择，学会放弃，耐得住寂寞，经得起诱惑。 </p>
-
-  <p>当所有人都低调的时候，你可以高调，但不能跑调。 </p>
-
-  <p>学会忘记是生活的技术，学会微笑是生活的艺术。   </p>
-
-  <p>什么是好工作：一不影响生活作息，二不影响家庭团聚，三能养家糊口。 </p>
-
-  <p>懒惰像生锈一样，比操劳更消耗身体。 </p>
-
-  <p>让梦想成真的最好办法就是醒来。</p>
-
-  <p>哲人无忧，智者常乐。并不是因为所爱的一切他都拥有了，而是所拥有的一切他都爱。</p>
-</blockquote>
-
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/08/01/sb-or-nb.html" title="傻逼一样的坚持，总会见到牛逼的结果" rel="bookmark">傻逼一样的坚持，总会见到牛逼的结果</a></h2>
-        <p class="time"><time pubdate="2012-08-01 12:14:00 +0800">01 Aug 2012</time></p>
-        
-        <p>如果一件事成功率是1%，那反复100次至少成功1次概率是多少？备选答案：10%，23%，38%，63%——正确答案是63%。计算方法： 成功率1%，失败率99%，尝试100次，全部失败概率为99%的100次方约37%，至少成功一次即63%。看似不可能的事在反复尝试中成功率会不断提高——傻逼一样坚持，总会看见牛逼的结果。</p>
-
-<p>这是今天同事在RTX群里分享的每日一则，咋看之下，觉得没什么问题。因为单单从数学概率角度去计算，上面问题的答案是完全正确。但考虑到实际的操作过程会存在一些干扰因素，可能会影响到每一次尝试的成功率，我们可以深层次的讨论。</p>
-
-<p>1、如果这件事情存在完全不可操控因素，即：这件事情尝试了一次或者多次，即便都失败了，所获取的经验并不能让你在下一次尝试过程中减少一些失败的可能。那么上述问题中的思路和答案都是正确的。但是结论的表达是有一些问题：因为事件本身的单次成功率是没有提高的，还是1%。所以，这个结论前半句并不可取。如果有人能把所有的错误尝试一遍之后，对于当事人而言，下一次的尝试自然是成功。所以后半句倒是可取：傻逼一样坚持，总会看见牛逼的结果。</p>
-
-<p>2、现在考虑第二种假设，如果这件事情是一件固定的事务，不存在随机改变的因素。可以看做是在做一道有100个选项的选择题，那么每失败一次，下一次仍然失败的概率就会减少一些。如果对自己每一次的失败都做记录，那么最糟糕的情况是，前面99次每一次都选错了，那么最后一次必然是会正确的。其实这个 过程中，每一次失败之后的下一次选择的正确率也在提高，从第一次开始分别是：1/100，1/99，1/98… 这样的话，反复去重复100次，至少成功一次的概率就是100%。最糟糕的情况就是第100次的时候成功了。</p>
-
-<p>这种情况下，第n次仍然失败的概率是：</p>
-
-<pre><code>(99/100)(98/99)*…*(101-n+/102-n)*(100-n/101-n) =（100-n）/100
-</code></pre>
-
-<p>可以看出，随着n的增加，也就是尝试次数的增加，失败的概率会越来越小。直到第一百次失败的概率减小为0。</p>
-
-<p>这种情况，完全可以得到上述结论：看似不可能的事在反复尝试中成功率会不断提高——傻逼一样坚持，总会看见牛逼的结果。</p>
-
-<p>3、另外一种情况，也是现实生活最常见的情况。</p>
-
-<p>如果这件事情是存在一些不可控因素，但并不是完全无规律可循。比如创业，或者远距离的投篮。不同的人在失败的过程中所获取的信息是不同的，多数人而言，每一次尝试，如果没成功，也可以获知到对成功存在障碍的因素，下一次尝试的时候，尽量避免在同一个地方跌倒，哪怕是换一个地方跌倒。</p>
-
-<p>这个概率是无法用具体的数字来度量，但是显然，在我们每个人身边，我们可以看到，几乎所有人都会有一两个比较擅长的领域，还有些人是解决问题的高 手，总是很容易成功。因为我们生活中遇到的问题往往并不是完全随机。很多事情，比如投篮命中率，比如限时回答问题，通过不断地练习，更好的掌握力度，方向，弧度等技巧，这个不断练习，不断尝试的过程中无疑是提高了单次尝试的成功率。 同样，一个人在一个领域有一定经验之后，换一个领域也会比较容易成功。因为问题多半会有相通的部分，掌握了学习的能力和解决问题的能力，即便在不同的领域也一样。</p>
-
-<p>同时，即便是同一件事情，不同人的表现是不一样的。在失败的过程中，有些人自信心受到打击，选择放弃，下一次如果不得不去做这件事情的时候，反而有了阴影，克服不了自己的障碍，成功率反而会更低。另外一部分人，越挫越勇并且善于总结失败的教训、分析事情之间的关联，那么这些人做事的成功率无疑是会越来越高的。</p>
-
-<p>看似不可能的事在反复尝试中成功率会不断提高——傻逼一样坚持，总会看见牛逼的结果。 这种情况是很容易得出这个结论的。</p>
-
-<p>4.但上面三种情况并不能足以证明“傻逼一样坚持，总会看见牛逼的结果”这一个结论，因为还存在一个问题。</p>
-
-<p>反复做一件事的问题中的前提条件是：看似不可能的事件。这种事件可以分为两种的：小概率事件和不可能事件。上面三种情况分析的都是小概率事件。对于后者——不可能事件，反复尝试的结果是徒劳的。虽然都是傻逼一样的坚持，但是有些人最后牛逼了，有些人傻逼了。所以，在这个过程中，如何判断一件事情是小 概率事件还是不可能事件，就很重要。</p>
-
-<p>爱因斯坦说：疯狂就是重复做一件事，但期待不同的结果。</p>
-
-<p>所以有些人疯狂之后成功了，有些人就真的疯了。个中缘由，见仁见智吧。</p>
 
         
     </article>
