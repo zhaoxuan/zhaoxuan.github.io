@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>信息增益(information gain) | The Simple</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="John" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://zhaoxuan.github.io/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://zhaoxuan.github.io/css/syntax.css" type="text/css" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://zhaoxuan.github.io/favicon.ico" type="image/x-icon" />
+    <!--[if lt IE 9]>
+    <script src="http://zhaoxuan.github.io/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <!-- <img src="http://mmistakes.github.io/minimal-mistakes/images/bio-photo.jpg" class="bio-photo" alt=" bio photo"> -->
+            <img src="http://zhaoxuan.github.io/images/head_portrait.png" class="bio-photo" alt=" bio photo">
+            <h2>Simple</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://zhaoxuan.github.io" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://zhaoxuan.github.io/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://zhaoxuan.github.io/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://twitter.com/363602094"><i class="icon-twitter"></i> Twitter</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <!-- <span>信息增益(information gain)</span> -->
+            <h1 class="post-title">信息增益(information gain)</h1>
+        </header>
+		<article class="post">
+    <!-- <h1 class="post-title">信息增益(information gain)</h1> -->
+    <h4 id="section">简介</h4>
+<p>百度百科上面的定义：在概率论和信息论中，信息增益是非对称的，用以度量两种概率分布P和Q的差异。信息增益描述了当使用Q进行编码时，再使用P进行编码的差异。通常P代表样本或观察值的分布，也有可能是精确计算的理论分布。Q代表一种理论，模型，描述或者对P的近似。</p>
+
+<p>读起来略微有点费解，其实我个人理解，信息增益，既然有增益，必然有要对比。</p>
+
+<p>首先要对信息进行量化，说到这个，就不得不提到我上大学非常崇拜的一个大神 “信息论之父” 香农，他提出了<a href="/algorithm/2012/12/07/information-theory.html" title="Title">信息熵</a>，实现了对信息的量化。</p>
+
+<script type="math/tex; mode=display">H=-\sum_{i} p_i \log p_i</script>
+
+<p>使用上面的公式，就能计算出信息熵。</p>
+
+<h4 id="section-1">举例说明：</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Outlook</th>
+      <th>Temperature</th>
+      <th>Humidity</th>
+      <th>Windy</th>
+      <th>Play?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>sunny</td>
+      <td>hot</td>
+      <td>high</td>
+      <td>false</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>sunny</td>
+      <td>hot</td>
+      <td>high</td>
+      <td>true</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>overcast</td>
+      <td>hot</td>
+      <td>high</td>
+      <td>false</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>rain</td>
+      <td>mild</td>
+      <td>high</td>
+      <td>false</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>rain</td>
+      <td>cool</td>
+      <td>normal</td>
+      <td>false</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>rain</td>
+      <td>cool</td>
+      <td>normal</td>
+      <td>true</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>overcast</td>
+      <td>cool</td>
+      <td>normal</td>
+      <td>true</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>sunny</td>
+      <td>mild</td>
+      <td>high</td>
+      <td>false</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>sunny</td>
+      <td>cool</td>
+      <td>normal</td>
+      <td>false</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>rain</td>
+      <td>mild</td>
+      <td>normal</td>
+      <td>false</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>sunny</td>
+      <td>mild</td>
+      <td>normal</td>
+      <td>true</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>overcast</td>
+      <td>mild</td>
+      <td>high</td>
+      <td>true</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>overcast</td>
+      <td>hot</td>
+      <td>normal</td>
+      <td>false</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>rain</td>
+      <td>mild</td>
+      <td>high</td>
+      <td>true</td>
+      <td>no</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>共14个实例，9个正例（yes），5个负例（no）。</p>
+
+<h4 id="section-2">信息熵</h4>
+
+<script type="math/tex; mode=display">-\sum _{i=0}{entropy([9,5])} = -\frac{9}{14}\log _{2}(\frac{9}{14})–\frac{5}{14}\log _{2}(\frac{5}{14})</script>
+
+<script type="math/tex; mode=display">0.410+0.530=0.940</script>
+
+<h4 id="information-gain">计算信息增益(Information Gain)</h4>
+
+<p>通过某一个属性(例如 Outlook)来划分数据后，数据变成三份</p>
+
+<script type="math/tex; mode=display">InfoEntropys(S_0, S_1 ... S_n)=-\sum _{i=0} ^{n} {entropy(S_i)}</script>
+
+<table>
+  <thead>
+    <tr>
+      <th>Outlook = sunny</th>
+      <th>Play?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>sunny</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>sunny</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>sunny</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>sunny</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>sunny</td>
+      <td>no</td>
+    </tr>
+  </tbody>
+</table>
+
+<script type="math/tex; mode=display">info\_entropy_{sunny}=-\sum _{outlook=sunny} {entropy([positive, negative])}</script>
+
+<script type="math/tex; mode=display">-\frac{2}{5}log_{2}(\frac{2}{5}) -\frac{3}{5}log_{2}(\frac{3}{5}) = 0.971</script>
+
+<table>
+  <thead>
+    <tr>
+      <th>Outlook = overcast</th>
+      <th>Play?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>overcast</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>overcast</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>overcast</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>overcast</td>
+      <td>yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<script type="math/tex; mode=display">info\_entropy_{overcast}=-\sum _{outlook=overcast} {entropy([positive, negative])}</script>
+
+<script type="math/tex; mode=display">-\frac{4}{4}log_{2}(\frac{4}{4}) -\frac{0}{4}log_{2}(\frac{0}{4}) = 0</script>
+
+<table>
+  <thead>
+    <tr>
+      <th>Outlook = rainy</th>
+      <th>Play?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>rainy</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>rainy</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>rainy</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>rainy</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>rainy</td>
+      <td>no</td>
+    </tr>
+  </tbody>
+</table>
+
+<script type="math/tex; mode=display">info\_entropy_{rainy}=-\sum _{outlook=rainy} {entropy([positive, negative])}</script>
+
+<script type="math/tex; mode=display">-\frac{3}{5}log _{2} (\frac{3}{5}) -\frac{2}{5} log_{2}(\frac{2}{5}) = 0.971</script>
+
+<script type="math/tex; mode=display">InfoEntrops = \frac{5}{14} * 0.971 + \frac{4}{14} * 0 + \frac{5}{14} * 0.971 = 0.694</script>
+
+<script type="math/tex; mode=display">Gain() = 0.940 - 0.694 = 0.246</script>
+
+<p>通过属性来划分数据，就能更加好的区别数据的不同。</p>
+
+<p>这样对于数据的预测就有了一点的偏差，这个偏差是让结果从 50% 逼近真实的结果，如果没有上面的数据，对于 Play? 随机估计的话，yes or no 各占一半，概率是 50%。如果有了这个我就能更加准确的估计 Play? 的值，并不是瞎猜的 50% 而是有一个偏差，这个偏差是 64.2% 虽然不能准确的估计这个值，但是能更加逼近这个值。</p>
+
+<p>继续下章 <a href="/machine_learning/2013/01/15/id3-algorithm.html">ID3</a></p>
+
+
+
+    <nav class="pagination-published">Published by John — 17 Nov 2012</nav>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://zhaoxuan.github.io/ruby/2012/10/31/ruby-mechanize.html" rel="bookmark">&laquo;&nbsp;使用 mechanize 模拟浏览器提交数据</a>
+        
+        
+        <a class="next" href="http://zhaoxuan.github.io/feeling/2012/11/22/a-month.html" rel="bookmark">一个月&nbsp;&raquo;</a>
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>
+
+<!-- disqus -->
+<!-- <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->
+<!-- end_disqus -->
+        <footer id="foot">
+            <p>&copy; 2014 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>
+        </footer>
+    </section>
+</div>
+<div id="foot-line"></div>
+<script src="http://zhaoxuan.github.io/js/jquery.js" type="text/javascript"></script>
+<script src="http://zhaoxuan.github.io/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://zhaoxuan.github.io/js/theOne.js" type="text/javascript"></script>
+
+</body>
+</html>

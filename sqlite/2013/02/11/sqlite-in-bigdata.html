@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Sqlite 也能大数据 | The Simple</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="John" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://zhaoxuan.github.io/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://zhaoxuan.github.io/css/syntax.css" type="text/css" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://zhaoxuan.github.io/favicon.ico" type="image/x-icon" />
+    <!--[if lt IE 9]>
+    <script src="http://zhaoxuan.github.io/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <!-- <img src="http://mmistakes.github.io/minimal-mistakes/images/bio-photo.jpg" class="bio-photo" alt=" bio photo"> -->
+            <img src="http://zhaoxuan.github.io/images/head_portrait.png" class="bio-photo" alt=" bio photo">
+            <h2>Simple</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://zhaoxuan.github.io" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://zhaoxuan.github.io/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://zhaoxuan.github.io/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://twitter.com/363602094"><i class="icon-twitter"></i> Twitter</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <!-- <span>Sqlite 也能大数据</span> -->
+            <h1 class="post-title">Sqlite 也能大数据</h1>
+        </header>
+		<article class="post">
+    <!-- <h1 class="post-title">Sqlite 也能大数据</h1> -->
+    <h3 id="section">简介</h3>
+
+<p>SQLite 是一个开源的嵌入式关系数据库，实现自包容、零配置、支持事务的SQL数据库引擎。 其特点是高度便携、使用方便、结构紧凑、高效、可靠。 与其他数据库管理系统不同，SQLite 的安装和运行非常简单，在大多数情况下 - 只要确保SQLite的二进制文件存在即可开始创建、连接和使用数据库。</p>
+
+<p>但是今天，我并不是要在嵌入式开发中用它，因为他的简单，小巧，我反而要在大数据中使用它。</p>
+
+<h3 id="section-1">使用</h3>
+
+<p>在 ruby 中使用 SQLite 是非常简单的：</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s2">&quot;sqlite3&quot;</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="ss">SQLite3</span><span class="p">:</span><span class="ss">:Database</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">db_path</span><span class="p">)</span>
+</code></pre></div>
+
+<p>还有比这个更简单的吗？</p>
+
+<h3 id="section-2">背景</h3>
+
+<p>ID3 算法里面决策树的分裂是父子关系的，子节点的数据都是在父节点的条件下分裂的。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Outlook</th>
+      <th>Temperature</th>
+      <th>Humidity</th>
+      <th>Windy</th>
+      <th>Play?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>sunny</td>
+      <td>hot</td>
+      <td>high</td>
+      <td>false</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>sunny</td>
+      <td>hot</td>
+      <td>high</td>
+      <td>true</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>overcast</td>
+      <td>hot</td>
+      <td>high</td>
+      <td>false</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>rain</td>
+      <td>mild</td>
+      <td>high</td>
+      <td>false</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>rain</td>
+      <td>cool</td>
+      <td>normal</td>
+      <td>false</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>rain</td>
+      <td>cool</td>
+      <td>normal</td>
+      <td>true</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>overcast</td>
+      <td>cool</td>
+      <td>normal</td>
+      <td>true</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>sunny</td>
+      <td>mild</td>
+      <td>high</td>
+      <td>false</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td>sunny</td>
+      <td>cool</td>
+      <td>normal</td>
+      <td>false</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>rain</td>
+      <td>mild</td>
+      <td>normal</td>
+      <td>false</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>sunny</td>
+      <td>mild</td>
+      <td>normal</td>
+      <td>true</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>overcast</td>
+      <td>mild</td>
+      <td>high</td>
+      <td>true</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>overcast</td>
+      <td>hot</td>
+      <td>normal</td>
+      <td>false</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>rain</td>
+      <td>mild</td>
+      <td>high</td>
+      <td>true</td>
+      <td>no</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>比如，通过 Gain 计算，使用 Attribute = Outlook 来分裂决策树，Values = [sunny, overcast, rain]</p>
+
+<p>树就会变成这个样子 <img src="http://zhaoxuan.github.io/images/post/decision_tree.jpg" alt="decision tree" /></p>
+
+<p>这样数据就会根据 <script type="math/tex">value \in [sunny, overcast, rain]</script> 分成三个集合。</p>
+
+<p>然后再重复执行上面的步骤，直到把树的枝叶都分裂完成。</p>
+
+<h3 id="section-3">方案</h3>
+
+<p>在技术讨论的时候，这时候输入的数据不是上面的例子这几条，而是上亿的 impressions。</p>
+
+<p>这样的数据在一台 Mysql 里面查询已经明显感觉到有点吃力。还好我们有 <a href="http://www.greenplumdba.com/" title="Title">Greenplum</a> 算是没有浪费什么事就解决的数据的存储问题。</p>
+
+<p>但是 <a href="http://www.greenplumdba.com/" title="Title">Greenplum</a> 分布式数据库的查询是非常慢的，毕竟所有数据要在一台机器上做聚合，这里就不说明原因了。</p>
+
+<p>所以整个决策树在生成的时候都要运行 2-3 天的时间。最后讨论了俩个方案：</p>
+
+<pre><code>1. 分表，根据 attribute 条件来分表，每一个节点和子节点都是用父节点的字表来运算。
+2. 用缓存，我当时强烈推荐使用缓存，把节点下面的字表缓存在内存里面，这样就能一次查询和子查询就不用访问 greenplum 了。
+</code></pre>
+
+<p>两种方案其实做法一样都是要大表分小表，只是实现不一样，一个主张在数据库里面创建小表，一个使用缓存来在客户端缓存数据。</p>
+
+
+
+    <nav class="pagination-published">Published by John — 11 Feb 2013</nav>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://zhaoxuan.github.io/feeling/2013/01/31/hadoop-install.html" rel="bookmark">&laquo;&nbsp;hadoop install</a>
+        
+        
+        <a class="next" href="http://zhaoxuan.github.io/linux/2013/02/22/my-bash-profile.html" rel="bookmark">我的 bash_profile&nbsp;&raquo;</a>
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>
+
+<!-- disqus -->
+<!-- <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->
+<!-- end_disqus -->
+        <footer id="foot">
+            <p>&copy; 2014 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>
+        </footer>
+    </section>
+</div>
+<div id="foot-line"></div>
+<script src="http://zhaoxuan.github.io/js/jquery.js" type="text/javascript"></script>
+<script src="http://zhaoxuan.github.io/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://zhaoxuan.github.io/js/theOne.js" type="text/javascript"></script>
+
+</body>
+</html>

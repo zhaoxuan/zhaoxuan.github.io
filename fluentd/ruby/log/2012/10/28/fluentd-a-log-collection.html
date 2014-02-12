@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>使用 Fluentd 构建一个实时日志收集系统 | The Simple</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="John" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://zhaoxuan.github.io/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://zhaoxuan.github.io/css/syntax.css" type="text/css" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://zhaoxuan.github.io/favicon.ico" type="image/x-icon" />
+    <!--[if lt IE 9]>
+    <script src="http://zhaoxuan.github.io/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <!-- <img src="http://mmistakes.github.io/minimal-mistakes/images/bio-photo.jpg" class="bio-photo" alt=" bio photo"> -->
+            <img src="http://zhaoxuan.github.io/images/head_portrait.png" class="bio-photo" alt=" bio photo">
+            <h2>Simple</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://zhaoxuan.github.io" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://zhaoxuan.github.io/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://zhaoxuan.github.io/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://twitter.com/363602094"><i class="icon-twitter"></i> Twitter</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <!-- <span>使用 Fluentd 构建一个实时日志收集系统</span> -->
+            <h1 class="post-title">使用 Fluentd 构建一个实时日志收集系统</h1>
+        </header>
+		<article class="post">
+    <!-- <h1 class="post-title">使用 Fluentd 构建一个实时日志收集系统</h1> -->
+    <p>Fluentd 是一个日志收集系统，它的特点在于其各部分均是可定制化的，你可以通过简单的配置，将日志收集到不同的地方。</p>
+
+<h4 id="section">安装</h4>
+<p>Fluentd 目前已经提供了多个版本的安装包，包括 Debian 系列的 apt 安装包，Red Hat 系列的 yum 安装包，也包括 Ruby 的 gem 安装包。</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>gem install fluentd --no-ri --no-rdoc
+</code></pre></div>
+
+<h4 id="section-1">运行</h4>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>fluentd --setup ./fluent
+<span class="nv">$ </span>fluentd -c ./fluent/fluent.conf -vv &amp;
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;{&quot;json&quot;:&quot;message&quot;}&#39;</span> | fluent-cat debug.test
+</code></pre></div>
+
+
+    <nav class="pagination-published">Published by John — 28 Oct 2012</nav>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://zhaoxuan.github.io/feeling/2012/10/23/lack-of-something.html" rel="bookmark">&laquo;&nbsp;总是感觉缺少点什么</a>
+        
+        
+        <a class="next" href="http://zhaoxuan.github.io/fluentd/log/ruby/2012/10/29/fluentd-configuration-file.html" rel="bookmark">Fluentd 配置文件&nbsp;&raquo;</a>
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>
+
+<!-- disqus -->
+<!-- <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->
+<!-- end_disqus -->
+        <footer id="foot">
+            <p>&copy; 2014 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>
+        </footer>
+    </section>
+</div>
+<div id="foot-line"></div>
+<script src="http://zhaoxuan.github.io/js/jquery.js" type="text/javascript"></script>
+<script src="http://zhaoxuan.github.io/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://zhaoxuan.github.io/js/theOne.js" type="text/javascript"></script>
+
+</body>
+</html>
