@@ -110,7 +110,7 @@
 
   <span class="c1"># Logger 是被远程代理，客户端不会存在，所以用这句</span>
   <span class="c1">#注意这句话，如果要是自己来改写这个方法怎么做呢？下面会有我的一个例子</span>
-  <span class="kp">include</span> <span class="ss">DRb</span><span class="p">:</span><span class="ss">:DRbUndumped</span>
+  <span class="kp">include</span> <span class="no">DRb</span><span class="o">::</span><span class="no">DRbUndumped</span>
 
   <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
     <span class="vi">@name</span> <span class="o">=</span> <span class="n">n</span>
@@ -465,12 +465,12 @@
 </blockquote>
 
 <div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;watir&#39;</span>
-<span class="n">ie</span> <span class="o">=</span> <span class="ss">Watir</span><span class="p">:</span><span class="ss">:IE</span><span class="o">.</span><span class="n">new</span>
+<span class="n">ie</span> <span class="o">=</span> <span class="no">Watir</span><span class="o">::</span><span class="no">IE</span><span class="o">.</span><span class="n">new</span>
 <span class="n">ie</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;www.baidu.com&quot;</span><span class="p">)</span> <span class="c1"># 本地打开一个浏览器</span>
 
 <span class="c1"># 加载为远程进程执行</span>
 <span class="no">ATU</span><span class="o">.</span><span class="n">require</span> <span class="s1">&#39;watir&#39;</span>
-<span class="n">ie</span> <span class="o">=</span> <span class="ss">ATU</span><span class="p">:</span><span class="ss">:Watir</span><span class="o">::</span><span class="no">IE</span><span class="o">.</span><span class="n">new</span>
+<span class="n">ie</span> <span class="o">=</span> <span class="no">ATU</span><span class="o">::</span><span class="no">Watir</span><span class="o">::</span><span class="no">IE</span><span class="o">.</span><span class="n">new</span>
 <span class="n">ie</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;www.baidu.com&quot;</span><span class="p">)</span> <span class="c1"># 远程的进程打开一个浏览器</span>
 </code></pre></div>
 

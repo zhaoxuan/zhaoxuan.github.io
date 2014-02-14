@@ -55,8 +55,8 @@
 <h4 id="section-1">运行</h4>
 
 <div class="highlight"><pre><code class="bash"><span class="nv">$ </span>fluentd --setup ./fluent
-<span class="nv">$ </span>fluentd -c ./fluent/fluent.conf -vv &amp;
-<span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;{&quot;json&quot;:&quot;message&quot;}&#39;</span> | fluent-cat debug.test
+<span class="nv">$ </span>fluentd -c ./fluent/fluent.conf -vv <span class="p">&amp;</span>
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;{&quot;json&quot;:&quot;message&quot;}&#39;</span> <span class="p">|</span> fluent-cat debug.test
 </code></pre></div>
 
 

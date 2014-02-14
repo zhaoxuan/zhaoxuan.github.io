@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>我的 bash_profile | The Simple</title>
+    <title>Truncating HTML while Preserving Structure | The Simple</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Jekyll" />
     <meta name="author" content="John" />
@@ -39,44 +39,49 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <!-- <span>我的 bash_profile</span> -->
-            <h1 class="post-title">我的 bash_profile</h1>
+            <!-- <span>Truncating HTML while Preserving Structure</span> -->
+            <h1 class="post-title">Truncating HTML while Preserving Structure</h1>
         </header>
 		<article class="post">
-    <!-- <h1 class="post-title">我的 bash_profile</h1> -->
-    <h3 id="section">习惯</h3>
+    <!-- <h1 class="post-title">Truncating HTML while Preserving Structure</h1> -->
+    <p>Truncating HTML is a bit of a pain - in a recent effory to change the layout of my site, I updated the index page to show the last five posts - truncated, of course.</p>
 
-<p>对于我这样才接触 git 的人，总是有一个不好的习惯，就是不看 branch 就修改提交，因为原来使用 svn 根本没有分支这个概念。</p>
+<p>The problem with doing this is that the most common method of truncating a post is to remove all markup and truncate the remaining string. This would be fine, but for a site with a fair amount of colorized code examples (courtesy of <a href="http://pygments.org/" title="Title">Pigments</a>), it can look a little weird.</p>
 
-<h3 id="bashprofile">配置 .bash_profile</h3>
+<p>A better solution would be to truncate based on the number of characters, yet retain the markup, which is where <a href="https://github.com/MattHall/truncatehtml" title="Title">this cheeky snippet</a> of code comes in.</p>
 
-<div class="highlight"><pre><code class="bash"><span class="c"># show git branch</span>
-<span class="k">function </span>git_branch <span class="o">{</span>
-    <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>git symbolic-ref HEAD 2&gt; /dev/null<span class="k">)</span> <span class="o">||</span> <span class="k">return</span><span class="p">;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;(&quot;</span><span class="k">${</span><span class="nv">ref</span><span class="p">#refs/heads/</span><span class="k">}</span><span class="s2">&quot;) &quot;</span><span class="p">;</span>
-<span class="o">}</span>
+<p>Requirements</p>
 
-<span class="c"># show ruby version</span>
-<span class="k">function </span>ruby_v<span class="o">(){</span>
-    <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>ruby -v<span class="p">|</span>cut -c 1-10<span class="k">)</span><span class="o">||</span><span class="k">return</span><span class="p">;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;(&quot;</span><span class="k">${</span><span class="nv">ref</span><span class="k">}</span><span class="s2">&quot;) &quot;</span><span class="p">;</span>
-<span class="o">}</span>
+<p>The truncator requires <a href="http://nokogiri.org/" title="Title">Nokogiri</a> to parse out the HTML string.</p>
 
-<span class="c"># PS1</span>
-<span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[01;33m\]\u@\h \[\033[1;32m\]\$(git_branch)$(ruby_v)\[\033[01;31m\]\W\$\[\033[00m\] &quot;</span>
+<p>Usage</p>
+
+<p>If you’re using Jekyll, add the html_filters.rb file to your _plugins directory - this will give you the helper truncatehtml as a <a href="http://liquidmarkup.org/" title="Title">Liquid</a> filter. In your views, you can use this function in the same way as you would use the normal truncate filter:</p>
+
+<div class="highlight"><pre><code class="html">page.content | truncatehtml: 500
 </code></pre></div>
 
-<p>两个方法一个是显示 git branch 分支，一个是显示 ruby version，因为使用 rvm 所以就写了这两个。</p>
+<p>How it works</p>
+
+<p>Given a snippet of HTML, we use Nokogiri to parse it into a tree. This takes care of all of the messiness of dealing with HTML, and gives us back a tree of nodes representing the parsed snippet.</p>
+
+<p>Now that we have the tree of nodes, we can traverse it depth-first. All text nodes are leaf nodes, so when we encounter one, we can count the length of the text.</p>
+
+<p>Once we have all of the text we need, we continue traversing, but instead of counting text lengths, we delete all of the nodes we see after we’ve reached our maximum length.</p>
+
+<p>After that, we have a tree of nodes that represent the truncated tree, and the can output the appropriate HTML.</p>
+
+<p><a href="http://codebeef.com/articles/truncating-html-while-preserving-structure/" title="Title">truncatehtml</a></p>
 
 
-    <nav class="pagination-published">Published by John — 22 Feb 2013</nav>
+    <nav class="pagination-published">Published by John — 12 Feb 2014</nav>
 
     <nav class="pagination-link">
         
-        <a class="prev" href="http://zhaoxuan.github.io/sqlite/2013/02/11/sqlite-in-bigdata.html" rel="bookmark">&laquo;&nbsp;Sqlite 也能大数据</a>
+        <a class="prev" href="http://zhaoxuan.github.io/linux/2014/01/11/enable-rc-local-in-fedora-20.html" rel="bookmark">&laquo;&nbsp;Enable rc-local in Fedora 20...</a>
         
         
-        <a class="next" href="http://zhaoxuan.github.io/linux/2013/03/22/why-only-four-main-partition-in-mbr.html" rel="bookmark">为什么磁盘只能分四个主分区&nbsp;&raquo;</a>
+        <a class="next" href="http://zhaoxuan.github.io/feeling/2014/02/13/u-dont-understand-me-but-i-am-still-me.html" rel="bookmark">虽然你不了解我，但是我还是我&nbsp;&raquo;</a>
         
      </nav>
      <div id="disqus_thread"></div>

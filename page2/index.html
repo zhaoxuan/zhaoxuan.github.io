@@ -44,6 +44,71 @@
         </header>
 		
 	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://zhaoxuan.github.io/ruby/2013/09/30/create-new-jekyll-posts-rake-task.html" title="create new jekyll posts rake task " rel="bookmark">create new jekyll posts rake task </a></h2>
+        <p class="time"><time pubdate="2013-09-30 16:03:00 +0800">30 Sep 2013</time></p>
+        
+        <p>Jekyll, a static site generator, is blog-aware. That means it tracks posts and publication dates. Working with such files can be tricky, but here is one way of using Rake to ease the pain.</p>
+
+<h4 id="what-we-need">What...</h4>
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://zhaoxuan.github.io/ruby/2013/09/25/ruby-robust.html" title="提高 ruby script 的健壮性" rel="bookmark">提高 ruby script 的健壮性</a></h2>
+        <p class="time"><time pubdate="2013-09-25 10:49:00 +0800">25 Sep 2013</time></p>
+        
+        <p>首先必须承认 ruby 脚本确实是一个非常好用的工具。</p>
+
+<p>但是我们习惯了一个 script 解决所有的问题，比如</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="c1"># main.rb</span>
+<span class="nb">require</span> <span class="s1">'rubygems'</span>
+
+<span class="nb">system</span> <span class="s1">'rm -fr /tmp'</span>
+</code></pre></div>
+
+<p>Soooooooo simple。</p>
+
+<p>但是上面的文件，在其他项目里面被 <code>require 'main'</code> 会有什么后果?</p>
+
+<p>代码就直接被执行了，后果可大可小，如果是 <code>system 'sudo rm ...</code></p>
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://zhaoxuan.github.io/linux/2013/03/22/why-only-four-main-partition-in-mbr.html" title="为什么磁盘只能分四个主分区" rel="bookmark">为什么磁盘只能分四个主分区</a></h2>
+        <p class="time"><time pubdate="2013-03-22 20:27:00 +0800">22 Mar 2013</time></p>
+        
+        <p>不知道大家有没有考虑过，为什么一块磁盘一般只能分四个主分区，或者三个主分区加一个拓展分区。</p>
+
+<p>为什么不能突破四个主分区的限制多分几个主分区呢？</p>
+
+<p>当年 Bill Gates 说 “无论对谁来说,640K内存都足够了”。</p>
+
+<p>硬盘的第一磁盘，第一磁道，第一扇区，是一个非常特殊的扇区，它是计算机的 Boot Sector。</p>
+
+<p>MBR（Master Boot Record），DPT（Disk Partition Table）和 Boot Record ID 三部分就放在 Boot...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://zhaoxuan.github.io/linux/2013/02/22/my-bash-profile.html" title="我的 bash_profile" rel="bookmark">我的 bash_profile</a></h2>
+        <p class="time"><time pubdate="2013-02-22 15:56:00 +0800">22 Feb 2013</time></p>
+        
+        <h3 id="section">习惯</h3>
+
+<p>对于我这样才接触 git 的人，总是有一个不好的习惯，就是不看 branch 就修改提交，因为原来使用 svn 根本没有分支这个概念。</p>
+
+<h3 id="bashprofile">配置 .bash_profile</h3>
+
+<div class="highlight"><pre><code class="bash"><span class="c"># show git branch</span>
+<span class="k">function </span>git_branch <span class="o">{</span>
+    <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>git symbolic-ref HEAD 2&gt; /dev/null<span class="k">)</span> <span class="o">||</span> <span class="k">return</span><span class="p">;</span>
+    <span class="nb">echo</span> <span class="s2">"("</span><span class="k">${...</span></code></pre></div>
+        
+    </article>
+
+	<article class="post fn-clear">
         <h2 class="post-title"><a href="http://zhaoxuan.github.io/sqlite/2013/02/11/sqlite-in-bigdata.html" title="Sqlite 也能大数据" rel="bookmark">Sqlite 也能大数据</a></h2>
         <p class="time"><time pubdate="2013-02-11 15:18:00 +0800">11 Feb 2013</time></p>
         
@@ -53,463 +118,7 @@
 
 <p>但是今天，我并不是要在嵌入式开发中用它，因为他的简单，小巧，我反而要在大数据中使用它。</p>
 
-<h3 id="section-1">使用</h3>
-
-<p>在 ruby 中使用 SQLite 是非常简单的：</p>
-
-<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s2">&quot;sqlite3&quot;</span>
-
-<span class="n">db</span> <span class="o">=</span> <span class="ss">SQLite3</span><span class="p">:</span><span class="ss">:Database</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">db_path</span><span class="p">)</span>
-</code></pre></div>
-
-<p>还有比这个更简单的吗？</p>
-
-<h3 id="section-2">背景</h3>
-
-<p>ID3 算法里面决策树的分裂是父子关系的，子节点的数据都是在父节点的条件下分裂的。</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Outlook</th>
-      <th>Temperature</th>
-      <th>Humidity</th>
-      <th>Windy</th>
-      <th>Play?</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>sunny</td>
-      <td>hot</td>
-      <td>high</td>
-      <td>false</td>
-      <td>no</td>
-    </tr>
-    <tr>
-      <td>sunny</td>
-      <td>hot</td>
-      <td>high</td>
-      <td>true</td>
-      <td>no</td>
-    </tr>
-    <tr>
-      <td>overcast</td>
-      <td>hot</td>
-      <td>high</td>
-      <td>false</td>
-      <td>yes</td>
-    </tr>
-    <tr>
-      <td>rain</td>
-      <td>mild</td>
-      <td>high</td>
-      <td>false</td>
-      <td>yes</td>
-    </tr>
-    <tr>
-      <td>rain</td>
-      <td>cool</td>
-      <td>normal</td>
-      <td>false</td>
-      <td>yes</td>
-    </tr>
-    <tr>
-      <td>rain</td>
-      <td>cool</td>
-      <td>normal</td>
-      <td>true</td>
-      <td>no</td>
-    </tr>
-    <tr>
-      <td>overcast</td>
-      <td>cool</td>
-      <td>normal</td>
-      <td>true</td>
-      <td>yes</td>
-    </tr>
-    <tr>
-      <td>sunny</td>
-      <td>mild</td>
-      <td>high</td>
-      <td>false</td>
-      <td>no</td>
-    </tr>
-    <tr>
-      <td>sunny</td>
-      <td>cool</td>
-      <td>normal</td>
-      <td>false</td>
-      <td>yes</td>
-    </tr>
-    <tr>
-      <td>rain</td>
-      <td>mild</td>
-      <td>normal</td>
-      <td>false</td>
-      <td>yes</td>
-    </tr>
-    <tr>
-      <td>sunny</td>
-      <td>mild</td>
-      <td>normal</td>
-      <td>true</td>
-      <td>yes</td>
-    </tr>
-    <tr>
-      <td>overcast</td>
-      <td>mild</td>
-      <td>high</td>
-      <td>true</td>
-      <td>yes</td>
-    </tr>
-    <tr>
-      <td>overcast</td>
-      <td>hot</td>
-      <td>normal</td>
-      <td>false</td>
-      <td>yes</td>
-    </tr>
-    <tr>
-      <td>rain</td>
-      <td>mild</td>
-      <td>high</td>
-      <td>true</td>
-      <td>no</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>比如，通过 Gain 计算，使用 Attribute = Outlook 来分裂决策树，Values = [sunny, overcast, rain]</p>
-
-<p>树就会变成这个样子 <img src="http://zhaoxuan.github.io/images/post/decision_tree.jpg" alt="decision tree" /></p>
-
-<p>这样数据就会根据 <script type="math/tex">value \in [sunny, overcast, rain]</script> 分成三个集合。</p>
-
-<p>然后再重复执行上面的步骤，直到把树的枝叶都分裂完成。</p>
-
-<h3 id="section-3">方案</h3>
-
-<p>在技术讨论的时候，这时候输入的数据不是上面的例子这几条，而是上亿的 impressions。</p>
-
-<p>这样的数据在一台 Mysql 里面查询已经明显感觉到有点吃力。还好我们有 <a href="http://www.greenplumdba.com/" title="Title">Greenplum</a> 算是没有浪费什么事就解决的数据的存储问题。</p>
-
-<p>但是 <a href="http://www.greenplumdba.com/" title="Title">Greenplum</a> 分布式数据库的查询是非常慢的，毕竟所有数据要在一台机器上做聚合，这里就不说明原因了。</p>
-
-<p>所以整个决策树在生成的时候都要运行 2-3 天的时间。最后讨论了俩个方案：</p>
-
-<pre><code>1. 分表，根据 attribute 条件来分表，每一个节点和子节点都是用父节点的字表来运算。
-2. 用缓存，我当时强烈推荐使用缓存，把节点下面的字表缓存在内存里面，这样就能一次查询和子查询就不用访问 greenplum 了。
-</code></pre>
-
-<p>两种方案其实做法一样都是要大表分小表，只是实现不一样，一个主张在数据库里面创建小表，一个使用缓存来在客户端缓存数据。</p>
-
-
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2013/01/31/hadoop-install.html" title="hadoop install" rel="bookmark">hadoop install</a></h2>
-        <p class="time"><time pubdate="2013-01-31 13:43:00 +0800">31 Jan 2013</time></p>
-        
-        <h4 id="section">一 软件安装环境</h4>
-<blockquote>
-  <p>1、 OS：ubuntu-12.10</p>
-</blockquote>
-
-<blockquote>
-  <p>2、 JDK：jdk1.7.0_07</p>
-</blockquote>
-
-<blockquote>
-  <p>3、 Hadoop：hadoop-1.0.4</p>
-</blockquote>
-
-<blockquote>
-  <p>4、 ssh ssh-server</p>
-</blockquote>
-
-<p>安装的方法就自己去 google 搜索吧，这里就不啰嗦了。</p>
-
-<h4 id="ssh">二 配置 ssh</h4>
-
-<p>现在确认能否不输入口令就用ssh登录localhost:</p>
-
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ssh localhost
-</code></pre></div>
-
-<p>如果不输入口令就无法用ssh登陆localhost，执行下面的命令：</p>
-
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ssh-keygen -t dsa -P <span class="s1">&#39;&#39;</span> -f ~/.ssh/id_dsa 
-<span class="nv">$ </span>cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys
-</code></pre></div>
-
-<h4 id="hadoop">三、安装 hadoop</h4>
-<p>1、下载 hadoop 解压的任意目录</p>
-
-<p>2、修改 hadoop_path/confi/hadoop_env.sh</p>
-
-<div class="highlight"><pre><code class="bash"><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>path_to_java
-<span class="nb">export </span><span class="nv">HADOOP_INSTALL</span><span class="o">=</span>path_to_hadoop
-<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HADOOP_INSTALL</span>/bin
-</code></pre></div>
-
-<h4 id="hadoop-1">四、配置 hadoop</h4>
-
-<p>这里看你是用什么方式启动，我这里是使用 单机伪分布式，使用三个文件 core-site.xml, mapred-site.xml and hdfs-site.xml</p>
-
-<h4 id="section-1">五、格式分布式文件</h4>
-
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop namenode -format
-</code></pre></div>
-
-<h4 id="hadoop-2">六、启动Hadoop守护进程：</h4>
-
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/start-all.sh
-</code></pre></div>
-
-<p>Hadoop守护进程的日志写入到 ${HADOOP_LOG_DIR} 目录 (默认是 ${HADOOP_HOME}/logs).
-浏览NameNode和JobTracker的网络接口，它们的地址默认为：</p>
-
-<p><code>NameNode - http://localhost:50070/</code></p>
-
-<p><code>JobTracker - http://localhost:50030/</code></p>
-
-<p>将输入文件拷贝到分布式文件系统:</p>
-
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop fs -put conf input
-</code></pre></div>
-
-<p>运行发行版提供的示例程序：</p>
-
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop jar hadoop-*-examples.jar grep input output <span class="s1">&#39;dfs[a-z.]+&#39;</span>
-</code></pre></div>
-
-<p>查看输出文件：
-将输出文件从分布式文件系统拷贝到本地文件系统查看：</p>
-
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop fs -get output output 
-<span class="nv">$ </span>cat output/*
-</code></pre></div>
-
-<p>或者
-在分布式文件系统上查看输出文件：</p>
-
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop fs -cat output/*
-</code></pre></div>
-
-<p>完成全部操作后，停止守护进程：</p>
-
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/stop-all.sh
-</code></pre></div>
-
-
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://zhaoxuan.github.io/machine_learning/2013/01/15/id3-algorithm.html" title="ID3 算法" rel="bookmark">ID3 算法</a></h2>
-        <p class="time"><time pubdate="2013-01-15 19:58:00 +0800">15 Jan 2013</time></p>
-        
-        <h4 id="section">简介</h4>
-
-<p>决策树学习是一种逼近离散值目标函数的方法，在这种学习到的函数被表示为一棵决策树。</p>
-
-<h4 id="section-1">决策树</h4>
-
-<p>决策树通过把实例从根节点排列到某个叶子结点来分类实例，叶子结点即为实例所属的分类。树上的每一个结点指定了对实例的某个属性的测试，并且该结点的每一个后续分支对应于该属性的一个可能值。</p>
-
-<p>决策树的分裂方法是从根节点开始，测试节点的属性，通过节点的属性的值来决定子叶的数量，然后子叶再重复上面的过程，继续向下划分子叶。</p>
-
-<p><img src="http://zhaoxuan.github.io/images/post/decision_tree.jpg" alt="decision_tree" /></p>
-
-<p>数据可以从 <a href="/algorithm/2012/11/17/information-gain.html">Information Gain</a> 里面查看。</p>
-
-<p>这个样例数据根据天气决定是否要出去玩。比如函数的输入是下面这个</p>
-
-<pre><code>Outlook=Sunny，Temperature= Hot，Humidity = High ，Wind= Strong
-</code></pre>
-
-<p>沿着这棵决策树的最左分支向下，被评定为反例（也就是这棵树预测这个实例 Play = No）。</p>
-
-<p>这棵树以用来演示 ID3 学习算法的例子摘自 <a href="http://www.dmi.unict.it/~apulvirenti/agd/Qui86.pdf" title="Title">Quinlan 1986</a>。</p>
-
-<h4 id="id3">决策树的ID3算法</h4>
-
-<p>基本的ID3 算法通过自顶向下构造决策树来进行学习。</p>
-
-<p>构造过程是从“哪一个属性将在树的根结点被测试？”这个问题开始的。</p>
-
-<p>为了回答这个问题，使用统计测试来确定每一个实例属性单独分类训练样例的能力。</p>
-
-<p>（1）分类能力最好的属性被选作树的根结点的测试。</p>
-
-<p>（2）然后为根结点属性的每个可能值产生一个分支，并把训练样例排列到适当的分支（也就是，样例的该属性值对应的分支）之下。</p>
-
-<p>（3）然后重复整个过程，用每个分支结点关联的训练样例来选取在该点被测试的最佳属性。</p>
-
-<p>这形成了对合格决策树的贪婪搜索（greedy search ），也就是算法从不回溯重新考虑以前的选择。</p>
-
-<h4 id="section-2">哪个属性是最佳的分类属性</h4>
-
-<p>ID3 算法的核心问题是选取在树的每个结点要测试的属性。</p>
-
-<p>我们希望选择的是最有助于分类实例的属性。那么衡量属性价值的一个好的定量标准是什么呢？</p>
-
-<p>这里将定义一个统计属性，称为“信息增益 <a href="/algorithm/2012/11/17/information-gain.html">Information Gain</a>”，用来衡量给定的属性区分训练样例的能力。</p>
-
-<p>ID3 算法在增长树的每一步使用这个信息增益标准从候选属性中选择属性。</p>
-
-<h4 id="section-3">用熵度量样例的均一性</h4>
-
-<p>为了精确地定义信息增益，我们先定义信息论中广泛使用的一个度量标准，称为熵 <a href="/algorithm/2012/12/07/information-theory.html">Entropy</a>，它刻画了任意样例集的纯度（ purity）。</p>
-
-<p>给定包含关于某个目标概念的正反样例的样例集S ，那么S 相对这个布尔型分类的熵为：</p>
-
-<script type="math/tex; mode=display">Entropy(S) = -P _{positive} log _2 P _{positive} - P _{negative} log _2 P _{negative}</script>
-
-<p>其中 <script type="math/tex">P _{positive}</script> 是在S 中正例的比例，<script type="math/tex">P _{negative}</script>是在S 中负例的比例。在有关熵的所有计算中我们定义0 log0 为0 。</p>
-
-<p>举例说明，假设S 是一个关于某布尔概念的有 14 个样例的集合，它包括 9 个正例和5 个反例（我们采用记号[9+ ，5 -]来概括这样的数据样例）。</p>
-
-<p>那么S 相对于这个布尔分类的熵（Entropy）为：</p>
-
-<script type="math/tex; mode=display">Entropy([9+,5-]) =-\frac{9}{14} log _{2} (\frac{9}{14}) -\frac{5}{14} log _{2}(\frac{5}{14})</script>
-
-<p>至此我们讨论了目标分类是布尔型的情况下的熵。更一般的，如果目标属性具有 n 个不同的值，那么S 相对于 n 个状态的分类的熵定义为：</p>
-
-<script type="math/tex; mode=display">Entropy(S) = \sum _{i=0} ^{n} {-P _{i} log _{2} P _{i} }</script>
-
-<h4 id="section-4">用信息增益度量期望的熵降低</h4>
-
-<p>已经有了熵作为衡量训练样例集合纯度的标准，现在可以定义属性分类训练数据的效力的度量标准。这个标准被称为“信息增益<a href="/algorithm/2012/11/17/information-gain.html">Information Gain</a>”。</p>
-
-<p>简单的说，一个属性的信息增益就是由于使用这个属性分割样例而导致的期望熵降低。更精确地讲，一个属性A 相对样例集合 S 的信息增益Gain(S, A)被定义为：</p>
-
-<p>其中 Values (A) 是属性A所有可能值的集合，SV 是 S 中属性A的值为 v 的子集（也就是，Sv ={s∈ S |A(s )=v } ）。</p>
-
-<p>请注意，等式的第一项就是原来集合 S 的熵，第二项是用 A 分类 S 后熵的期望值。</p>
-
-<p>这个第二项描述的期望熵就是每个子集的熵的加权和，权值 |Sv|/|S| 为属于 S 的样例占原始样例 S 的比例 。</p>
-
-<p>所以 Gain(S , A) 是由于知道属性A的值而导致的期望熵减少。换句话来讲，Gain (S , A)是由于给定属性A的值而得到的关于目标函数值的信息。</p>
-
-<p>例如，假定 S 是一套有关天气的训练样例，描述它的属性包括可能是具有 Weak 和 Strong 两个值的 Wind。像前面一样，假定 S 包含14 个样例，[9+ ，5 -]。在这 14 个样例中，假定正例中的 6 个和反例中的2 个有Wind =Weak，其他的有Wind =Strong。由于按照属性Wind 分类14 个样例得到的信息增益可以计算如下</p>
-
-<script type="math/tex; mode=display">Values(Wind) = Weak, Strong</script>
-
-<script type="math/tex; mode=display">S = [9+, 5-]</script>
-
-<script type="math/tex; mode=display">S_{Weak} \leftarrow [6+, 2-]</script>
-
-<script type="math/tex; mode=display">S_{Strong} \leftarrow [3+, 3-]</script>
-
-<p>所以 Wind[Weak, Strong] 的计算：</p>
-
-<script type="math/tex; mode=display">Gain(S,Wind) = Entropy(S) - \sum_{i \in Weak,Strong} \frac{S _{i}}{S} Entropy(S _{i})</script>
-
-<script type="math/tex; mode=display">= Entropy(S) - \frac{8}{14}Entropy(S _{Weak}) - \frac{6}{14} Entropy(S _{Strong})</script>
-
-<script type="math/tex; mode=display">= 0.940 - \frac{8}{14} * 0.811 - \frac{6}{14} * 1.00</script>
-
-<script type="math/tex; mode=display"> = 0.048</script>
-
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://zhaoxuan.github.io/algorithm/2012/12/07/information-theory.html" title="信息论 信息熵" rel="bookmark">信息论 信息熵</a></h2>
-        <p class="time"><time pubdate="2012-12-07 16:00:00 +0800">07 Dec 2012</time></p>
-        
-        <p>信息是个很抽象的概念。人们常常说信息很多，或者信息较少，但却很难说清楚信息到底有多少。</p>
-
-<p>信息论之父克劳德·艾尔伍德·香农第一次用数学语言阐明了概率与信息冗余度的关系。</p>
-
-<script type="math/tex; mode=display">H=-\sum_{i} p_i \log p_i</script>
-
-<p>熵，热力学中的熵就是表示一个系统中的混乱程度，扯远了让人更难理解，信息熵，个人理解，就是用数字来衡量信息的复杂程度。</p>
-
-<p>说一个简单的例子：</p>
-
-<ol>
-  <li>2013 年 NBA 中冠军是东部球队。</li>
-  <li>2013 年 NBA 中冠军是热火队。</li>
-</ol>
-
-<p>这俩个假设哪一个让人容易理解？1 假设 所包含的可能有 15 种，而 2 假设 是一个 100% 确定的。</p>
-
-<p>其实在大学的必修课中，《信息论基础》中已经用信息熵公式来求信道的带宽。</p>
-
-<p>现在感觉，大学的课虽然读起来感觉没有什么用，但是在工作中确实有太大的帮助了。庆幸大学学的东西虽然不是掌握的非常好，但是现在起码一看到就能知道大概，还有一个给我学习的机会。</p>
-
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://zhaoxuan.github.io/feeling/2012/12/06/different-idea-in-different-companies.html" title="不同价值观in不同的公司" rel="bookmark">不同价值观in不同的公司</a></h2>
-        <p class="time"><time pubdate="2012-12-06 18:13:00 +0800">06 Dec 2012</time></p>
-        
-        <p>今天下午第一次有机会和新公司的 CTO Sidney 交流的机会。</p>
-
-<p>进公司一来，一直都是听说 Sidney 是一个非常 牛B 的人，但是没有机会详细的了解。</p>
-
-<p>今天下午，他的一个会议，相当于年终总结 – Product Review &amp; Product Roadmap。</p>
-
-<p>首先是不得不佩服他的经历，学的是英文文学专业，毕业后的第一份工作是理发师，第二份工作是厨师。</p>
-
-<p>对于广告行业的了解，确实非常深刻，从 99 年的混乱时期开始，到 03 年的初现原型，到 05 年的一落千丈，再到现在的 rtb。</p>
-
-<p>其实这些东西都不是给我最深刻的印象，给我最深刻印象的是公司的文化和价值观。</p>
-
-<p>我经历过俩个公司，对不同公司的管理方式，公司文化有一个对比。</p>
-
-<p>一个公司的文化，是对这个公司的缩影，是一个公司奋斗的轨迹，是一个公司前进的方向。</p>
-
-<p>先说说原来公司的情况，原来公司用的是日本稻盛和夫的管理哲学，就是《活法》《干法》。</p>
-
-<p>刚如公司的时候，公司天天的稻盛和夫，人活着就是拼命工作。。。（可能总结的不对）。</p>
-
-<p>慢慢的我就感觉到，公司的唯一目的就是要你拼命工作，公司的思想就是奴隶。</p>
-
-<p>每次公司开会，唯一的主题就是人活着就是竭尽全力的工作（我自己的总结，应该比较极端）。</p>
-
-<p>开始的时候还不觉得有什么，感觉现在努力学东西，将来就有前途了。</p>
-
-<p>但是越来越觉得，这就是在奴隶，就是赤裸裸的压迫。</p>
-
-<p>后来对公司的态度就是越来越有抵触心理。</p>
-
-<p>每次看公司做的什么东西都觉得不喜欢。</p>
-
-<p>而且每次看见新来的小同事对公司的新政策不光没有一点抵触，反而非常高兴，非常兴奋。</p>
-
-<p>从这些小同事的身上，我看到自己一年前来公司的影子。</p>
-
-<p>见到所有的东西都是没有一点思考的，感觉都是对的。</p>
-
-<p>但是后来就越来越反感，思考公司的文化，信仰和自己的方向越来越远了。</p>
-
-<p>最后发展到离开了公司。。。</p>
-
-<p>前面公司的告一段落。</p>
-
-<p>进入的新的公司，不像原来的公司一样，三天两头的进行文化培训。</p>
-
-<p>到目前为止我还没看到什么类似硬性教育似的的培训。</p>
-
-<p>唯一让我体验到公司文化的就是今天下午 CTO 的一个分享。</p>
-
-<p>但是一些外国公司就完全不是这样的，一些招聘虽然面试的时候非常难，最后考官基本不看你的成绩，只要基本过关即可。</p>
-
-<p>公司考察的就是这个新同事在和原来的老员工这一起工作能不能让你舒服。</p>
-
-<p>你能不能在团队中迸发出新的 idea。</p>
-
-<p>目前只能说这么多，因为新的公司我了解的还太少了，到目前为止只有一个月零 14 天。</p>
-
-<p>但是已经感觉到文化的不同了，可能是新公司我还不了解，所以还没反感。</p>
-
-
+<h3 id="section-1">使用...</h3>
         
     </article>
 
@@ -547,6 +156,10 @@
             
                 
                     <li><a href="http://zhaoxuan.github.io/page8/">8</a></li>
+                
+            
+                
+                    <li><a href="http://zhaoxuan.github.io/page9/">9</a></li>
                 
             
         </ul>

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>我的 bash_profile | The Simple</title>
+    <title>Enable rc-local in Fedora 20 | The Simple</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Jekyll" />
     <meta name="author" content="John" />
@@ -39,44 +39,46 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <!-- <span>我的 bash_profile</span> -->
-            <h1 class="post-title">我的 bash_profile</h1>
+            <!-- <span>Enable rc-local in Fedora 20</span> -->
+            <h1 class="post-title">Enable rc-local in Fedora 20</h1>
         </header>
 		<article class="post">
-    <!-- <h1 class="post-title">我的 bash_profile</h1> -->
-    <h3 id="section">习惯</h3>
+    <!-- <h1 class="post-title">Enable rc-local in Fedora 20</h1> -->
+    <p>From http://joshua14.homelinux.org/blog/?p=1377</p>
 
-<p>对于我这样才接触 git 的人，总是有一个不好的习惯，就是不看 branch 就修改提交，因为原来使用 svn 根本没有分支这个概念。</p>
+<p>As root:</p>
 
-<h3 id="bashprofile">配置 .bash_profile</h3>
-
-<div class="highlight"><pre><code class="bash"><span class="c"># show git branch</span>
-<span class="k">function </span>git_branch <span class="o">{</span>
-    <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>git symbolic-ref HEAD 2&gt; /dev/null<span class="k">)</span> <span class="o">||</span> <span class="k">return</span><span class="p">;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;(&quot;</span><span class="k">${</span><span class="nv">ref</span><span class="p">#refs/heads/</span><span class="k">}</span><span class="s2">&quot;) &quot;</span><span class="p">;</span>
-<span class="o">}</span>
-
-<span class="c"># show ruby version</span>
-<span class="k">function </span>ruby_v<span class="o">(){</span>
-    <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>ruby -v<span class="p">|</span>cut -c 1-10<span class="k">)</span><span class="o">||</span><span class="k">return</span><span class="p">;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;(&quot;</span><span class="k">${</span><span class="nv">ref</span><span class="k">}</span><span class="s2">&quot;) &quot;</span><span class="p">;</span>
-<span class="o">}</span>
-
-<span class="c"># PS1</span>
-<span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[01;33m\]\u@\h \[\033[1;32m\]\$(git_branch)$(ruby_v)\[\033[01;31m\]\W\$\[\033[00m\] &quot;</span>
+<div class="highlight"><pre><code class="bash">touch /etc/rc.local
+chmod +x /etc/rc.local
 </code></pre></div>
 
-<p>两个方法一个是显示 git branch 分支，一个是显示 ruby version，因为使用 rvm 所以就写了这两个。</p>
+<p>Next, open the file for editing:-</p>
+
+<p>vi /etc/rc.local
+As this is basically a bash script itself, you need to include the bash interpreter as the first line of the file.</p>
+
+<div class="highlight"><pre><code class="bash"><span class="c">#!/bin/bash</span>
+</code></pre></div>
+
+<p>You can now add whatever scripts or commands you like here – they will be run after everything else at your specific run-level has been started. In order for systemd to recognise and use this file, the systemd rc-local.service must be enabled.</p>
+
+<div class="highlight"><pre><code class="bash">systemctl <span class="nb">enable </span>rc-local.service
+</code></pre></div>
+
+<p>You can check the status of this service with:-</p>
+
+<div class="highlight"><pre><code class="bash">systemctl status rc-local.service
+</code></pre></div>
 
 
-    <nav class="pagination-published">Published by John — 22 Feb 2013</nav>
+    <nav class="pagination-published">Published by John — 11 Jan 2014</nav>
 
     <nav class="pagination-link">
         
-        <a class="prev" href="http://zhaoxuan.github.io/sqlite/2013/02/11/sqlite-in-bigdata.html" rel="bookmark">&laquo;&nbsp;Sqlite 也能大数据</a>
+        <a class="prev" href="http://zhaoxuan.github.io/sublime/2013/12/30/the-best-plugin-in-sublime.html" rel="bookmark">&laquo;&nbsp;The Best Plugin in Sublime...</a>
         
         
-        <a class="next" href="http://zhaoxuan.github.io/linux/2013/03/22/why-only-four-main-partition-in-mbr.html" rel="bookmark">为什么磁盘只能分四个主分区&nbsp;&raquo;</a>
+        <a class="next" href="http://zhaoxuan.github.io/ruby/2014/02/12/truncate-jekyll-html-for-archive-page.html" rel="bookmark">Truncating HTML while Preserving Structure...&nbsp;&raquo;</a>
         
      </nav>
      <div id="disqus_thread"></div>

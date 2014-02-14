@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>我的 bash_profile | The Simple</title>
+    <title>虽然你不了解我，但是我还是我 | The Simple</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Jekyll" />
     <meta name="author" content="John" />
@@ -39,44 +39,30 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <!-- <span>我的 bash_profile</span> -->
-            <h1 class="post-title">我的 bash_profile</h1>
+            <!-- <span>虽然你不了解我，但是我还是我</span> -->
+            <h1 class="post-title">虽然你不了解我，但是我还是我</h1>
         </header>
 		<article class="post">
-    <!-- <h1 class="post-title">我的 bash_profile</h1> -->
-    <h3 id="section">习惯</h3>
+    <!-- <h1 class="post-title">虽然你不了解我，但是我还是我</h1> -->
+    <p>这个世界上面不是所有人都认可自己，本来以为自己努力的工作会带来别人的认同，但是往往情况不是这样。</p>
 
-<p>对于我这样才接触 git 的人，总是有一个不好的习惯，就是不看 branch 就修改提交，因为原来使用 svn 根本没有分支这个概念。</p>
+<p>从忐忑不安到激动难耐，从信心满满到一落千丈，这是一个多么复杂的心情。</p>
 
-<h3 id="bashprofile">配置 .bash_profile</h3>
+<p>去年一年的努力工作，最后真是让我感觉到了生活的本质。</p>
 
-<div class="highlight"><pre><code class="bash"><span class="c"># show git branch</span>
-<span class="k">function </span>git_branch <span class="o">{</span>
-    <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>git symbolic-ref HEAD 2&gt; /dev/null<span class="k">)</span> <span class="o">||</span> <span class="k">return</span><span class="p">;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;(&quot;</span><span class="k">${</span><span class="nv">ref</span><span class="p">#refs/heads/</span><span class="k">}</span><span class="s2">&quot;) &quot;</span><span class="p">;</span>
-<span class="o">}</span>
+<p>记得我在大学里面，班主任和我说过一句话：这个社会的本质就是践踏你的尊严。</p>
 
-<span class="c"># show ruby version</span>
-<span class="k">function </span>ruby_v<span class="o">(){</span>
-    <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>ruby -v<span class="p">|</span>cut -c 1-10<span class="k">)</span><span class="o">||</span><span class="k">return</span><span class="p">;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;(&quot;</span><span class="k">${</span><span class="nv">ref</span><span class="k">}</span><span class="s2">&quot;) &quot;</span><span class="p">;</span>
-<span class="o">}</span>
+<p>在你成为别人尊重的人之前，没人会尊重你。</p>
 
-<span class="c"># PS1</span>
-<span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[01;33m\]\u@\h \[\033[1;32m\]\$(git_branch)$(ruby_v)\[\033[01;31m\]\W\$\[\033[00m\] &quot;</span>
-</code></pre></div>
-
-<p>两个方法一个是显示 git branch 分支，一个是显示 ruby version，因为使用 rvm 所以就写了这两个。</p>
+<p>虽然你不了解我，但是我还是我，我还会继续我的风格。</p>
 
 
-    <nav class="pagination-published">Published by John — 22 Feb 2013</nav>
+    <nav class="pagination-published">Published by John — 13 Feb 2014</nav>
 
     <nav class="pagination-link">
         
-        <a class="prev" href="http://zhaoxuan.github.io/sqlite/2013/02/11/sqlite-in-bigdata.html" rel="bookmark">&laquo;&nbsp;Sqlite 也能大数据</a>
+        <a class="prev" href="http://zhaoxuan.github.io/ruby/2014/02/12/truncate-jekyll-html-for-archive-page.html" rel="bookmark">&laquo;&nbsp;Truncating HTML while Preserving Structure...</a>
         
-        
-        <a class="next" href="http://zhaoxuan.github.io/linux/2013/03/22/why-only-four-main-partition-in-mbr.html" rel="bookmark">为什么磁盘只能分四个主分区&nbsp;&raquo;</a>
         
      </nav>
      <div id="disqus_thread"></div>

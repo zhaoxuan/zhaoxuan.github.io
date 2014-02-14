@@ -72,7 +72,7 @@
 
 <h3 id="searchable-block--model-">3.增加 searchable block 到你希望索引的 model 里面。</h3>
 
-<div class="highlight"><pre><code class="ruby"><span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+<div class="highlight"><pre><code class="ruby"><span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="n">searchable</span> <span class="k">do</span>
     <span class="n">text</span> <span class="ss">:title</span>
     <span class="nb">test</span><span class="ss">:body</span>

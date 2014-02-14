@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>我的 bash_profile | The Simple</title>
+    <title>为什么 GNU grep 这么快 | The Simple</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Jekyll" />
     <meta name="author" content="John" />
@@ -39,44 +39,36 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <!-- <span>我的 bash_profile</span> -->
-            <h1 class="post-title">我的 bash_profile</h1>
+            <!-- <span>为什么 GNU grep 这么快</span> -->
+            <h1 class="post-title">为什么 GNU grep 这么快</h1>
         </header>
 		<article class="post">
-    <!-- <h1 class="post-title">我的 bash_profile</h1> -->
-    <h3 id="section">习惯</h3>
+    <!-- <h1 class="post-title">为什么 GNU grep 这么快</h1> -->
+    <p>Linuxer 经常在 shell 输出的时候加一个 grep 在后面，把自己想要的东西输出，</p>
 
-<p>对于我这样才接触 git 的人，总是有一个不好的习惯，就是不看 branch 就修改提交，因为原来使用 svn 根本没有分支这个概念。</p>
-
-<h3 id="bashprofile">配置 .bash_profile</h3>
-
-<div class="highlight"><pre><code class="bash"><span class="c"># show git branch</span>
-<span class="k">function </span>git_branch <span class="o">{</span>
-    <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>git symbolic-ref HEAD 2&gt; /dev/null<span class="k">)</span> <span class="o">||</span> <span class="k">return</span><span class="p">;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;(&quot;</span><span class="k">${</span><span class="nv">ref</span><span class="p">#refs/heads/</span><span class="k">}</span><span class="s2">&quot;) &quot;</span><span class="p">;</span>
-<span class="o">}</span>
-
-<span class="c"># show ruby version</span>
-<span class="k">function </span>ruby_v<span class="o">(){</span>
-    <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>ruby -v<span class="p">|</span>cut -c 1-10<span class="k">)</span><span class="o">||</span><span class="k">return</span><span class="p">;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;(&quot;</span><span class="k">${</span><span class="nv">ref</span><span class="k">}</span><span class="s2">&quot;) &quot;</span><span class="p">;</span>
-<span class="o">}</span>
-
-<span class="c"># PS1</span>
-<span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[01;33m\]\u@\h \[\033[1;32m\]\$(git_branch)$(ruby_v)\[\033[01;31m\]\W\$\[\033[00m\] &quot;</span>
+<div class="highlight"><pre><code class="bash">ps -ef <span class="p">|</span> grep java
 </code></pre></div>
 
-<p>两个方法一个是显示 git branch 分支，一个是显示 ruby version，因为使用 rvm 所以就写了这两个。</p>
+<p>然后 kill -9 (从前辈工作时，偷师学来的坏习惯)。</p>
+
+<p>下面是一些简单的总结，关于为什么 GNU grep 如此之快</p>
+
+<p>技巧1：GNU grep之所以快是因为它并不会去检查输入中的每一个字节。</p>
+
+<p>技巧2：GNU grep之所以快是因为它对那些的确需要检查的每个字节都执行非常少的指令（操作）。</p>
+
+<p>GNU grep使用了非常著名的 <a href="http://www.ruanyifeng.com/blog/2013/05/boyer-moore_string_search_algorithm.html" title="Title">Boyer-Moore</a> 算法（译者注：BM算法，是一种非常高效的字符串搜索算法，一般情况下，比 <a href="http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html" title="Title">KMP</a> 算法快3-5倍，具体可查看这篇讲解非常详细的文章：grep之字符串搜索算法Boyer-Moore由浅入深（比 <a href="http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html" title="Title">KMP</a> 快3-5倍）），该算法首先从目标字符串的最后一个字符开始查找，并且使用一个查找表，它可以在发现一个不匹配字符之后，计算出可以跳过多少个输入字符并继续查找。
+GNU grep还展开了 <a href="http://www.ruanyifeng.com/blog/2013/05/boyer-moore_string_search_algorithm.html" title="Title">Boyer-Moore</a> 算法的内部循环，并建立了一个Boyer-Moore的delta表，这样它就不需要在每一个展开的步骤进行循环 退出判断了。这样的结果就是，在极限情况下（in the limit），GNU grep在需要检查的每一个输入字节上所执行的x86指令不会超过3条（并且还跳过了许多字节）。</p>
 
 
-    <nav class="pagination-published">Published by John — 22 Feb 2013</nav>
+    <nav class="pagination-published">Published by John — 15 Dec 2013</nav>
 
     <nav class="pagination-link">
         
-        <a class="prev" href="http://zhaoxuan.github.io/sqlite/2013/02/11/sqlite-in-bigdata.html" rel="bookmark">&laquo;&nbsp;Sqlite 也能大数据</a>
+        <a class="prev" href="http://zhaoxuan.github.io/ruby/2013/09/30/create-new-jekyll-posts-rake-task.html" rel="bookmark">&laquo;&nbsp;create new jekyll posts rake...</a>
         
         
-        <a class="next" href="http://zhaoxuan.github.io/linux/2013/03/22/why-only-four-main-partition-in-mbr.html" rel="bookmark">为什么磁盘只能分四个主分区&nbsp;&raquo;</a>
+        <a class="next" href="http://zhaoxuan.github.io/sublime/2013/12/30/the-best-plugin-in-sublime.html" rel="bookmark">The Best Plugin in Sublime...&nbsp;&raquo;</a>
         
      </nav>
      <div id="disqus_thread"></div>
