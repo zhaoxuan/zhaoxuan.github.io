@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>古典概率模型 | The Simple</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="John" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/syntax.css" type="text/css" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://www.johninux.com/favicon.ico" type="image/x-icon" />
+    <!--[if lt IE 9]>
+    <script src="http://www.johninux.com/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <!-- <img src="http://mmistakes.github.io/minimal-mistakes/images/bio-photo.jpg" class="bio-photo" alt=" bio photo"> -->
+            <img src="http://www.johninux.com/images/head_portrait.png" class="bio-photo" alt=" bio photo">
+            <h2>Simple</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://www.johninux.com" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://twitter.com/363602094"><i class="icon-twitter"></i> Twitter</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <!-- <span>古典概率模型</span> -->
+            <h1 class="post-title">古典概率模型</h1>
+        </header>
+		<article class="post">
+    <!-- <h1 class="post-title">古典概率模型</h1> -->
+    <h3 id="section">古典概率模型</h3>
+
+<p>人们最早研究概率是从掷硬币、掷骰子和摸球等游戏和赌博中开始的。这类游戏有两个共同特点：一是试验的样本空间（某一试验全部可能结果的各元素组成的集合）有限，如掷硬币有正反两种结果，掷骰子有6种结果等；二是试验中每个结果出现的可能性相同，如硬币和骰子是均匀的前提下，掷硬币出现正反的可能性各为1/2，掷骰子出出各种点数的可能性各为1/6，具有这两个特点的随机试验称为古典概型或等可能概型。计算古典概型概率的方法称为概率的古典定义或古典概率。</p>
+
+<h4 id="section-1">定义</h4>
+
+<p>如果实验 E 的结果只有有限种，且每种结果发生的可能性相同，则称这样的实验模型为等可能概率模型或古典概率模型。</p>
+
+<p>1.随机现象所能发生的事件是有限的，互不相容的，互斥性。</p>
+
+<p>2.每个基本事件发生的可能性相等。</p>
+
+<h3 id="section-2">公式</h3>
+
+<p>对于古典概型，如果实验的 n 个事件为 <script type="math/tex">A _{1}, A _{2}, A _{3} \cdots A _{n}</script>，由于基本事件是两两互斥的，则由互斥事件的概率加分公式，得</p>
+
+<script type="math/tex; mode=display">P(A _{1}) + P(A _{2}) + P(A _{3}) \cdots + P(A _{n}) = P(A _{1} \cup A _{2} \cup A _{3} \cdots A _{n}) = 1</script>
+
+<script type="math/tex; mode=display">P(A _{1}) = P(A _{2}) = \cdots = P(A _{n})</script>
+
+<script type="math/tex; mode=display">nP(A _{1}) = 1 所以 P(A _{1}) = \frac{1}{n}</script>
+
+<h3 id="section-3">例子</h3>
+
+<p>掷一颗均匀骰子，设 A 表示所掷结果为偶数，求 P(A)。</p>
+
+<p>设 <script type="math/tex">A _{1} = 1, A _{2} = 2, \cdots , A _{6} = 6</script> 分别表示所掷的结果为 “一点”， “两点” … “六点”</p>
+
+<p>则样本空间 <script type="math/tex">\Omega = {1,2,3,4,5,6}, A _{1}, A _{2}, A _{3}, A _{4}, A _{5}, A _{6} </script> 是所有不同的基本事件，且他们发生的概率相同，于是</p>
+
+<script type="math/tex; mode=display">P(A _{1}) = P(A _{2}) = \cdots = P(A _{6}) = \frac{1}{6}</script>
+
+<p>由 <script type="math/tex">P(A) = P(A _{2} \cup A _{4} \cup A _{6}) = \left\{2,4,6\right\}</script> 得</p>
+
+<script type="math/tex; mode=display">P(A) = P(A _{2}) + P(A _{4}) + P(A _{6}) = \frac{1}{6} + \frac{1}{6} + \frac{1}{6} = \frac{1}{2}</script>
+
+
+    <nav class="pagination-published">Published by John — 18 Feb 2014</nav>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://www.johninux.com/feeling/2014/02/13/u-dont-understand-me-but-i-am-still-me.html" rel="bookmark">&laquo;&nbsp;虽然你不了解我，但是我还是我</a>
+        
+        
+        <a class="next" href="http://www.johninux.com/shell/2014/02/19/shell-command-ping.html" rel="bookmark">shell command ping&nbsp;&raquo;</a>
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>
+
+<!-- disqus -->
+<!-- <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->
+<!-- end_disqus -->
+        <footer id="foot">
+            <p>&copy; 2014 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>
+        </footer>
+    </section>
+</div>
+<div id="foot-line"></div>
+<script src="http://www.johninux.com/js/jquery.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/theOne.js" type="text/javascript"></script>
+
+</body>
+</html>

@@ -7,12 +7,12 @@
     <meta name="generator" content="Jekyll" />
     <meta name="author" content="John" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="http://www.johninux.com//css/style.css" type="text/css" />
-    <link rel="stylesheet" href="http://www.johninux.com//css/syntax.css" type="text/css" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/syntax.css" type="text/css" />
     <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
-    <link rel="shortcut icon" href="http://www.johninux.com//favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://www.johninux.com/favicon.ico" type="image/x-icon" />
     <!--[if lt IE 9]>
-    <script src="http://www.johninux.com//js/html5.js" type="text/javascript"></script>
+    <script src="http://www.johninux.com/js/html5.js" type="text/javascript"></script>
     <![endif]-->
 
     <!-- mathjax js is been used for mathematical formula -->
@@ -25,14 +25,14 @@
     <header id="head">
         <div id="logo">
             <!-- <img src="http://mmistakes.github.io/minimal-mistakes/images/bio-photo.jpg" class="bio-photo" alt=" bio photo"> -->
-            <img src="http://www.johninux.com//images/head_portrait.png" class="bio-photo" alt=" bio photo">
+            <img src="http://www.johninux.com/images/head_portrait.png" class="bio-photo" alt=" bio photo">
             <h2>Simple</h2>
         </div>
         <nav id="nav">
             <ul>
-                <li class="fn-clear"><a href="http://www.johninux.com/" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
-                <li class="fn-clear"><a href="http://www.johninux.com//archives.html"><i class="icon-list-ul"></i> Archives</a></li>
-                <li class="fn-clear"><a href="http://www.johninux.com//contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
                 <li class="fn-clear"><a href="http://twitter.com/363602094"><i class="icon-twitter"></i> Twitter</a></li>
             </ul>
         </nav>
@@ -44,7 +44,58 @@
         </header>
 		
 	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com//ruby/2013/09/30/create-new-jekyll-posts-rake-task.html" title="create new jekyll posts rake task " rel="bookmark">create new jekyll posts rake task </a></h2>
+        <h2 class="post-title"><a href="http://www.johninux.com/linux/2014/01/11/enable-rc-local-in-fedora-20.html" title="Enable rc-local in Fedora 20" rel="bookmark">Enable rc-local in Fedora 20</a></h2>
+        <p class="time"><time pubdate="2014-01-11 09:59:00 +0800">11 Jan 2014</time></p>
+        
+        <p>From http://joshua14.homelinux.org/blog/?p=1377</p>
+
+<p>As root:</p>
+
+<div class="highlight"><pre><code class="bash">touch /etc/rc.local
+chmod +x /etc/rc.local
+</code></pre></div>
+
+<p>Next, open the file for editing:-</p>
+
+<p>vi /etc/rc.local
+As this is basically a bash script itself, you need to ...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/sublime/2013/12/30/the-best-plugin-in-sublime.html" title="The Best Plugin in Sublime Text" rel="bookmark">The Best Plugin in Sublime Text</a></h2>
+        <p class="time"><time pubdate="2013-12-30 23:20:00 +0800">30 Dec 2013</time></p>
+        
+        <p>这是我用过 Sublime 最好用的插件，没有之一。</p>
+
+<p>CodeIntel 可以使一个简单的文本编辑器变成一个强大的 IDE。</p>
+
+<h3 id="installing">Installing</h3>
+<p>With the Package...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/shell/2013/12/15/why-grep-is-so-fast.html" title="为什么 GNU grep 这么快" rel="bookmark">为什么 GNU grep 这么快</a></h2>
+        <p class="time"><time pubdate="2013-12-15 17:39:00 +0800">15 Dec 2013</time></p>
+        
+        <p>Linuxer 经常在 shell 输出的时候加一个 grep 在后面，把自己想要的东西输出，</p>
+
+<div class="highlight"><pre><code class="bash">ps -ef <span class="p">|</span> grep java
+</code></pre></div>
+
+<p>然后 kill -9 (从前辈工作时，偷师学来的坏习惯)。</p>
+
+<p>下面是一些简单的总结，关于为什么 GNU grep 如此之快</p>
+
+<p>技巧1：GNU grep之所以快是因为它并不会去检查输入中的每一个字节。</p>
+
+<p>技巧2：GNU grep之所以快是因为它对...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/ruby/2013/09/30/create-new-jekyll-posts-rake-task.html" title="create new jekyll posts rake task " rel="bookmark">create new jekyll posts rake task </a></h2>
         <p class="time"><time pubdate="2013-09-30 16:03:00 +0800">30 Sep 2013</time></p>
         
         <p>Jekyll, a static site generator, is blog-aware. That means it tracks posts and publication dates. Working with such files can be tricky, but here is one way of using Rake to ease the pain.</p>
@@ -54,7 +105,7 @@
     </article>
 
 	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com//ruby/2013/09/25/ruby-robust.html" title="提高 ruby script 的健壮性" rel="bookmark">提高 ruby script 的健壮性</a></h2>
+        <h2 class="post-title"><a href="http://www.johninux.com/ruby/2013/09/25/ruby-robust.html" title="提高 ruby script 的健壮性" rel="bookmark">提高 ruby script 的健壮性</a></h2>
         <p class="time"><time pubdate="2013-09-25 10:49:00 +0800">25 Sep 2013</time></p>
         
         <p>首先必须承认 ruby 脚本确实是一个非常好用的工具。</p>
@@ -75,59 +126,12 @@
         
     </article>
 
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com//linux/2013/03/22/why-only-four-main-partition-in-mbr.html" title="为什么磁盘只能分四个主分区" rel="bookmark">为什么磁盘只能分四个主分区</a></h2>
-        <p class="time"><time pubdate="2013-03-22 20:27:00 +0800">22 Mar 2013</time></p>
-        
-        <p>不知道大家有没有考虑过，为什么一块磁盘一般只能分四个主分区，或者三个主分区加一个拓展分区。</p>
-
-<p>为什么不能突破四个主分区的限制多分几个主分区呢？</p>
-
-<p>当年 Bill Gates 说 “无论对谁来说,640K内存都足够了”。</p>
-
-<p>硬盘的第一磁盘，第一磁道，第一扇区，是一个非常特殊的扇区，它是计算机的 Boot Sector。</p>
-
-<p>MBR（Master Boot Record），DPT（Disk Partition Table）和 Boot Record ID 三部分就放在 Boot...</p>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com//linux/2013/02/22/my-bash-profile.html" title="我的 bash_profile" rel="bookmark">我的 bash_profile</a></h2>
-        <p class="time"><time pubdate="2013-02-22 15:56:00 +0800">22 Feb 2013</time></p>
-        
-        <h3 id="section">习惯</h3>
-
-<p>对于我这样才接触 git 的人，总是有一个不好的习惯，就是不看 branch 就修改提交，因为原来使用 svn 根本没有分支这个概念。</p>
-
-<h3 id="bashprofile">配置 .bash_profile</h3>
-
-<div class="highlight"><pre><code class="bash"><span class="c"># show git branch</span>
-<span class="k">function </span>git_branch <span class="o">{</span>
-    <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>git symbolic-ref HEAD 2&gt; /dev/null<span class="k">)</span> <span class="o">||</span> <span class="k">return</span><span class="p">;</span>
-    <span class="nb">echo</span> <span class="s2">"("</span><span class="k">${...</span></code></pre></div>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com//sqlite/2013/02/11/sqlite-in-bigdata.html" title="Sqlite 也能大数据" rel="bookmark">Sqlite 也能大数据</a></h2>
-        <p class="time"><time pubdate="2013-02-11 15:18:00 +0800">11 Feb 2013</time></p>
-        
-        <h3 id="section">简介</h3>
-
-<p>SQLite 是一个开源的嵌入式关系数据库，实现自包容、零配置、支持事务的SQL数据库引擎。 其特点是高度便携、使用方便、结构紧凑、高效、可靠。 与其他数据库管理系统不同，SQLite 的安装和运行非常简单，在大多数情况下 - 只要确保SQLite的二进制文件存在即可开始创建、连接和使用数据库。</p>
-
-<p>但是今天，我并不是要在嵌入式开发中用它，因为他的简单，小巧，我反而要在大数据中使用它。</p>
-
-<h3 id="section-1">使用...</h3>
-        
-    </article>
-
 
     <nav id="pagination" class="fn-clear">
         <ul class="pagination">
             
                 
-                    <li><a href="http://www.johninux.com//">1</a></li>
+                    <li><a href="http://www.johninux.com/">1</a></li>
                 
             
                 
@@ -135,31 +139,35 @@
                 
             
                 
-                    <li><a href="http://www.johninux.com//page3/">3</a></li>
+                    <li><a href="http://www.johninux.com/page3/">3</a></li>
                 
             
                 
-                    <li><a href="http://www.johninux.com//page4/">4</a></li>
+                    <li><a href="http://www.johninux.com/page4/">4</a></li>
                 
             
                 
-                    <li><a href="http://www.johninux.com//page5/">5</a></li>
+                    <li><a href="http://www.johninux.com/page5/">5</a></li>
                 
             
                 
-                    <li><a href="http://www.johninux.com//page6/">6</a></li>
+                    <li><a href="http://www.johninux.com/page6/">6</a></li>
                 
             
                 
-                    <li><a href="http://www.johninux.com//page7/">7</a></li>
+                    <li><a href="http://www.johninux.com/page7/">7</a></li>
                 
             
                 
-                    <li><a href="http://www.johninux.com//page8/">8</a></li>
+                    <li><a href="http://www.johninux.com/page8/">8</a></li>
                 
             
                 
-                    <li><a href="http://www.johninux.com//page9/">9</a></li>
+                    <li><a href="http://www.johninux.com/page9/">9</a></li>
+                
+            
+                
+                    <li><a href="http://www.johninux.com/page10/">10</a></li>
                 
             
         </ul>
@@ -172,9 +180,9 @@
     </section>
 </div>
 <div id="foot-line"></div>
-<script src="http://www.johninux.com//js/jquery.js" type="text/javascript"></script>
-<script src="http://www.johninux.com//js/jquery.scrollTo.js" type="text/javascript"></script>
-<script src="http://www.johninux.com//js/theOne.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/jquery.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/theOne.js" type="text/javascript"></script>
 
 </body>
 </html>

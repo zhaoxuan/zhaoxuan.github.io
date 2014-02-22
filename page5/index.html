@@ -7,12 +7,12 @@
     <meta name="generator" content="Jekyll" />
     <meta name="author" content="John" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="http://www.johninux.com//css/style.css" type="text/css" />
-    <link rel="stylesheet" href="http://www.johninux.com//css/syntax.css" type="text/css" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/syntax.css" type="text/css" />
     <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
-    <link rel="shortcut icon" href="http://www.johninux.com//favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://www.johninux.com/favicon.ico" type="image/x-icon" />
     <!--[if lt IE 9]>
-    <script src="http://www.johninux.com//js/html5.js" type="text/javascript"></script>
+    <script src="http://www.johninux.com/js/html5.js" type="text/javascript"></script>
     <![endif]-->
 
     <!-- mathjax js is been used for mathematical formula -->
@@ -25,14 +25,14 @@
     <header id="head">
         <div id="logo">
             <!-- <img src="http://mmistakes.github.io/minimal-mistakes/images/bio-photo.jpg" class="bio-photo" alt=" bio photo"> -->
-            <img src="http://www.johninux.com//images/head_portrait.png" class="bio-photo" alt=" bio photo">
+            <img src="http://www.johninux.com/images/head_portrait.png" class="bio-photo" alt=" bio photo">
             <h2>Simple</h2>
         </div>
         <nav id="nav">
             <ul>
-                <li class="fn-clear"><a href="http://www.johninux.com/" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
-                <li class="fn-clear"><a href="http://www.johninux.com//archives.html"><i class="icon-list-ul"></i> Archives</a></li>
-                <li class="fn-clear"><a href="http://www.johninux.com//contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
                 <li class="fn-clear"><a href="http://twitter.com/363602094"><i class="icon-twitter"></i> Twitter</a></li>
             </ul>
         </nav>
@@ -44,7 +44,64 @@
         </header>
 		
 	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com//fluentd/log/ruby/2012/10/29/fluentd-configuration-file.html" title="Fluentd 配置文件" rel="bookmark">Fluentd 配置文件</a></h2>
+        <h2 class="post-title"><a href="http://www.johninux.com/feeling/2012/11/22/a-month.html" title="一个月" rel="bookmark">一个月</a></h2>
+        <p class="time"><time pubdate="2012-11-22 22:24:00 +0800">22 Nov 2012</time></p>
+        
+        <p>回顾下到新公司的一个月。</p>
+
+<p>还记得一个月前的今天，也就是 10 月 22 号，第一天来到 i-click 的时候是那么的陌生。</p>
+
+<p>陌生的环境都让我感觉有点害怕，开始对自己的信心开始动摇。</p>
+
+<p>我当初的决定对吗？</p>
+
+<p>我能完成当初的承诺吗？</p>
+
+<p>我应该怎么说服自己的？</p>
+
+<p>第一天到公司，只有 mike 和我主动说了第一句话：</p>
+
+<p>“你是新来公司吗？你应该到 E 座去先报道去。”</p>
+
+<p>这样我才开始了新的工作。</p>
+
+<p>因为如果不是 mike 我还在发呆，一切都是这么茫然。...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/algorithm/2012/11/17/information-gain.html" title="信息增益(information gain)" rel="bookmark">信息增益(information gain)</a></h2>
+        <p class="time"><time pubdate="2012-11-17 15:28:00 +0800">17 Nov 2012</time></p>
+        
+        <h4 id="section">简介</h4>
+<p>百度百科上面的定义：在概率论和信息论中，信息增益是非对称的，用以度量两种概率分布P和Q的差异。信息增益描述了当使用Q进行编码时，再使用P进行编码的差异。通常P代表样本或观察值的分布，也有可能是精确计算的理论分布。Q代表一种理论，模型，描述或者对P的近似。</p>
+
+<p>读起来略微有点费解，其实我个人理解，信息增益，既然有增益，必然有要对比。</p>
+
+<p>首先要对信息进行量化，说到这个，就不得不提到我...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/ruby/2012/10/31/ruby-mechanize.html" title="使用 mechanize 模拟浏览器提交数据" rel="bookmark">使用 mechanize 模拟浏览器提交数据</a></h2>
+        <p class="time"><time pubdate="2012-10-31 22:06:00 +0800">31 Oct 2012</time></p>
+        
+        <p>对于要抓取网页的操作，nokogiri 绝对是一个非常牛逼的 gem。</p>
+
+<p>但是如果这个页面涉及到登陆，涉及到跳转的时候 nokogiri 就有点无能为力了。</p>
+
+<p>这里推荐使用 mechanize，类似的还有 faraday。</p>
+
+<p>如果要涉及到 cookie 操作的话，推荐使用 mechanize，这样跳转起来方便。</p>
+
+<p>如果要是抓 API 的话，就用 faraday。</p>
+
+<p>1 ins...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/log/2012/10/29/fluentd-configuration-file.html" title="Fluentd 配置文件" rel="bookmark">Fluentd 配置文件</a></h2>
         <p class="time"><time pubdate="2012-10-29 07:56:00 +0800">29 Oct 2012</time></p>
         
         <p><a href="http://docs.fluentd.org/articles/config-file" target="_blank">Fluentd config file</a>
@@ -54,7 +111,7 @@ The configuration file allows the user to control...</p>
     </article>
 
 	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com//fluentd/ruby/log/2012/10/28/fluentd-a-log-collection.html" title="使用 Fluentd 构建一个实时日志收集系统" rel="bookmark">使用 Fluentd 构建一个实时日志收集系统</a></h2>
+        <h2 class="post-title"><a href="http://www.johninux.com/log/2012/10/28/fluentd-a-log-collection.html" title="使用 Fluentd 构建一个实时日志收集系统" rel="bookmark">使用 Fluentd 构建一个实时日志收集系统</a></h2>
         <p class="time"><time pubdate="2012-10-28 07:29:00 +0800">28 Oct 2012</time></p>
         
         <p>Fluentd 是一个日志收集系统，它的特点在于其各部分均是可定制化的，你可以通过简单的配置，将日志收集到不同的地方。</p>
@@ -72,93 +129,24 @@ The configuration file allows the user to control...</p>
         
     </article>
 
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com//feeling/2012/10/23/lack-of-something.html" title="总是感觉缺少点什么" rel="bookmark">总是感觉缺少点什么</a></h2>
-        <p class="time"><time pubdate="2012-10-23 23:05:00 +0800">23 Oct 2012</time></p>
-        
-        <p>今天是第二天到新公司上班了，但是突然有种异样的感觉。</p>
-
-<p>第一是感觉环境好陌生啊，一切都是这么不了解，一切都是这么新，有种让人难以呼吸的感觉。</p>
-
-<p>第二是好长时间都没有工作了，感觉不会工作了，不知道从什么地方开始？</p>
-
-<p>第三是有点害怕，新的环境让我感觉好孤独。</p>
-
-<p>因为好多人都不认识，突然见感觉不知道找谁说话了。</p>
-
-<p>原来可以依靠的，帮助自己的人也不在身边，有问题都不知道向谁请教了。</p>
-
-<p>感觉自己就是插入这个环境里面的外来生物，...</p>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com//feeling/2012/10/13/to-face-leaving.html" title="面对离开" rel="bookmark">面对离开</a></h2>
-        <p class="time"><time pubdate="2012-10-13 01:57:00 +0800">13 Oct 2012</time></p>
-        
-        <h4 id="section">你是成功的走还是失败的走？</h4>
-
-<p>面对离开，不同的人是有不同的原因的，但是小明告诉我，大概只有两种。</p>
-
-<p>面对失败的结果，自己不能改变什么，被迫的离开。</p>
-
-<p>这个失败的结果并不是工作上面的失败或者任务的失败，很可能是不敢面对失败的自己。</p>
-
-<p>看见镜子中一个失败的人，自己非常害怕面对。</p>
-
-<p>即使同事和领导可以原谅你，但是自己都放不下自己。</p>
-
-<p>还有一个成功的离开。</p>
-
-<p>在一个公司出色的完成任务，感觉自己的能力还没有发挥到最大，但是...</p>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com//feeling/2012/10/07/my-grandfather-pass-away.html" title="老爷走了" rel="bookmark">老爷走了</a></h2>
-        <p class="time"><time pubdate="2012-10-07 19:30:00 +0800">07 Oct 2012</time></p>
-        
-        <h3 id="section">噩耗来临</h3>
-
-<blockquote>
-  <p>晚上 7 点多，回到住的地方，正在看书找点东西做的时候，突然一个电话打到我的手机上面。当时的心情我是一点都不记得了。</p>
-</blockquote>
-
-<blockquote>
-  <p>电话里面妈妈用一种非常沉重的语气告诉我，老爷走了。</p>
-</blockquote>
-
-<blockquote>
-  <p>当时我真的不知道说什么好，突然间就不会讲话了。就在电话里面默默的听妈妈讲，讲的什么我也不记得了。</p>
-</blockquote>
-
-<blockquote>
-  <p>正当我要说明天我就赶回家时，妈妈告诉我别回来了，来不及了，后天老爷就要出殡了。</p>
-</blockquote>
-
-<blockquote>
-  ...</blockquote>
-        
-    </article>
-
 
     <nav id="pagination" class="fn-clear">
         <ul class="pagination">
             
                 
-                    <li><a href="http://www.johninux.com//">1</a></li>
+                    <li><a href="http://www.johninux.com/">1</a></li>
                 
             
                 
-                    <li><a href="http://www.johninux.com//page2/">2</a></li>
+                    <li><a href="http://www.johninux.com/page2/">2</a></li>
                 
             
                 
-                    <li><a href="http://www.johninux.com//page3/">3</a></li>
+                    <li><a href="http://www.johninux.com/page3/">3</a></li>
                 
             
                 
-                    <li><a href="http://www.johninux.com//page4/">4</a></li>
+                    <li><a href="http://www.johninux.com/page4/">4</a></li>
                 
             
                 
@@ -166,19 +154,23 @@ The configuration file allows the user to control...</p>
                 
             
                 
-                    <li><a href="http://www.johninux.com//page6/">6</a></li>
+                    <li><a href="http://www.johninux.com/page6/">6</a></li>
                 
             
                 
-                    <li><a href="http://www.johninux.com//page7/">7</a></li>
+                    <li><a href="http://www.johninux.com/page7/">7</a></li>
                 
             
                 
-                    <li><a href="http://www.johninux.com//page8/">8</a></li>
+                    <li><a href="http://www.johninux.com/page8/">8</a></li>
                 
             
                 
-                    <li><a href="http://www.johninux.com//page9/">9</a></li>
+                    <li><a href="http://www.johninux.com/page9/">9</a></li>
+                
+            
+                
+                    <li><a href="http://www.johninux.com/page10/">10</a></li>
                 
             
         </ul>
@@ -191,9 +183,9 @@ The configuration file allows the user to control...</p>
     </section>
 </div>
 <div id="foot-line"></div>
-<script src="http://www.johninux.com//js/jquery.js" type="text/javascript"></script>
-<script src="http://www.johninux.com//js/jquery.scrollTo.js" type="text/javascript"></script>
-<script src="http://www.johninux.com//js/theOne.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/jquery.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/theOne.js" type="text/javascript"></script>
 
 </body>
 </html>

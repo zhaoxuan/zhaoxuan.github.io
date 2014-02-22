@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>使用 ruby 解析纯真 IP 库 | The Simple</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="John" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/syntax.css" type="text/css" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://www.johninux.com/favicon.ico" type="image/x-icon" />
+    <!--[if lt IE 9]>
+    <script src="http://www.johninux.com/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <!-- <img src="http://mmistakes.github.io/minimal-mistakes/images/bio-photo.jpg" class="bio-photo" alt=" bio photo"> -->
+            <img src="http://www.johninux.com/images/head_portrait.png" class="bio-photo" alt=" bio photo">
+            <h2>Simple</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://www.johninux.com" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://twitter.com/363602094"><i class="icon-twitter"></i> Twitter</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <!-- <span>使用 ruby 解析纯真 IP 库</span> -->
+            <h1 class="post-title">使用 ruby 解析纯真 IP 库</h1>
+        </header>
+		<article class="post">
+    <!-- <h1 class="post-title">使用 ruby 解析纯真 IP 库</h1> -->
+    <h3 id="qq--ip-">QQ 纯真 IP 库</h3>
+
+<p>通过 IP 来定位 Region 已经是在 RTB 里面非常常用的手段，但是现在客户需要更加精准的定位人群的位置。</p>
+
+<p>所以就想到了使用纯真 IP 库，来更加精准的定位。</p>
+
+<h3 id="qqwrydat-">QQWry.dat 结构</h3>
+
+<p>QQWry.dat文件在结构上分为3块：文件头，记录区，索引区。</p>
+
+<p>一般我们要查找IP时，先在索引区查找记录偏移，然后再到记录区读出信息。由于记录区的记录是不定长的，所以直接在记录区中搜索是不可能的。由于记录数比较多，如果我们遍历索引区也会是有点慢的，一般来说，我们可以用二分查找法搜索索引区，其速度比遍历索引区快若干数量级。图1是QQWry.dat的文件结构图。</p>
+
+<p><img src="http://www.johninux.com/images/post/qqwry_dat_pic1.gif" alt="图1" /></p>
+
+<p>QQWry.dat的文件头只有8个字节，其结构非常简单，首四个字节是第一条索引的绝对偏移，后四个字节是最后一条索引的绝对偏移。</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="vi">@file</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;qqwry.dat&#39;</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="vi">@index_first</span><span class="p">,</span> <span class="vi">@index_last</span>  <span class="o">=</span> <span class="vi">@file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;L2&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>有了索引区的绝对偏移，通过 IP 获得相对偏移，然后在索引区我们就能顺着索引指向的地方去读取内容了。</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="n">ip_long</span> <span class="o">=</span> <span class="n">ip</span><span class="o">.</span><span class="n">to_long</span>
+
+<span class="n">offset_min</span><span class="p">,</span><span class="n">offset_max</span> <span class="o">=</span> <span class="vi">@index_first</span><span class="p">,</span><span class="vi">@index_last</span>
+
+<span class="k">while</span> <span class="n">offset_min</span> <span class="o">&lt;=</span> <span class="n">offset_max</span>
+  <span class="n">offset_mid</span> <span class="o">=</span> <span class="n">offset_min</span> <span class="o">+</span> <span class="p">(</span><span class="n">offset_max</span> <span class="o">-</span> <span class="n">offset_min</span><span class="p">)</span> <span class="o">/</span> <span class="mi">14</span><span class="o">*</span><span class="mi">7</span>
+  <span class="n">mid</span> <span class="o">=</span> <span class="n">read_long</span><span class="p">(</span><span class="n">offset_mid</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">ip_long</span> <span class="o">&lt;</span> <span class="n">mid</span>
+      <span class="n">offset_max</span> <span class="o">=</span> <span class="n">offset_mid</span> <span class="o">-</span> <span class="mi">7</span>
+  <span class="k">elsif</span> <span class="n">ip_long</span> <span class="o">==</span> <span class="n">mid</span>
+      <span class="k">return</span> <span class="n">read_offset</span><span class="p">(</span><span class="n">offset_mid</span><span class="o">+</span><span class="mi">4</span><span class="p">)</span>
+  <span class="k">else</span>
+      <span class="n">offset_min</span> <span class="o">=</span> <span class="n">offset_mid</span> <span class="o">+</span> <span class="mi">7</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">return</span> <span class="n">read_offset</span><span class="p">(</span><span class="n">offset_max</span><span class="o">+</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div>
+
+<p>通过 read_offset 返回的内容，我们就知道数据存放的地址了，就能直接读取里面的内容了。</p>
+
+<p>这里还有一点需要注意下，qqwry.dat 是用 gb2312 方式编码的，还需处理一下。</p>
+
+<p>详细的代码可以在 <a href="https://github.com/zhaoxuan/qqwry" title="Title">QQ 纯真 IP 库</a> 里面找到。</p>
+
+<p>其实早就有了 Gem 可以实现这个功能，为了学习才自己研究一下。</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;qqwry&#39;</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="no">QQWry</span><span class="o">::</span><span class="no">Database</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;QQWry.Dat&#39;</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;8.8.8.8&#39;</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">r</span><span class="o">.</span><span class="n">country</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">r</span><span class="o">.</span><span class="n">area</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+
+
+    <nav class="pagination-published">Published by John — 19 Feb 2014</nav>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://www.johninux.com/shell/2014/02/19/shell-command-ping.html" rel="bookmark">&laquo;&nbsp;shell command ping</a>
+        
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>
+
+<!-- disqus -->
+<!-- <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->
+<!-- end_disqus -->
+        <footer id="foot">
+            <p>&copy; 2014 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>
+        </footer>
+    </section>
+</div>
+<div id="foot-line"></div>
+<script src="http://www.johninux.com/js/jquery.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/theOne.js" type="text/javascript"></script>
+
+</body>
+</html>
