@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>二进制的魔力 | The Simple</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="John" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/syntax.css" type="text/css" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://www.johninux.com/favicon.ico" type="image/x-icon" />
+    <!--[if lt IE 9]>
+    <script src="http://www.johninux.com/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <!-- <img src="http://mmistakes.github.io/minimal-mistakes/images/bio-photo.jpg" class="bio-photo" alt=" bio photo"> -->
+            <img src="http://www.johninux.com/images/head_portrait.png" class="bio-photo" alt=" bio photo">
+            <h2>Simple</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://www.johninux.com" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/contact.html"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://twitter.com/363602094"><i class="icon-twitter"></i> Twitter</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <!-- <span>二进制的魔力</span> -->
+            <h1 class="post-title">二进制的魔力</h1>
+        </header>
+		<article class="post">
+    <!-- <h1 class="post-title">二进制的魔力</h1> -->
+    <p>因为需要做一个 IP Range 的功能，就是判断一个 IP 是不是在一个 IP Range 里面。</p>
+
+<p>比如 127.0.0.1-127.0.0.255 这样一个范围，给一个 IP 地址，看这个 IP 地址是不是在前面的范围里面。</p>
+
+<p>IP 地址，按照人的理解，很简单啊，前三段数字一样，最后一段数字在 1-255 之间就好。</p>
+
+<p>说起来简单，但是要机器实现，怎么办？写一堆循环，然后每一段数据判断一次？也行，简单，符合人的思维。</p>
+
+<p>但是你有没有考虑过 CPU 的感受？</p>
+
+<p>IP 地址虽然用十进制表示看起来非常别扭，但是他本身是二进制的数字。</p>
+
+<pre><code>127.0.0.1 表示成二进制是 1111 1111 . 0000 0000 . 0000 0000 . 0000 0001
+</code></pre>
+
+<p>把  127 变成二进制后，向左移动 8*3 就是他的二进制表示，然后把上面的二进制变成十进制</p>
+
+<pre><code>127.0.0.1 =&gt; 2130706433
+127.0.0.255 =&gt; 2130706687
+</code></pre>
+
+<p>然后只要 2130706433 &lt; IP &lt; 2130706687 它就是在这个 IP Range 范围内。</p>
+
+<p>面对计算机，还是用计算机的思维最方便了。</p>
+
+
+    <nav class="pagination-published">Published by John — 28 Feb 2014</nav>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://www.johninux.com/ruby/2014/02/19/qqwry-ip-database.html" rel="bookmark">&laquo;&nbsp;使用 ruby 解析纯真 IP 库...</a>
+        
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>
+
+<!-- disqus -->
+<!-- <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->
+<!-- end_disqus -->
+        <footer id="foot">
+            <p>&copy; 2014 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>
+        </footer>
+    </section>
+</div>
+<div id="foot-line"></div>
+<script src="http://www.johninux.com/js/jquery.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/theOne.js" type="text/javascript"></script>
+
+</body>
+</html>
