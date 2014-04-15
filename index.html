@@ -42,6 +42,50 @@
         </header>
 		
 	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/pi/2014/04/14/pptp-in-my-pi.html" title="Run all traffic through an PPTP VPN" rel="bookmark">Run all traffic through an PPTP VPN</a></h2>
+        <p class="time"><time pubdate="2014-04-14 09:01:00 +0800">14 Apr 2014</time></p>
+        
+        <h4 id="vpn-client">VPN Client</h4>
+
+<p>Some time, I have to run all traffic through a VPN, because this is China.</p>
+
+<p>Welcome to China.</p>
+
+<p>It is so easy to ...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/linux/2014/03/19/fedora-install-php-fpm-nginx.html" title="Fedora install php-fpm and nginx" rel="bookmark">Fedora install php-fpm and nginx</a></h2>
+        <p class="time"><time pubdate="2014-03-19 21:24:00 +0800">19 Mar 2014</time></p>
+        
+        <h3 id="install-nginx-and-php-fpm">Install nginx and php-fpm</h3>
+
+<div class="highlight"><pre><code class="bash">sudo yum install nginx php-fpm
+</code></pre></div>
+
+<h3 id="test-nginx">Test nginx</h3>
+
+<div class="highlight"><pre><code class="bash">sudo nginx
+</code></pre></div>
+
+<p>Type in your web ser...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/hadoop/2014/03/17/hadoop-combiner.html" title="Hadoop Combine" rel="bookmark">Hadoop Combine</a></h2>
+        <p class="time"><time pubdate="2014-03-17 10:28:00 +0800">17 Mar 2014</time></p>
+        
+        <p>之前在面试的时候，有人突然问到了一个问题：Combine 是做什么的？</p>
+
+<p>引用官方的原话<a href="http://wiki.apache.org/hadoop/HadoopMapReduce" title="Title">原话</a></p>
+
+<p>When the map operation outputs its pairs they are already available in memory. For efficiency reasons, sometimes it makes sense to take advantage of this fact by supplying a combiner class to perform a reduce-type function. If a combiner is used then the map key-value pairs are not immediately written to the output. Instead they will be collected in lists, one list per each key value. When a certain number of key-value pairs have been written, this buffer is flushed by passing all the values of each ...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
         <h2 class="post-title"><a href="http://www.johninux.com/c/2014/02/28/binary-magic.html" title="二进制的魔力" rel="bookmark">二进制的魔力</a></h2>
         <p class="time"><time pubdate="2014-02-28 10:21:00 +0800">28 Feb 2014</time></p>
         
@@ -70,42 +114,6 @@
 <p>QQWry.dat文件在结构上分为3块：文件头，记录区，索引区。</p>
 
 <p>一般我们要查找IP时，先在索引区查找记录偏移，然后再到记录区读出信息。由于记录区的记录是不定长的，所以直接在记录区中搜索是不可能的。由于记录数比较多，如果我们遍历索引区也会是有点慢的，一般来说...</p>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/shell/2014/02/19/shell-command-ping.html" title="shell command ping" rel="bookmark">shell command ping</a></h2>
-        <p class="time"><time pubdate="2014-02-19 09:35:00 +0800">19 Feb 2014</time></p>
-        
-        
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/probability/2014/02/18/classical-probability.html" title="古典概率模型" rel="bookmark">古典概率模型</a></h2>
-        <p class="time"><time pubdate="2014-02-18 10:12:00 +0800">18 Feb 2014</time></p>
-        
-        <h3 id="section">古典概率模型</h3>
-
-<p>人们最早研究概率是从掷硬币、掷骰子和摸球等游戏和赌博中...</p>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/feeling/2014/02/13/u-dont-understand-me-but-i-am-still-me.html" title="虽然你不了解我，但是我还是我" rel="bookmark">虽然你不了解我，但是我还是我</a></h2>
-        <p class="time"><time pubdate="2014-02-13 20:57:00 +0800">13 Feb 2014</time></p>
-        
-        <p>这个世界上面不是所有人都认可自己，本来以为自己努力的工作会带来别人的认同，但是往往情况不是这样。</p>
-
-<p>从忐忑不安到激动难耐，从信心满满到一落千丈，这是一个多么复杂的心情。</p>
-
-<p>去年一年的努力工作，最后真是让我感觉到了生活的本质。</p>
-
-<p>记得我在大学里面，班主任和我说过一句话：这个社会的本质就是践踏你的尊严。</p>
-
-<p>在你成为别人尊重的人之前，没人会尊重你。</p>
-
-<p>虽然你不了解我，但是我还是我，我还会继续我的风格。</p>
         
     </article>
 
@@ -166,10 +174,11 @@
 <script src="http://www.johninux.com/js/jquery.js" type="text/javascript"></script>
 <script src="http://www.johninux.com/js/jquery.scrollTo.js" type="text/javascript"></script>
 <script src="http://www.johninux.com/js/theOne.js" type="text/javascript"></script>
+<!-- baidu tongji begin -->
 <script type="text/javascript">
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2de4c656ec06b5b899ebb2b5148eb2e1' type='text/javascript'%3E%3C/script%3E"));
 </script>
-
+<!-- baidu tongji end -->
 </body>
 </html>

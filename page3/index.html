@@ -42,6 +42,48 @@
         </header>
 		
 	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/sublime/2013/12/30/the-best-plugin-in-sublime.html" title="The Best Plugin in Sublime Text" rel="bookmark">The Best Plugin in Sublime Text</a></h2>
+        <p class="time"><time pubdate="2013-12-30 23:20:00 +0800">30 Dec 2013</time></p>
+        
+        <p>这是我用过 Sublime 最好用的插件，没有之一。</p>
+
+<p>CodeIntel 可以使一个简单的文本编辑器变成一个强大的 IDE。</p>
+
+<h3 id="installing">Installing</h3>
+<p>With the Package...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/shell/2013/12/15/why-grep-is-so-fast.html" title="为什么 GNU grep 这么快" rel="bookmark">为什么 GNU grep 这么快</a></h2>
+        <p class="time"><time pubdate="2013-12-15 17:39:00 +0800">15 Dec 2013</time></p>
+        
+        <p>Linuxer 经常在 shell 输出的时候加一个 grep 在后面，把自己想要的东西输出，</p>
+
+<div class="highlight"><pre><code class="bash">ps -ef <span class="p">|</span> grep java
+</code></pre></div>
+
+<p>然后 kill -9 (从前辈工作时，偷师学来的坏习惯)。</p>
+
+<p>下面是一些简单的总结，关于为什么 GNU grep 如此之快</p>
+
+<p>技巧1：GNU grep之所以快是因为它并不会去检查输入中的每一个字节。</p>
+
+<p>技巧2：GNU grep之所以快是因为它对...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/ruby/2013/09/30/create-new-jekyll-posts-rake-task.html" title="create new jekyll posts rake task " rel="bookmark">create new jekyll posts rake task </a></h2>
+        <p class="time"><time pubdate="2013-09-30 16:03:00 +0800">30 Sep 2013</time></p>
+        
+        <p>Jekyll, a static site generator, is blog-aware. That means it tracks posts and publication dates. Working with such files can be tricky, but here is one way of using Rake to ease the pain.</p>
+
+<h4 id="what-we-need">What...</h4>
+        
+    </article>
+
+	<article class="post fn-clear">
         <h2 class="post-title"><a href="http://www.johninux.com/ruby/2013/09/25/ruby-robust.html" title="提高 ruby script 的健壮性" rel="bookmark">提高 ruby script 的健壮性</a></h2>
         <p class="time"><time pubdate="2013-09-25 10:49:00 +0800">25 Sep 2013</time></p>
         
@@ -76,71 +118,6 @@
 <p>硬盘的第一磁盘，第一磁道，第一扇区，是一个非常特殊的扇区，它是计算机的 Boot Sector。</p>
 
 <p>MBR（Master Boot Record），DPT（Disk Partition Table）和 Boot Record ID 三部分就放在 Boot...</p>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/linux/2013/02/22/my-bash-profile.html" title="我的 bash_profile" rel="bookmark">我的 bash_profile</a></h2>
-        <p class="time"><time pubdate="2013-02-22 15:56:00 +0800">22 Feb 2013</time></p>
-        
-        <h3 id="section">习惯</h3>
-
-<p>对于我这样才接触 git 的人，总是有一个不好的习惯，就是不看 branch 就修改提交，因为原来使用 svn 根本没有分支这个概念。</p>
-
-<h3 id="bashprofile">配置 .bash_profile</h3>
-
-<div class="highlight"><pre><code class="bash"><span class="c"># show git branch</span>
-<span class="k">function </span>git_branch <span class="o">{</span>
-    <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>git symbolic-ref HEAD 2&gt; /dev/null<span class="k">)</span> <span class="o">||</span> <span class="k">return</span><span class="p">;</span>
-    <span class="nb">echo</span> <span class="s2">"("</span><span class="k">${...</span></code></pre></div>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/sqlite/2013/02/11/sqlite-in-bigdata.html" title="Sqlite 也能大数据" rel="bookmark">Sqlite 也能大数据</a></h2>
-        <p class="time"><time pubdate="2013-02-11 15:18:00 +0800">11 Feb 2013</time></p>
-        
-        <h3 id="section">简介</h3>
-
-<p>SQLite 是一个开源的嵌入式关系数据库，实现自包容、零配置、支持事务的SQL数据库引擎。 其特点是高度便携、使用方便、结构紧凑、高效、可靠。 与其他数据库管理系统不同，SQLite 的安装和运行非常简单，在大多数情况下 - 只要确保SQLite的二进制文件存在即可开始创建、连接和使用数据库。</p>
-
-<p>但是今天，我并不是要在嵌入式开发中用它，因为他的简单，小巧，我反而要在大数据中使用它。</p>
-
-<h3 id="section-1">使用...</h3>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/feeling/2013/01/31/hadoop-install.html" title="hadoop install" rel="bookmark">hadoop install</a></h2>
-        <p class="time"><time pubdate="2013-01-31 13:43:00 +0800">31 Jan 2013</time></p>
-        
-        <h4 id="section">一 软件安装环境</h4>
-<blockquote>
-  <p>1、 OS：ubuntu-12.10</p>
-</blockquote>
-
-<blockquote>
-  <p>2、 JDK：jdk1.7.0_07</p>
-</blockquote>
-
-<blockquote>
-  <p>3、 Hadoop：hadoop-1.0.4</p>
-</blockquote>
-
-<blockquote>
-  <p>4、 ssh ssh-server</p>
-</blockquote>
-
-<p>安装的方法就自己去 google 搜索吧，这里就不啰嗦了。</p>
-
-<h4 id="ssh">二 配置 ssh</h4>
-
-<p>现在确认能否不输入口令就用ssh登录localhost:</p>
-
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ssh localhost
-</code></pre></div>
-
-<p>如果不输入口令就无法用ssh登陆localhost，执行下面的命令...</p>
         
     </article>
 
@@ -201,10 +178,11 @@
 <script src="http://www.johninux.com/js/jquery.js" type="text/javascript"></script>
 <script src="http://www.johninux.com/js/jquery.scrollTo.js" type="text/javascript"></script>
 <script src="http://www.johninux.com/js/theOne.js" type="text/javascript"></script>
+<!-- baidu tongji begin -->
 <script type="text/javascript">
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2de4c656ec06b5b899ebb2b5148eb2e1' type='text/javascript'%3E%3C/script%3E"));
 </script>
-
+<!-- baidu tongji end -->
 </body>
 </html>
