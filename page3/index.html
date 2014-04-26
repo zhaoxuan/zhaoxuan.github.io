@@ -42,6 +42,25 @@
         </header>
 		
 	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/linux/2014/01/11/enable-rc-local-in-fedora-20.html" title="Enable rc-local in Fedora 20" rel="bookmark">Enable rc-local in Fedora 20</a></h2>
+        <p class="time"><time pubdate="2014-01-11 09:59:00 +0800">11 Jan 2014</time></p>
+        
+        <p>From http://joshua14.homelinux.org/blog/?p=1377</p>
+
+<p>As root:</p>
+
+<div class="highlight"><pre><code class="bash">touch /etc/rc.local
+chmod +x /etc/rc.local
+</code></pre></div>
+
+<p>Next, open the file for editing:-</p>
+
+<p>vi /etc/rc.local
+As this is basically a bash script itself, you need to ...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
         <h2 class="post-title"><a href="http://www.johninux.com/sublime/2013/12/30/the-best-plugin-in-sublime.html" title="The Best Plugin in Sublime Text" rel="bookmark">The Best Plugin in Sublime Text</a></h2>
         <p class="time"><time pubdate="2013-12-30 23:20:00 +0800">30 Dec 2013</time></p>
         
@@ -105,22 +124,6 @@
         
     </article>
 
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/linux/2013/03/22/why-only-four-main-partition-in-mbr.html" title="为什么磁盘只能分四个主分区" rel="bookmark">为什么磁盘只能分四个主分区</a></h2>
-        <p class="time"><time pubdate="2013-03-22 20:27:00 +0800">22 Mar 2013</time></p>
-        
-        <p>不知道大家有没有考虑过，为什么一块磁盘一般只能分四个主分区，或者三个主分区加一个拓展分区。</p>
-
-<p>为什么不能突破四个主分区的限制多分几个主分区呢？</p>
-
-<p>当年 Bill Gates 说 “无论对谁来说,640K内存都足够了”。</p>
-
-<p>硬盘的第一磁盘，第一磁道，第一扇区，是一个非常特殊的扇区，它是计算机的 Boot Sector。</p>
-
-<p>MBR（Master Boot Record），DPT（Disk Partition Table）和 Boot Record ID 三部分就放在 Boot...</p>
-        
-    </article>
-
 
     <nav id="pagination" class="fn-clear">
         <ul class="pagination">
@@ -163,6 +166,10 @@
             
                 
                     <li><a href="http://www.johninux.com/page10/">10</a></li>
+                
+            
+                
+                    <li><a href="http://www.johninux.com/page11/">11</a></li>
                 
             
         </ul>

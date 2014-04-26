@@ -42,6 +42,24 @@
         </header>
 		
 	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/ruby/2014/02/19/qqwry-ip-database.html" title="使用 ruby 解析纯真 IP 库" rel="bookmark">使用 ruby 解析纯真 IP 库</a></h2>
+        <p class="time"><time pubdate="2014-02-19 09:36:00 +0800">19 Feb 2014</time></p>
+        
+        <h3 id="qq--ip-">QQ 纯真 IP 库</h3>
+
+<p>通过 IP 来定位 Region 已经是在 RTB 里面非常常用的手段，但是现在客户需要更加精准的定位人群的位置。</p>
+
+<p>所以就想到了使用纯真 IP 库，来更加精准的定位。</p>
+
+<h3 id="qqwrydat-">QQWry.dat 结构</h3>
+
+<p>QQWry.dat文件在结构上分为3块：文件头，记录区，索引区。</p>
+
+<p>一般我们要查找IP时，先在索引区查找记录偏移，然后再到记录区读出信息。由于记录区的记录是不定长的，所以直接在记录区中搜索是不可能的。由于记录数比较多，如果我们遍历索引区也会是有点慢的，一般来说...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
         <h2 class="post-title"><a href="http://www.johninux.com/shell/2014/02/19/shell-command-ping.html" title="shell command ping" rel="bookmark">shell command ping</a></h2>
         <p class="time"><time pubdate="2014-02-19 09:35:00 +0800">19 Feb 2014</time></p>
         
@@ -87,25 +105,6 @@
         
     </article>
 
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/linux/2014/01/11/enable-rc-local-in-fedora-20.html" title="Enable rc-local in Fedora 20" rel="bookmark">Enable rc-local in Fedora 20</a></h2>
-        <p class="time"><time pubdate="2014-01-11 09:59:00 +0800">11 Jan 2014</time></p>
-        
-        <p>From http://joshua14.homelinux.org/blog/?p=1377</p>
-
-<p>As root:</p>
-
-<div class="highlight"><pre><code class="bash">touch /etc/rc.local
-chmod +x /etc/rc.local
-</code></pre></div>
-
-<p>Next, open the file for editing:-</p>
-
-<p>vi /etc/rc.local
-As this is basically a bash script itself, you need to ...</p>
-        
-    </article>
-
 
     <nav id="pagination" class="fn-clear">
         <ul class="pagination">
@@ -148,6 +147,10 @@ As this is basically a bash script itself, you need to ...</p>
             
                 
                     <li><a href="http://www.johninux.com/page10/">10</a></li>
+                
+            
+                
+                    <li><a href="http://www.johninux.com/page11/">11</a></li>
                 
             
         </ul>

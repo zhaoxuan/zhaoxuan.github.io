@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Run all traffic through an PPTP VPN on my Raspberry Pi | The Simple</title>
+    <title>How to get http request header | The Simple</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Jekyll" />
     <meta name="author" content="John" />
@@ -38,68 +38,41 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <h1 class="post-title">Run all traffic through an PPTP VPN on my Raspberry Pi</h1>
+            <h1 class="post-title">How to get http request header</h1>
         </header>
 		<article class="post">
-    <!-- <h1 class="post-title">Run all traffic through an PPTP VPN on my Raspberry Pi</h1> -->
-    <h4 id="vpn-client">VPN Client</h4>
+    <!-- <h1 class="post-title">How to get http request header</h1> -->
+    <p>Recently, I need a function checking whether the file has downloaded completed, so there is a problem how to get size of a remote file without downloaded.</p>
 
-<p>Some time, I have to run all traffic through a VPN, because this is China.</p>
+<p>Using ruby, python or other language, I can’t get the this from URL immediately.</p>
 
-<p>Welcome to China.</p>
+<p>So I have to come be to linux</p>
 
-<p>It is so easy to set VPN in Mac or Gnome environment desk, but I didn’t have used it in command line before.</p>
-
-<p>To start, You need install pptp client in Pi, this can be achieved by:</p>
-
-<pre><code>sudo pacman -S pptp-client
+<pre><code>man wget
+man axel
+man curl
+...
 </code></pre>
 
-<p>Next, Create a pptp account:</p>
+<p>Yep, In the manual of curl, I get this</p>
 
-<pre><code>pptpsetup --create my_vpn --server vpn.example.com --username john --password foo --encrypt
+<pre><code>curl -I, --head
+(HTTP/FTP/FILE) Fetch the HTTP-header only! HTTP-servers feature the command HEAD which  this  uses
+to  get  nothing  but the header of a document. When used on an FTP or FILE file, curl displays the
+file size and last modification time only.
 </code></pre>
 
-<p>Then, You can find the configured file in /etc/ppp/peers</p>
-
-<p>To make sure that everythine is configured properly, as root execute</p>
-
-<pre><code># pon &lt;TUNNEL&gt; debug dump logfd 2 nodetach
-</code></pre>
-
-<p>If everything is configured correctly, the pon command should not terminate. Once you are satisfied that has connected successfully, you can terminate this command.</p>
-
-<p>To connect to your VPN normally, simply execute:</p>
-
-<pre><code># pon &lt;TUNNEL&gt;
-</code></pre>
-
-<h4 id="routing">ROUTING</h4>
-
-<p>Once you have connected your VPN, you should be able to interact with anything available on th VPN. To access anything on the remote server, you should add a new route in your routing table.</p>
-
-<p>Route all traffic through your vpn.</p>
-
-<pre><code>sudo route del defalut dev eth0
-sudo route del defalut gw 10.1.0.1 dev ppp0
-</code></pre>
-
-<p>Check whether it has worked</p>
-
-<pre><code>ping www.youtube.com
-</code></pre>
+<p>Try, looking for the information You want.</p>
 
 <p>Enjoy it.</p>
 
 
-    <nav class="pagination-published">Published by John — 14 Apr 2014</nav>
+    <nav class="pagination-published">Published by John — 26 Apr 2014</nav>
 
     <nav class="pagination-link">
         
-        <a class="prev" href="http://www.johninux.com/linux/2014/03/19/fedora-install-php-fpm-nginx.html" rel="bookmark">&laquo;&nbsp;Fedora install php-fpm and nginx...</a>
+        <a class="prev" href="http://www.johninux.com/pi/2014/04/14/pptp-in-my-pi.html" rel="bookmark">&laquo;&nbsp;Run all traffic through an...</a>
         
-        
-        <a class="next" href="http://www.johninux.com/linux/2014/04/26/get-http-header.html" rel="bookmark">How to get http request...&nbsp;&raquo;</a>
         
      </nav>
      <div id="disqus_thread"></div>

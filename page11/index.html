@@ -42,70 +42,22 @@
         </header>
 		
 	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/linux/2014/04/26/get-http-header.html" title="How to get http request header" rel="bookmark">How to get http request header</a></h2>
-        <p class="time"><time pubdate="2014-04-26 15:13:00 +0800">26 Apr 2014</time></p>
+        <h2 class="post-title"><a href="http://www.johninux.com/ruby/2012/07/13/first-blog.html" title="octopress 安装" rel="bookmark">octopress 安装</a></h2>
+        <p class="time"><time pubdate="2012-07-13 15:12:00 +0800">13 Jul 2012</time></p>
         
-        <p>Recently, I need a function checking whether the file has downloaded completed, so there is a problem how to get size of a remote file without downloaded.</p>
+        <h2 id="octopress-">octopress 安装</h2>
+<p>安装与发布</p>
 
-<p>Using ruby, python or other language, ...</p>
-        
-    </article>
+<p>Octopress如果你不了解Ruby以及Git，不建议急着上手安装Octopress。安装步骤你可以参考官网文档，也可以按照以下步骤来安装。
+a. Octopress需要基于ruby 1.9.2版本环境，通过RVM切换</p>
 
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/pi/2014/04/14/pptp-in-my-pi.html" title="Run all traffic through an PPTP VPN on my Raspberry Pi" rel="bookmark">Run all traffic through an PPTP VPN on my Raspberry Pi</a></h2>
-        <p class="time"><time pubdate="2014-04-14 09:01:00 +0800">14 Apr 2014</time></p>
-        
-        <h4 id="vpn-client">VPN Client</h4>
+<pre><code>rvm install 1.9.2 &amp;&amp; rvm use 1.9.2
+</code></pre>
 
-<p>Some time, I have to run all traffic through a VPN, because this is China.</p>
+<p>b. 通过git clone获取octopress源代码</p>
 
-<p>Welcome to China.</p>
-
-<p>It is so easy to ...</p>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/linux/2014/03/19/fedora-install-php-fpm-nginx.html" title="Fedora install php-fpm and nginx" rel="bookmark">Fedora install php-fpm and nginx</a></h2>
-        <p class="time"><time pubdate="2014-03-19 21:24:00 +0800">19 Mar 2014</time></p>
-        
-        <h3 id="install-nginx-and-php-fpm">Install nginx and php-fpm</h3>
-
-<div class="highlight"><pre><code class="bash">sudo yum install nginx php-fpm
-</code></pre></div>
-
-<h3 id="test-nginx">Test nginx</h3>
-
-<div class="highlight"><pre><code class="bash">sudo nginx
-</code></pre></div>
-
-<p>Type in your web ser...</p>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/hadoop/2014/03/17/hadoop-combiner.html" title="Hadoop Combine" rel="bookmark">Hadoop Combine</a></h2>
-        <p class="time"><time pubdate="2014-03-17 10:28:00 +0800">17 Mar 2014</time></p>
-        
-        <p>之前在面试的时候，有人突然问到了一个问题：Combine 是做什么的？</p>
-
-<p>引用官方的原话<a href="http://wiki.apache.org/hadoop/HadoopMapReduce" title="Title">原话</a></p>
-
-<p>When the map operation outputs its pairs they are already available in memory. For efficiency reasons, sometimes it makes sense to take advantage of this fact by supplying a combiner class to perform a reduce-type function. If a combiner is used then the map key-value pairs are not immediately written to the output. Instead they will be collected in lists, one list per each key value. When a certain number of key-value pairs have been written, this buffer is flushed by passing all the values of each ...</p>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/c/2014/02/28/binary-magic.html" title="二进制的魔力" rel="bookmark">二进制的魔力</a></h2>
-        <p class="time"><time pubdate="2014-02-28 10:21:00 +0800">28 Feb 2014</time></p>
-        
-        <p>因为需要做一个 IP Range 的功能，就是判断一个 IP 是不是在一个 IP Range 里面。</p>
-
-<p>比如 127.0.0.1-127.0.0.255 这样一个范围，给一个 IP 地址，看这个 IP 地址是不是在前面的范围里面。</p>
-
-<p>IP 地址，按照人的理解，很简单啊，前三段数字一样，最后一段数字在 1-255 之间就好。</p>
-
-<p>说起来简单，但是要机器实现，怎...</p>
+<pre><code>git clone git://github.com/imathis/octopress.git octopress
+...</code></pre>
         
     </article>
 
@@ -114,7 +66,7 @@
         <ul class="pagination">
             
                 
-                    <li class="current"><a href="javascript:void(0);">1</a></li>
+                    <li><a href="http://www.johninux.com/">1</a></li>
                 
             
                 
@@ -154,7 +106,7 @@
                 
             
                 
-                    <li><a href="http://www.johninux.com/page11/">11</a></li>
+                    <li class="current"><a href="javascript:void(0);">11</a></li>
                 
             
         </ul>
