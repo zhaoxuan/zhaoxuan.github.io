@@ -42,6 +42,16 @@
         </header>
 		
 	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/ruby/2014/02/12/truncate-jekyll-html-for-archive-page.html" title="Truncating HTML while Preserving Structure" rel="bookmark">Truncating HTML while Preserving Structure</a></h2>
+        <p class="time"><time pubdate="2014-02-12 16:40:00 +0800">12 Feb 2014</time></p>
+        
+        <p>Truncating HTML is a bit of a pain - in a recent effory to change the layout of my site, I updated the index page to show the last five posts - truncated, of course.</p>
+
+<p>The problem with doing this is that the most common method of truncating a post is to remove all markup and truncate the remaining string. This would be fine, but for a site with a fair amount of colori...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
         <h2 class="post-title"><a href="http://www.johninux.com/linux/2014/01/11/enable-rc-local-in-fedora-20.html" title="Enable rc-local in Fedora 20" rel="bookmark">Enable rc-local in Fedora 20</a></h2>
         <p class="time"><time pubdate="2014-01-11 09:59:00 +0800">11 Jan 2014</time></p>
         
@@ -99,28 +109,6 @@ As this is basically a bash script itself, you need to ...</p>
         <p>Jekyll, a static site generator, is blog-aware. That means it tracks posts and publication dates. Working with such files can be tricky, but here is one way of using Rake to ease the pain.</p>
 
 <h4 id="what-we-need">What...</h4>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/ruby/2013/09/25/ruby-robust.html" title="提高 ruby script 的健壮性" rel="bookmark">提高 ruby script 的健壮性</a></h2>
-        <p class="time"><time pubdate="2013-09-25 10:49:00 +0800">25 Sep 2013</time></p>
-        
-        <p>首先必须承认 ruby 脚本确实是一个非常好用的工具。</p>
-
-<p>但是我们习惯了一个 script 解决所有的问题，比如</p>
-
-<div class="highlight"><pre><code class="ruby"><span class="c1"># main.rb</span>
-<span class="nb">require</span> <span class="s1">'rubygems'</span>
-
-<span class="nb">system</span> <span class="s1">'rm -fr /tmp'</span>
-</code></pre></div>
-
-<p>Soooooooo simple。</p>
-
-<p>但是上面的文件，在其他项目里面被 <code>require 'main'</code> 会有什么后果?</p>
-
-<p>代码就直接被执行了，后果可大可小，如果是 <code>system 'sudo rm ...</code></p>
         
     </article>
 
