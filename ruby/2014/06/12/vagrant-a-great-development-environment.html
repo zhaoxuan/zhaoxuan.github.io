@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Vagrant, a great VM development environment | The Simple</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="John" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/syntax.css" type="text/css" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://www.johninux.com/favicon.ico" type="image/x-icon" />
+    <!--[if lt IE 9]>
+    <script src="http://www.johninux.com/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <img src="http://www.johninux.com/images/head_portrait.png" class="bio-photo" alt=" bio photo">
+            <h2>Simple</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://www.johninux.com" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="mailto:zhaoxuan1727@gmail.com"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/contact.html"><i class="icon-comments-alt"></i> About </a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <h1 class="post-title">Vagrant, a great VM development environment</h1>
+        </header>
+		<article class="post">
+    <!-- <h1 class="post-title">Vagrant, a great VM development environment</h1> -->
+    <p>Hadoop 生态圈的开发者不知道有没有这样的困惑，每次部署都会说：明明在我机子上面开发的没问题啊。</p>
+
+<p>单机开发的，一到线上分布式的系统里面就是一堆 bug。</p>
+
+<p>Vagrant 可以很好的解决这个问题。</p>
+
+<h3 id="vagrant">Vagrant安装</h3>
+
+<p>下载 <a href="https://www.virtualbox.org/">Virtual Box</a> 和 <a href="http://www.vagrantup.com/">Vagrant</a> 都不用说了。</p>
+
+<h3 id="vagrant-1">Vagrant配置</h3>
+
+<p>当我们安装好 VirtualBox 和 Vagrant 后，我们要开始考虑在VM上使用什么操作系统了，一个打包好的操作系统在 Vagrant 中称为 Box，即 Box 是一个打包好的操作系统环境，目前网络上什么都有，所以你不用自己去制作操作系统或者制作 <a href="http://www.vagrantbox.es/">Box:vagrantbox.es </a> 上面有大家熟知的大多数操作系统，你只需要下载就可以了，下载主要是为了安装的时候快速，当然Vagrant也支持在线安装。</p>
+
+<p>Vagrant 会为每一个项目新建一个虚拟机，而 Box 就是虚拟机的原始镜像。</p>
+
+<p>使用的时候可以进入项目目录</p>
+
+<pre><code>vagrant init your_box.img
+</code></pre>
+
+<p>就可以新建虚拟环境，这个 Vagrantfile 文件就是虚拟机的配置文件，打开看看就知道 Vagrant 的强大，特别是针对多台机器的集群式的 VM 管理，真心佩服。</p>
+
+<p>修改好了 Vagrantfile 文件，就能启动虚拟机了</p>
+
+<pre><code>vagrant up
+</code></pre>
+
+<p>好了，少年，尽情安装的你 pkg 吧。</p>
+
+<p>Enjoy it.</p>
+
+
+    <nav class="pagination-published">Published by John — 12 Jun 2014</nav>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://www.johninux.com/mac/2014/04/30/where-is-my-page-up-down.html" rel="bookmark">&laquo;&nbsp;Where is my page up/down...</a>
+        
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>
+
+<!-- disqus -->
+<!-- <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->
+<!-- end_disqus -->
+        <footer id="foot">
+            <p>&copy; 2014 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>
+        </footer>
+    </section>
+</div>
+<div id="foot-line"></div>
+<script src="http://www.johninux.com/js/jquery.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/theOne.js" type="text/javascript"></script>
+<!-- baidu tongji begin -->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2de4c656ec06b5b899ebb2b5148eb2e1' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<!-- baidu tongji end -->
+</body>
+</html>
