@@ -52,10 +52,9 @@
 
 <p>在 ruby 中使用 SQLite 是非常简单的：</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s2">&quot;sqlite3&quot;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s2">&quot;sqlite3&quot;</span>
 
-<span class="n">db</span> <span class="o">=</span> <span class="no">SQLite3</span><span class="o">::</span><span class="no">Database</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">db_path</span><span class="p">)</span>
-</code></pre></div>
+<span class="n">db</span> <span class="o">=</span> <span class="no">SQLite3</span><span class="o">::</span><span class="no">Database</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">db_path</span><span class="p">)</span></code></pre></div>
 
 <p>还有比这个更简单的吗？</p>
 
@@ -205,19 +204,17 @@
 
 <p>SQLite 其实可以在内存里面</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">cache</span> <span class="o">=</span> <span class="no">SQLite3</span><span class="o">::</span><span class="no">Database</span><span class="o">.</span><span class="n">new</span> <span class="s2">&quot;:memory:&quot;</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cache</span> <span class="o">=</span> <span class="no">SQLite3</span><span class="o">::</span><span class="no">Database</span><span class="o">.</span><span class="n">new</span> <span class="s2">&quot;:memory:&quot;</span></code></pre></div>
 
 <p>依据决策树的特点，孩子节点的数据肯定是父节点的条件顾虑出来的。</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="k">if</span> <span class="n">in_cache?</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">if</span> <span class="n">in_cache?</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span>
   <span class="nb">puts</span> <span class="s2">&quot;</span><span class="se">\e</span><span class="s2">[31;1m==&gt; exec sql in sqlite :</span><span class="se">\e</span><span class="s2">[0m </span><span class="si">#{</span><span class="n">sql</span><span class="si">}</span><span class="s2">&quot;</span>
   <span class="k">return</span> <span class="n">cache_table_exec</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
 <span class="k">else</span>
   <span class="nb">puts</span> <span class="s2">&quot;</span><span class="se">\e</span><span class="s2">[31;1m==&gt; exec sql in greenplum :</span><span class="se">\e</span><span class="s2">[0m </span><span class="si">#{</span><span class="n">sql</span><span class="si">}</span><span class="s2">&quot;</span>
   <span class="k">return</span> <span class="n">gp_exec</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></div>
+<span class="k">end</span></code></pre></div>
 
 <p>in_cache? 其实就是一个判断当前节点的数据是不是上次缓存的数据的子集，如果是就用 sqlite 里面的数据查询，不是就连接 gp 数据查询。</p>
 

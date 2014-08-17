@@ -49,86 +49,75 @@
 
 <p>下面是一个Java语言的实现：</p>
 
-<div class="highlight"><pre><code class="java">    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Object</span> <span class="nf">createObject</span><span class="o">(</span><span class="n">String</span> <span class="n">className</span><span class="o">)</span> 
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">Object</span> <span class="nf">createObject</span><span class="o">(</span><span class="n">String</span> <span class="n">className</span><span class="o">)</span> 
         <span class="kd">throws</span> <span class="n">ClassNotFoundException</span><span class="o">,</span> <span class="n">InstantiationException</span><span class="o">,</span> <span class="n">IllegalAccessException</span> <span class="o">{</span>
         <span class="n">Class</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">className</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">clazz</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
-    <span class="o">}</span>
-</code></pre></div>
+    <span class="o">}</span></code></pre></div>
 
 <p>在Ruby中怎么做呢？karl自己给出了第一种做法：</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;String&#39;</span>
-<span class="nb">eval</span> <span class="s2">&quot;obj=</span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;String&#39;</span>
+<span class="nb">eval</span> <span class="s2">&quot;obj=</span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span></code></pre></div>
 
 <p>这里利用了Ruby的动态语言的特性，在代码中执行代码。不过，照着尝试了一下，我有了一个疑问，如何使用生成的对象，也就是，我们如何利用这里的obj呢？</p>
 
 <p>按照karl提供的方式，编写出这样的代码：</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;String&#39;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;String&#39;</span>
 <span class="nb">eval</span> <span class="s2">&quot;obj = </span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
-<span class="nb">p</span> <span class="n">obj</span>
-</code></pre></div>
+<span class="nb">p</span> <span class="n">obj</span></code></pre></div>
 
 <p>这里故意使用了p方法，因为对于一个空串，它可以打出”“，而不是无声无息，便于查看。</p>
 
 <p>这样的代码是无法运行的，异常如下：</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">undefined</span> <span class="n">local</span> <span class="n">variable</span> <span class="ow">or</span> <span class="nb">method</span> <span class="sb">`obj&#39; for main:Object (NameError)</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">undefined</span> <span class="n">local</span> <span class="n">variable</span> <span class="ow">or</span> <span class="nb">method</span> <span class="sb">`obj&#39; for main:Object (NameError)</span></code></pre></div>
 
 <p>然而，这段代码在irb中执行没有问题，这是irb和Ruby不兼容的一个地方。在《Programming Ruby》第二版中的第15章，谈及irb限制的时候，提到了这一点。</p>
 
 <p>eval执行会有一个值，也就是它最后执行的语句的值，对应到这里就是obj的值。根据这个特性，改写得到了第二种做法，代码如下：</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Array&#39;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Array&#39;</span>
 <span class="n">obj</span> <span class="o">=</span> <span class="nb">eval</span> <span class="s2">&quot;obj = </span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
-<span class="nb">p</span> <span class="n">obj</span>
-</code></pre></div>
+<span class="nb">p</span> <span class="n">obj</span></code></pre></div>
 
 <p>显然eval里的obj没有发挥什么作用，再修改一下：</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Array&#39;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Array&#39;</span>
 <span class="n">obj</span> <span class="o">=</span> <span class="nb">eval</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">.new&quot;</span>
-<span class="nb">p</span> <span class="n">obj</span>
-</code></pre></div>
+<span class="nb">p</span> <span class="n">obj</span></code></pre></div>
 
 <p>这样，我们就根据字符串创建出一个可用的对象。事实上，第一种方式也是可用的，不过，要obj在前面已经存在，只不过要稍做修改：</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">obj</span> <span class="o">=</span> <span class="kp">nil</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">obj</span> <span class="o">=</span> <span class="kp">nil</span>
 <span class="nb">eval</span> <span class="s2">&quot;obj = String.new&quot;</span>
-<span class="nb">p</span> <span class="n">obj</span>
-</code></pre></div>
+<span class="nb">p</span> <span class="n">obj</span></code></pre></div>
 
 <p>qiezi的回帖给出了一个我认为最漂亮的一种做法：</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">obj</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">.</span><span class="n">new</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">obj</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">.</span><span class="n">new</span></code></pre></div>
 
 <p>同样是利用eval，不同的是，这里是直接执行类名，结果是得到一个类对象。调用类的new方法就创建实例。这段代码看上去类似于一个普通的函数调用，很简洁。</p>
 
 <p>对应到前面的Java函数，Ruby的实现就可以这样写：</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="k">def</span> <span class="nf">create_obj</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">create_obj</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span>
     <span class="nb">eval</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span><span class="o">.</span><span class="n">new</span>
-<span class="k">end</span>
-</code></pre></div>
+<span class="k">end</span></code></pre></div>
 
 <p>UPDATE</p>
 
 <p>故事有了新的进展，njmzhang提供了另外的方法，按照他的说法，这几乎是一种标准用法：</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">c</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">const_get</span><span class="p">(</span><span class="s2">&quot;Array&quot;</span><span class="p">)</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">new</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">c</span> <span class="o">=</span> <span class="no">Object</span><span class="o">.</span><span class="n">const_get</span><span class="p">(</span><span class="s2">&quot;Array&quot;</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">new</span></code></pre></div>
 
 <p>这里利用到了一个事实，所有的类对象在Ruby中都是一个常量，所以，可以根据它的名字把这个常量提取出来。</p>
 
 <p>除此之外，njmzhang还给出了另一种利用扩展实现的方法：</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">c</span> <span class="o">=</span> <span class="no">Class</span><span class="o">.</span><span class="n">by_name</span><span class="p">(</span><span class="s2">&quot;Array&quot;</span><span class="p">)</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">c</span> <span class="o">=</span> <span class="no">Class</span><span class="o">.</span><span class="n">by_name</span><span class="p">(</span><span class="s2">&quot;Array&quot;</span><span class="p">)</span></code></pre></div>
 
 <p>这里用到的<a href="http://extensions.rubyforge.org/">扩展</a>在从方法的命名上来说，它比上一种方法更恰当一些。算上这两种实现，我最喜欢的仍然是qiezi给出的那种方法。</p>
 

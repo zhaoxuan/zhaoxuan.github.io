@@ -64,7 +64,7 @@
   <p>依官方的例子为主，各位看官建议看的时候复制下试试。因为是分布式解决方案，肯定是 服务端 与 客户端 双方的代码。</p>
 </blockquote>
 
-<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
 
 <span class="c1"># 监听的地址，你可以改为 0.0.0.0 来支持远程连接</span>
 <span class="no">URI</span><span class="o">=</span><span class="s2">&quot;druby://localhost:8787&quot;</span>
@@ -80,10 +80,9 @@
 
 <span class="no">DRb</span><span class="o">.</span><span class="n">start_service</span><span class="p">(</span><span class="no">URI</span><span class="p">,</span> <span class="no">FRONT_OBJECT</span><span class="p">)</span>
 <span class="c1"># </span>
-<span class="no">DRb</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">join</span>
-</code></pre></div>
+<span class="no">DRb</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">join</span></code></pre></div>
 
-<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
 
 <span class="no">SERVER_URI</span><span class="o">=</span><span class="s2">&quot;druby://localhost:8787&quot;</span>
 
@@ -92,8 +91,7 @@
 <span class="no">DRb</span><span class="o">.</span><span class="n">start_service</span>
 
 <span class="n">timeserver</span> <span class="o">=</span> <span class="no">DRbObject</span><span class="o">.</span><span class="n">new_with_uri</span><span class="p">(</span><span class="no">SERVER_URI</span><span class="p">)</span>
-<span class="nb">puts</span> <span class="n">timeserver</span><span class="o">.</span><span class="n">get_current_time</span>
-</code></pre></div>
+<span class="nb">puts</span> <span class="n">timeserver</span><span class="o">.</span><span class="n">get_current_time</span></code></pre></div>
 
 <blockquote>
   <p>我必须要说的是，很符合我们的 C/S 模型，但是你有没有想过如果 <code>get_current_time</code> 返回一个远程对象，会发     生什么呢？ 接下来，就是我要讲的。</p>
@@ -101,7 +99,7 @@
 
 <h3 id="section-2">远程对象代理</h3>
 
-<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
 <span class="no">URI</span><span class="o">=</span><span class="s2">&quot;druby://localhost:8787&quot;</span>
 
 <span class="k">class</span> <span class="nc">Logger</span>
@@ -144,10 +142,9 @@
 <span class="no">FRONT_OBJECT</span><span class="o">=</span><span class="no">LoggerFactory</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;dlog&quot;</span><span class="p">)</span>
 
 <span class="no">DRb</span><span class="o">.</span><span class="n">start_service</span><span class="p">(</span><span class="no">URI</span><span class="p">,</span> <span class="no">FRONT_OBJECT</span><span class="p">)</span>
-<span class="no">DRb</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">join</span>
-</code></pre></div>
+<span class="no">DRb</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">join</span></code></pre></div>
 
-<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
 
 <span class="no">SERVER_URI</span><span class="o">=</span><span class="s2">&quot;druby://localhost:8787&quot;</span>
 
@@ -163,8 +160,7 @@
   <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Goodbye, world!&quot;</span><span class="p">)</span>
   <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;=== EOT ===&quot;</span><span class="p">)</span>
 
-<span class="k">end</span>
-</code></pre></div>
+<span class="k">end</span></code></pre></div>
 
 <blockquote>
   <p>吐嘈，执行完，你会发现日志被写在了服务端的 dlog/ 目录里，注意 DRb::DRbUndumped 在 Logger 对象的加载，这样的对象是无须传递给客户端的，这样，客户端代码里拿到的 loggger 对象是远程代理对象，所有该对象调用的方法实际上是在远程服务端执行的。我们称这种方法是按引用传递。</p>
@@ -188,7 +184,7 @@
   <p>method_missing 将一个对象的方法传递给另一个对象的神器，谓之代理，多像有关部门，不做事情，只是将事情移交给另一个有关部门。看看核心代码：</p>
 </blockquote>
 
-<div class="highlight"><pre><code class="ruby"><span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="n">msg_id</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="n">msg_id</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
   <span class="k">if</span> <span class="no">DRb</span><span class="o">.</span><span class="n">here?</span><span class="p">(</span><span class="vi">@uri</span><span class="p">)</span>
     <span class="n">obj</span> <span class="o">=</span> <span class="no">DRb</span><span class="o">.</span><span class="n">to_obj</span><span class="p">(</span><span class="vi">@ref</span><span class="p">)</span>
     <span class="no">DRb</span><span class="o">.</span><span class="n">current_server</span><span class="o">.</span><span class="n">check_insecure_method</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">msg_id</span><span class="p">)</span>
@@ -200,8 +196,7 @@
     <span class="n">conn</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="n">msg_id</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
   <span class="k">end</span>
   <span class="c1">#。。。处理异常</span>
-<span class="k">end</span>
-</code></pre></div>
+<span class="k">end</span></code></pre></div>
 
 <blockquote>
   <p>obj显然是被代理的对象，上面除了缓存机制外，send_message 是 method_missing做的最重要的事，它引出来了下面的事情。</p>
@@ -213,7 +208,7 @@
   <p>DRb 的底层是一层透明的传输协议，通过它的接口，可以将数据（或命令）无压力收取，且看它的关键接口：</p>
 </blockquote>
 
-<div class="highlight"><pre><code class="ruby"><span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">first</span><span class="o">=</span><span class="kp">true</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">first</span><span class="o">=</span><span class="kp">true</span><span class="p">)</span>
   <span class="vi">@protocol</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">prot</span><span class="o">|</span>
     <span class="k">begin</span>
       <span class="k">return</span> <span class="n">prot</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
@@ -249,8 +244,7 @@
 <span class="c1"># 客户端，接受一个结果</span>
 <span class="k">def</span> <span class="nf">recv_reply</span>
  <span class="vi">@msg</span><span class="o">.</span><span class="n">recv_reply</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></div>
+<span class="k">end</span></code></pre></div>
 
 <blockquote>
   <p>继续吐嘈，默认 DRb 使用 DRbTCPSocket 来通信，你可以随时调整为 UnixSocket 或者 Http ，甚至 SSL。这个视你的需求而定，比如你要从公司用基于 Ruby 的方法，遥控你的家用电脑，建议你使用 SSL。</p>
@@ -261,7 +255,7 @@
   <p>Marshal 神器用来序列化对象，默认直接使用即可。例如：</p>
 </blockquote>
 
-<div class="highlight"><pre><code class="ruby"><span class="k">class</span> <span class="nc">A</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">A</span>
   <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
     <span class="vi">@a</span> <span class="o">=</span> <span class="n">a</span>
   <span class="k">end</span>
@@ -269,8 +263,7 @@
 <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="no">Marshal</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="n">c</span> <span class="o">=</span> <span class="no">Marshal</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-<span class="nb">puts</span> <span class="n">c</span><span class="o">.</span><span class="n">a</span>  <span class="c1"># ok, 输出 1</span>
-</code></pre></div>
+<span class="nb">puts</span> <span class="n">c</span><span class="o">.</span><span class="n">a</span>  <span class="c1"># ok, 输出 1</span></code></pre></div>
 
 <blockquote>
   <p>它被引用在 DRb 中，做为 DRbMessage 的关键，传递对象使用。</p>
@@ -282,7 +275,7 @@
   <p>服务器端代码</p>
 </blockquote>
 
-<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
 
 <span class="c1"># 监听的地址，你可以改为 0.0.0.0 来支持远程连接</span>
 <span class="no">URI</span><span class="o">=</span><span class="s2">&quot;druby://localhost:8787&quot;</span>
@@ -312,14 +305,13 @@
 
 <span class="no">DRb</span><span class="o">.</span><span class="n">start_service</span><span class="p">(</span><span class="no">URI</span><span class="p">,</span> <span class="no">FRONT_OBJECT</span><span class="p">)</span>
 <span class="c1"># </span>
-<span class="no">DRb</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">join</span>
-</code></pre></div>
+<span class="no">DRb</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">join</span></code></pre></div>
 
 <blockquote>
   <p>客户端代码</p>
 </blockquote>
 
-<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;drb/drb&#39;</span>
 
 <span class="no">SERVER_URI</span><span class="o">=</span><span class="s2">&quot;druby://localhost:8787&quot;</span>
 
@@ -342,8 +334,7 @@
 <span class="n">timeserver</span> <span class="o">=</span> <span class="no">DRbObject</span><span class="o">.</span><span class="n">new_with_uri</span><span class="p">(</span><span class="no">SERVER_URI</span><span class="p">)</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">timeserver</span><span class="o">.</span><span class="n">get_current_time</span>
 <span class="n">b</span> <span class="o">=</span> <span class="no">Marshal</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="nb">p</span> <span class="n">b</span><span class="o">.</span><span class="n">a</span>
-</code></pre></div>
+<span class="nb">p</span> <span class="n">b</span><span class="o">.</span><span class="n">a</span></code></pre></div>
 
 <blockquote>
   <p>结果非常惊讶，序列化的对象又重新调用了方法，但是这个前提是保证反序列化时，可以创建这个对象，也就是复用的 class A 里面的代码</p>
@@ -369,7 +360,7 @@
   <p>最后一个问题，远程对象支持 block 调用吗？答案是，YES。 如何实现的呢？</p>
 </blockquote>
 
-<div class="highlight"><pre><code class="ruby"><span class="k">def</span> <span class="nf">perform_with_block</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">perform_with_block</span>
 <span class="vi">@obj</span><span class="o">.</span><span class="n">__send__</span><span class="p">(</span><span class="vi">@msg_id</span><span class="p">,</span> <span class="o">*</span><span class="vi">@argv</span><span class="p">)</span> <span class="k">do</span> <span class="o">|*</span><span class="n">x</span><span class="o">|</span>
  <span class="n">jump_error</span> <span class="o">=</span> <span class="kp">nil</span>
  <span class="k">begin</span>
@@ -386,8 +377,7 @@
   <span class="k">end</span>
 <span class="k">end</span>
 <span class="n">block_value</span>
-<span class="k">end</span>
-</code></pre></div>
+<span class="k">end</span></code></pre></div>
 
 <blockquote>
   <p>看的出来（再吐嘈），block是通过本地的调用后，将结果再传递给远程对象。详细可以继续看 drb/drb 里的 perform 实现。</p>
@@ -462,15 +452,14 @@
   <p>例如：</p>
 </blockquote>
 
-<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;watir&#39;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;watir&#39;</span>
 <span class="n">ie</span> <span class="o">=</span> <span class="no">Watir</span><span class="o">::</span><span class="no">IE</span><span class="o">.</span><span class="n">new</span>
 <span class="n">ie</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;www.baidu.com&quot;</span><span class="p">)</span> <span class="c1"># 本地打开一个浏览器</span>
 
 <span class="c1"># 加载为远程进程执行</span>
 <span class="no">ATU</span><span class="o">.</span><span class="n">require</span> <span class="s1">&#39;watir&#39;</span>
 <span class="n">ie</span> <span class="o">=</span> <span class="no">ATU</span><span class="o">::</span><span class="no">Watir</span><span class="o">::</span><span class="no">IE</span><span class="o">.</span><span class="n">new</span>
-<span class="n">ie</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;www.baidu.com&quot;</span><span class="p">)</span> <span class="c1"># 远程的进程打开一个浏览器</span>
-</code></pre></div>
+<span class="n">ie</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;www.baidu.com&quot;</span><span class="p">)</span> <span class="c1"># 远程的进程打开一个浏览器</span></code></pre></div>
 
 <blockquote>
   <p>有了它，几乎同一份代码可以同用两个用途。可以非常方便的以代码级的控制远程主机和对象，并且重用性很高。</p>

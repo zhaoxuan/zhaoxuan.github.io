@@ -65,24 +65,21 @@
 
 <p>现在确认能否不输入口令就用ssh登录localhost:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ssh localhost
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ssh localhost</code></pre></div>
 
 <p>如果不输入口令就无法用ssh登陆localhost，执行下面的命令：</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ssh-keygen -t dsa -P <span class="s1">&#39;&#39;</span> -f ~/.ssh/id_dsa 
-<span class="nv">$ </span>cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ssh-keygen -t dsa -P <span class="s1">&#39;&#39;</span> -f ~/.ssh/id_dsa 
+<span class="nv">$ </span>cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys</code></pre></div>
 
 <h4 id="hadoop">三、安装 hadoop</h4>
 <p>1、下载 hadoop 解压的任意目录</p>
 
 <p>2、修改 hadoop_path/confi/hadoop_env.sh</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>path_to_java
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>path_to_java
 <span class="nb">export </span><span class="nv">HADOOP_INSTALL</span><span class="o">=</span>path_to_hadoop
-<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HADOOP_INSTALL</span>/bin
-</code></pre></div>
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HADOOP_INSTALL</span>/bin</code></pre></div>
 
 <h4 id="hadoop-1">四、配置 hadoop</h4>
 
@@ -90,13 +87,11 @@
 
 <h4 id="section-1">五、格式分布式文件</h4>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop namenode -format
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>bin/hadoop namenode -format</code></pre></div>
 
 <h4 id="hadoop-2">六、启动Hadoop守护进程：</h4>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/start-all.sh
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>bin/start-all.sh</code></pre></div>
 
 <p>Hadoop守护进程的日志写入到 ${HADOOP_LOG_DIR} 目录 (默认是 ${HADOOP_HOME}/logs).
 浏览NameNode和JobTracker的网络接口，它们的地址默认为：</p>
@@ -107,31 +102,26 @@
 
 <p>将输入文件拷贝到分布式文件系统:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop fs -put conf input
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>bin/hadoop fs -put conf input</code></pre></div>
 
 <p>运行发行版提供的示例程序：</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop jar hadoop-*-examples.jar grep input output <span class="s1">&#39;dfs[a-z.]+&#39;</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>bin/hadoop jar hadoop-*-examples.jar grep input output <span class="s1">&#39;dfs[a-z.]+&#39;</span></code></pre></div>
 
 <p>查看输出文件：
 将输出文件从分布式文件系统拷贝到本地文件系统查看：</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop fs -get output output 
-<span class="nv">$ </span>cat output/*
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>bin/hadoop fs -get output output 
+<span class="nv">$ </span>cat output/*</code></pre></div>
 
 <p>或者
 在分布式文件系统上查看输出文件：</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/hadoop fs -cat output/*
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>bin/hadoop fs -cat output/*</code></pre></div>
 
 <p>完成全部操作后，停止守护进程：</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bin/stop-all.sh
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>bin/stop-all.sh</code></pre></div>
 
 
 

@@ -46,11 +46,10 @@
 
 <p>但是我们习惯了一个 script 解决所有的问题，比如</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="c1"># main.rb</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># main.rb</span>
 <span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
 
-<span class="nb">system</span> <span class="s1">&#39;rm -fr /tmp&#39;</span>
-</code></pre></div>
+<span class="nb">system</span> <span class="s1">&#39;rm -fr /tmp&#39;</span></code></pre></div>
 
 <p>Soooooooo simple。</p>
 
@@ -60,15 +59,14 @@
 
 <p>从 python 借鉴了点东西，所有的代码还是放到 <code>def main(); end</code> 里面执行比较安全。</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="c1"># main.rb</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># main.rb</span>
 <span class="k">def</span> <span class="nf">main</span>
   <span class="k">do</span> <span class="n">some</span> <span class="n">code</span>
 <span class="k">end</span>
 
 <span class="k">if</span> <span class="vg">$0</span> <span class="o">==</span> <span class="bp">__FILE__</span>
   <span class="n">main</span>
-<span class="k">end</span>
-</code></pre></div>
+<span class="k">end</span></code></pre></div>
 
 <p>在判断下当前程序是脚本还是被 <code>require</code> 的。</p>
 

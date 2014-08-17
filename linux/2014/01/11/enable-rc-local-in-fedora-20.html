@@ -46,27 +46,23 @@
 
 <p>As root:</p>
 
-<div class="highlight"><pre><code class="bash">touch /etc/rc.local
-chmod +x /etc/rc.local
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">touch /etc/rc.local
+chmod +x /etc/rc.local</code></pre></div>
 
 <p>Next, open the file for editing:-</p>
 
 <p>vi /etc/rc.local
 As this is basically a bash script itself, you need to include the bash interpreter as the first line of the file.</p>
 
-<div class="highlight"><pre><code class="bash"><span class="c">#!/bin/bash</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span></code></pre></div>
 
 <p>You can now add whatever scripts or commands you like here – they will be run after everything else at your specific run-level has been started. In order for systemd to recognise and use this file, the systemd rc-local.service must be enabled.</p>
 
-<div class="highlight"><pre><code class="bash">systemctl <span class="nb">enable </span>rc-local.service
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">systemctl <span class="nb">enable </span>rc-local.service</code></pre></div>
 
 <p>You can check the status of this service with:-</p>
 
-<div class="highlight"><pre><code class="bash">systemctl status rc-local.service
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">systemctl status rc-local.service</code></pre></div>
 
 
     <nav class="pagination-published">Published by John — 11 Jan 2014</nav>

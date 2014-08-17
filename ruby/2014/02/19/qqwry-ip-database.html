@@ -58,13 +58,12 @@
 
 <p>QQWry.dat的文件头只有8个字节，其结构非常简单，首四个字节是第一条索引的绝对偏移，后四个字节是最后一条索引的绝对偏移。</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="vi">@file</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;qqwry.dat&#39;</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
-<span class="vi">@index_first</span><span class="p">,</span> <span class="vi">@index_last</span>  <span class="o">=</span> <span class="vi">@file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;L2&#39;</span><span class="p">)</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vi">@file</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;qqwry.dat&#39;</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="vi">@index_first</span><span class="p">,</span> <span class="vi">@index_last</span>  <span class="o">=</span> <span class="vi">@file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;L2&#39;</span><span class="p">)</span></code></pre></div>
 
 <p>有了索引区的绝对偏移，通过 IP 获得相对偏移，然后在索引区我们就能顺着索引指向的地方去读取内容了。</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">ip_long</span> <span class="o">=</span> <span class="n">ip</span><span class="o">.</span><span class="n">to_long</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ip_long</span> <span class="o">=</span> <span class="n">ip</span><span class="o">.</span><span class="n">to_long</span>
 
 <span class="n">offset_min</span><span class="p">,</span><span class="n">offset_max</span> <span class="o">=</span> <span class="vi">@index_first</span><span class="p">,</span><span class="vi">@index_last</span>
 
@@ -81,8 +80,7 @@
   <span class="k">end</span>
 <span class="k">end</span>
 
-<span class="k">return</span> <span class="n">read_offset</span><span class="p">(</span><span class="n">offset_max</span><span class="o">+</span><span class="mi">4</span><span class="p">)</span>
-</code></pre></div>
+<span class="k">return</span> <span class="n">read_offset</span><span class="p">(</span><span class="n">offset_max</span><span class="o">+</span><span class="mi">4</span><span class="p">)</span></code></pre></div>
 
 <p>通过 read_offset 返回的内容，我们就知道数据存放的地址了，就能直接读取里面的内容了。</p>
 
@@ -92,12 +90,11 @@
 
 <p>其实早就有了 Gem 可以实现这个功能，为了学习才自己研究一下。</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s1">&#39;qqwry&#39;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;qqwry&#39;</span>
 
 <span class="n">db</span> <span class="o">=</span> <span class="no">QQWry</span><span class="o">::</span><span class="no">Database</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;QQWry.Dat&#39;</span><span class="p">)</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;8.8.8.8&#39;</span><span class="p">)</span>
-<span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">r</span><span class="o">.</span><span class="n">country</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">r</span><span class="o">.</span><span class="n">area</span><span class="si">}</span><span class="s2">&quot;</span>
-</code></pre></div>
+<span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">r</span><span class="o">.</span><span class="n">country</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">r</span><span class="o">.</span><span class="n">area</span><span class="si">}</span><span class="s2">&quot;</span></code></pre></div>
 
 
 

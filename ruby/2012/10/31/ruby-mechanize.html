@@ -54,18 +54,15 @@
 
 <p>1 install mechanize</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">gem</span> <span class="n">install</span> <span class="n">mechanize</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="n">install</span> <span class="n">mechanize</span></code></pre></div>
 
 <p>2 mechanize object</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">agent</span> <span class="o">=</span> <span class="no">WWW</span><span class="o">::</span><span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">agent</span> <span class="o">=</span> <span class="no">WWW</span><span class="o">::</span><span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span></code></pre></div>
 
 <p>3 vitual user_agent</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">agent</span><span class="o">.</span><span class="n">user_agent_alias</span> <span class="o">=</span> <span class="s1">&#39;Windows IE 7&#39;</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">agent</span><span class="o">.</span><span class="n">user_agent_alias</span> <span class="o">=</span> <span class="s1">&#39;Windows IE 7&#39;</span></code></pre></div>
 
 <p><code>ruby user_agent https://github.com/sparklemotion/mechanize/blob/master/lib/mechanize.rb#L115 detail
 AGENT_ALIASES = {

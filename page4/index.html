@@ -42,6 +42,24 @@
         </header>
 		
 	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/shell/2013/12/15/why-grep-is-so-fast.html" title="为什么 GNU grep 这么快" rel="bookmark">为什么 GNU grep 这么快</a></h2>
+        <p class="time"><time pubdate="2013-12-15 17:39:00 +0800">15 Dec 2013</time></p>
+        
+        <p>Linuxer 经常在 shell 输出的时候加一个 grep 在后面，把自己想要的东西输出，</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">ps -ef <span class="p">|</span> grep java</code></pre></div>
+
+<p>然后 kill -9 (从前辈工作时，偷师学来的坏习惯)。</p>
+
+<p>下面是一些简单的总结，关于为什么 GNU grep 如此之快</p>
+
+<p>技巧1：GNU grep之所以快是因为它并不会去检查输入中的每一个字节。</p>
+
+<p>技巧2：GNU grep之所以快是因为它...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
         <h2 class="post-title"><a href="http://www.johninux.com/ruby/2013/09/30/create-new-jekyll-posts-rake-task.html" title="create new jekyll posts rake task " rel="bookmark">create new jekyll posts rake task </a></h2>
         <p class="time"><time pubdate="2013-09-30 16:03:00 +0800">30 Sep 2013</time></p>
         
@@ -59,17 +77,16 @@
 
 <p>但是我们习惯了一个 script 解决所有的问题，比如</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="c1"># main.rb</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># main.rb</span>
 <span class="nb">require</span> <span class="s1">'rubygems'</span>
 
-<span class="nb">system</span> <span class="s1">'rm -fr /tmp'</span>
-</code></pre></div>
+<span class="nb">system</span> <span class="s1">'rm -fr /tmp'</span></code></pre></div>
 
 <p>Soooooooo simple。</p>
 
 <p>但是上面的文件，在其他项目里面被 <code>require 'main'</code> 会有什么后果?</p>
 
-<p>代码就直接被执行了，后果可大可小，如果是 <code>system 'sudo rm ...</code></p>
+<p>代码就直接被执行了，后果可大可小，如果是 <code>system 'sudo rm...</code></p>
         
     </article>
 
@@ -99,24 +116,10 @@
 
 <h3 id="bashprofile">配置 .bash_profile</h3>
 
-<div class="highlight"><pre><code class="bash"><span class="c"># show git branch</span>
-<span class="k">function </span>git_branch <span class="o">{</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># show git branch</span>
+<span class="k">function</span> git_branch <span class="o">{</span>
     <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>git symbolic-ref HEAD 2&gt; /dev/null<span class="k">)</span> <span class="o">||</span> <span class="k">return</span><span class="p">;</span>
     <span class="nb">echo</span> <span class="s2">"("</span><span class="k">${...</span></code></pre></div>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/sqlite/2013/02/11/sqlite-in-bigdata.html" title="Sqlite 也能大数据" rel="bookmark">Sqlite 也能大数据</a></h2>
-        <p class="time"><time pubdate="2013-02-11 15:18:00 +0800">11 Feb 2013</time></p>
-        
-        <h3 id="section">简介</h3>
-
-<p>SQLite 是一个开源的嵌入式关系数据库，实现自包容、零配置、支持事务的SQL数据库引擎。 其特点是高度便携、使用方便、结构紧凑、高效、可靠。 与其他数据库管理系统不同，SQLite 的安装和运行非常简单，在大多数情况下 - 只要确保SQLite的二进制文件存在即可开始创建、连接和使用数据库。</p>
-
-<p>但是今天，我并不是要在嵌入式开发中用它，因为他的简单，小巧，我反而要在大数据中使用它。</p>
-
-<h3 id="section-1">使用...</h3>
         
     </article>
 

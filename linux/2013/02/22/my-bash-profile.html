@@ -48,21 +48,20 @@
 
 <h3 id="bashprofile">配置 .bash_profile</h3>
 
-<div class="highlight"><pre><code class="bash"><span class="c"># show git branch</span>
-<span class="k">function </span>git_branch <span class="o">{</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># show git branch</span>
+<span class="k">function</span> git_branch <span class="o">{</span>
     <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>git symbolic-ref HEAD 2&gt; /dev/null<span class="k">)</span> <span class="o">||</span> <span class="k">return</span><span class="p">;</span>
     <span class="nb">echo</span> <span class="s2">&quot;(&quot;</span><span class="k">${</span><span class="nv">ref</span><span class="p">#refs/heads/</span><span class="k">}</span><span class="s2">&quot;) &quot;</span><span class="p">;</span>
 <span class="o">}</span>
 
 <span class="c"># show ruby version</span>
-<span class="k">function </span>ruby_v<span class="o">(){</span>
+<span class="k">function</span> ruby_v<span class="o">(){</span>
     <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>ruby -v<span class="p">|</span>cut -c 1-10<span class="k">)</span><span class="o">||</span><span class="k">return</span><span class="p">;</span>
     <span class="nb">echo</span> <span class="s2">&quot;(&quot;</span><span class="k">${</span><span class="nv">ref</span><span class="k">}</span><span class="s2">&quot;) &quot;</span><span class="p">;</span>
 <span class="o">}</span>
 
 <span class="c"># PS1</span>
-<span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[01;33m\]\u@\h \[\033[1;32m\]\$(git_branch)$(ruby_v)\[\033[01;31m\]\W\$\[\033[00m\] &quot;</span>
-</code></pre></div>
+<span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[01;33m\]\u@\h \[\033[1;32m\]\$(git_branch)$(ruby_v)\[\033[01;31m\]\W\$\[\033[00m\] &quot;</span></code></pre></div>
 
 <p>两个方法一个是显示 git branch 分支，一个是显示 ruby version，因为使用 rvm 所以就写了这两个。</p>
 

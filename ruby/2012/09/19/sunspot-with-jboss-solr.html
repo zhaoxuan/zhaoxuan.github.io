@@ -58,9 +58,8 @@
 
 <h3 id="sunspot-gem-">2.增加 sunspot gem 包</h3>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">gem</span> <span class="s1">&#39;sunspot_rails&#39;</span>
-<span class="n">gem</span> <span class="s1">&#39;sunspot&#39;</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="s1">&#39;sunspot_rails&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;sunspot&#39;</span></code></pre></div>
 
 <p>Bundle it!
     bundle install</p>
@@ -70,7 +69,7 @@
 
 <h3 id="searchable-block--model-">3.增加 searchable block 到你希望索引的 model 里面。</h3>
 
-<div class="highlight"><pre><code class="ruby"><span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="n">searchable</span> <span class="k">do</span>
     <span class="n">text</span> <span class="ss">:title</span>
     <span class="nb">test</span><span class="ss">:body</span>
@@ -78,12 +77,11 @@
     <span class="n">integer</span> <span class="ss">:category_ids</span><span class="p">,</span> <span class="ss">:multiple</span> <span class="o">=&gt;</span> <span class="kp">true</span>
     <span class="n">time</span> <span class="ss">:published_at</span>
   <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
+<span class="k">end</span></code></pre></div>
 
 <h3 id="solr--data-configxml-">4.配置 solr 的 data-config.xml 文件</h3>
 
-<div class="highlight"><pre><code class="xml"><span class="nt">&lt;dataConfig&gt;</span> 
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;dataConfig&gt;</span> 
   <span class="nt">&lt;dataSource</span> <span class="na">driver=</span><span class="s">&quot;org.postgresql.Driver&quot;</span>  <span class="na">url=</span><span class="s">&quot;jdbc:postgresql://192.168.5.13/cbb_development:5432&quot;</span>  <span class="na">user=</span><span class="s">&quot;cbb&quot;</span> <span class="na">password=</span><span class="s">&quot;bbc&quot;</span> <span class="na">transactionIsolation=</span><span class="s">&quot;TRANSACTION_READ_COMMITTED&quot;</span> <span class="na">holdability=</span><span class="s">&quot;CLOSE_CURSORS_AT_COMMIT&quot;</span><span class="nt">/&gt;</span> 
 
   <span class="nt">&lt;document&gt;</span>
@@ -101,8 +99,7 @@
     <span class="nt">&lt;/entity&gt;</span>
 
   <span class="nt">&lt;/document&gt;</span>
-<span class="nt">&lt;/dataConfig&gt;</span> 
-</code></pre></div>
+<span class="nt">&lt;/dataConfig&gt;</span></code></pre></div>
 
 <blockquote>
   <p>简单介绍下这里面的配置:</p>
@@ -126,7 +123,7 @@
 
 <h3 id="schemaxml-">5.配置 schema.xml 文件</h3>
 
-<div class="highlight"><pre><code class="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 
 <span class="nt">&lt;schema</span> <span class="na">name=</span><span class="s">&quot;sunspot&quot;</span> <span class="na">version=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;types&gt;</span>
@@ -264,8 +261,7 @@
   <span class="c">&lt;!-- copyField commands copy one field to another at the time a document</span>
 <span class="c">        is added to the index.  It&#39;s used either to index the same field differently,</span>
 <span class="c">        or to add multiple fields to the same field for easier/faster searching.  --&gt;</span>
-<span class="nt">&lt;/schema&gt;</span>
-</code></pre></div>
+<span class="nt">&lt;/schema&gt;</span></code></pre></div>
 
 <blockquote>
   <p>fieldType 是用来定义 solr 里面的基本数据类型，这些基本数据类型有什么功能，比如是字符串，还是整型，还是 text 可以用来切词 等等</p>
@@ -282,13 +278,12 @@
 
 <h3 id="section">6.搜索</h3>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">result</span> <span class="o">=</span> <span class="no">Sunspot</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="no">Model</span><span class="p">)</span> <span class="k">do</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">result</span> <span class="o">=</span> <span class="no">Sunspot</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="no">Model</span><span class="p">)</span> <span class="k">do</span>
   <span class="n">fulltext</span> <span class="s1">&#39;best pizza&#39;</span>
   <span class="n">with</span> <span class="ss">:blog_id</span><span class="p">,</span> <span class="mi">1</span>
   <span class="n">order_by</span> <span class="ss">:created_at</span><span class="p">,</span> <span class="ss">:desc</span>
   <span class="n">paginate</span> <span class="ss">:page</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">:per_page</span> <span class="o">=&gt;</span> <span class="mi">15</span>
-<span class="k">end</span>
-</code></pre></div>
+<span class="k">end</span></code></pre></div>
 
 <blockquote>
   <p>具体实现去看 <a href="http://sunspot.github.com/">sunspot</a></p>

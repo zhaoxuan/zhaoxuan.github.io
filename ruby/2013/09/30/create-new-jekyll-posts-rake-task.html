@@ -53,7 +53,7 @@
 <h4 id="what-we-get">What we get</h4>
 <p>I use the following Rake task to create post files:</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">desc</span> <span class="s1">&#39;create a new draft post&#39;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">desc</span> <span class="s1">&#39;create a new draft post&#39;</span>
 <span class="n">task</span> <span class="ss">:post</span><span class="p">,</span> <span class="ss">:title</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="p">,</span> <span class="n">args</span><span class="o">|</span>
   <span class="n">title</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">title</span>
   <span class="n">slug</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">Date</span><span class="o">.</span><span class="n">today</span><span class="si">}</span><span class="s2">-</span><span class="si">#{</span><span class="n">title</span><span class="o">.</span><span class="n">downcase</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/[^\w]+/</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -80,8 +80,7 @@
 <span class="no">EOS</span>
   <span class="k">end</span>
   <span class="nb">puts</span> <span class="s2">&quot;Creating new page: </span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="k">end</span>
-</code></pre></div>
+<span class="k">end</span></code></pre></div>
 
 <p>Now I can type rake post TITLE=’hello, world’ to create a post. Here’s what it does:</p>
 
@@ -93,11 +92,10 @@ Finally, at line 20, it launches the file in my default text editor, which in my
 <h4 id="draft-posts">Draft posts</h4>
 <p>With the published flag set to false I can keep my drafts in my Git repository without actually publishing them. I can find all draft posts using rake drafts:</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">desc</span> <span class="s1">&#39;List all draft posts&#39;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">desc</span> <span class="s1">&#39;List all draft posts&#39;</span>
 <span class="n">task</span> <span class="ss">:drafts</span> <span class="k">do</span>
   <span class="nb">puts</span> <span class="sb">`find ./_posts -type f -exec grep -H &#39;published: false&#39; {} </span><span class="se">\\</span><span class="sb">;`</span>
-<span class="k">end</span>
-</code></pre></div>
+<span class="k">end</span></code></pre></div>
 
 <h4 id="renaming-files">Renaming files</h4>
 <p>One slight problem occurs when I want to rename the file to publish it on a different date. I don’t have a task yet that can easily rename a file. It would also be useful to be able to override the default extension.</p>
