@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Python egg | The Simple</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="John" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/syntax.css" type="text/css" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://www.johninux.com/favicon.ico" type="image/x-icon" />
+    <!--[if lt IE 9]>
+    <script src="http://www.johninux.com/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <img src="http://www.johninux.com/images/head_portrait.png" class="bio-photo" alt=" bio photo">
+            <h2>Simple</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://www.johninux.com" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="mailto:zhaoxuan1727@gmail.com"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/contact.html"><i class="icon-comments-alt"></i> About </a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <h1 class="post-title">Python egg</h1>
+        </header>
+		<article class="post">
+    <!-- <h1 class="post-title">Python egg</h1> -->
+    <p>对于用 Python 开发的同学，对 pip 和 easy_install 已经是非常熟悉了。easy_install 是由 PEAK(Python Enterprise Application Kit) 开发的 setuptools 包里带的一个命令，它用来安装egg包。</p>
+
+<h3 id="installing-setuptools">Installing setuptools</h3>
+
+<pre><code>wget https://bootstrap.pypa.io/ez_setup.py -O - | python
+</code></pre>
+
+<p>如果使用了 pyenv 安装的 Python，setuptools 已经是安装好了。</p>
+
+<h3 id="making-first-egg-package">Making first egg package</h3>
+
+<p>一个 egg 主要包括一个 setup.py 文件。</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">mkdir egg_demo
+<span class="nb">cd </span>egg_demo
+touch setup.py</code></pre></div>
+
+<p>在 setup.py 文件里面，通过一个 setup() 函数来配置打包信息。</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
+<span class="c">#-*- coding:utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
+
+<span class="n">setup</span><span class="p">()</span></code></pre></div>
+
+<p>通过下面的 Python script 就能生成一个 egg 包。</p>
+
+<pre><code>python setup.py bdist_egg
+</code></pre>
+
+<p>可以看到多了三个文件夹。而在 dist 文件夹下，有一个 egg 文件：UNKNOWN-0.0.0-py2.6.egg，这个 egg 就是我们最后的目标文件。</p>
+
+<p>接下来我们修改 setup() 里面的参数。</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
+<span class="c">#-*- coding:utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;egg_demo&quot;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s">&quot;0.0.1&quot;</span><span class="p">,</span>
+    <span class="n">packages</span> <span class="o">=</span> <span class="n">find_packages</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">),</span>
+    <span class="n">zip_safe</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span>
+
+    <span class="n">description</span> <span class="o">=</span> <span class="s">&quot;egg demo.&quot;</span><span class="p">,</span>
+    <span class="n">long_description</span> <span class="o">=</span> <span class="s">&quot;egg demo, for testing.&quot;</span><span class="p">,</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="s">&quot;john&quot;</span><span class="p">,</span>
+    <span class="n">author_email</span> <span class="o">=</span> <span class="s">&quot;xxx@qq.com&quot;</span><span class="p">,</span>
+
+    <span class="n">license</span> <span class="o">=</span> <span class="s">&quot;GPL&quot;</span><span class="p">,</span>
+    <span class="n">keywords</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
+    <span class="p">)</span></code></pre></div>
+
+<p>我们再建立一个 egg_demo 文件夹，里面放我们需要的代码。</p>
+
+<pre><code>mkdir egg_demo
+touch egg_demo/__init__.py
+</code></pre>
+
+<p>在 <code>__init__.py</code> 文件里面加入以下代码</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="c"># @Author: john</span>
+<span class="c"># @Date:   2014-08-20 22:37:35</span>
+<span class="c"># @Last Modified by:   john</span>
+<span class="c"># @Last Modified time: 2014-08-20 22:38:43</span>
+
+<span class="k">def</span> <span class="nf">say_hello</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">&quot;hello work&quot;</span>
+    <span class="k">pass</span></code></pre></div>
+
+<p>再次生成 egg 包。马上就能通过 setuptool 来安装我们自己写的包了。</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">python setup.py install
+
+running install
+running bdist_egg
+running egg_info
+...
+Installed /Users/john/.pyenv/versions/py276/lib/python2.7/site-packages/egg_demo-0.0.1-py2.7.egg
+Processing dependencies <span class="k">for</span> egg-demo<span class="o">==</span>0.0.1
+Finished processing dependencies <span class="k">for</span> egg-demo<span class="o">==</span>0.0.1</code></pre></div>
+
+<p>通过 python 来试试我们的 first egg。</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">egg</span><span class="o">-</span><span class="n">demo</span>
+<span class="n">egg</span><span class="o">-</span><span class="n">demo</span><span class="o">.</span><span class="n">say_hello</span></code></pre></div>
+
+<p>成功输出！这说明安装正确。我们的一个 egg 包诞生了。 一般情况下，我们的源程序都放在 src 目录下，所以接下来将 egg_demo 文件夹移动到 src 里。但这样也要修改 setup.py 文件，修改 find_packages 函数中参数为 ‘src’，同时增加 package_dir 参数：</p>
+
+<pre><code>packages=find_packages('src'),
+package_dir = {'':'src'}
+</code></pre>
+
+<p>这样告诉setuptools在src目录下找包，而不是原来默认的工程根目录。</p>
+
+<p>Enjoy it!</p>
+
+
+
+    <nav class="pagination-published">Published by John — 19 Aug 2014</nav>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://www.johninux.com/python/2014/08/19/python-buildout.html" rel="bookmark">&laquo;&nbsp;Python Buildout</a>
+        
+        
+        <a class="next" href="http://www.johninux.com/2014/08/29/cpp-zipkin-client.html" rel="bookmark">cpp zipkin client&nbsp;&raquo;</a>
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>
+
+<!-- disqus -->
+<!-- <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->
+<!-- end_disqus -->
+        <footer id="foot">
+            <p>&copy; 2014 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>
+        </footer>
+    </section>
+</div>
+<div id="foot-line"></div>
+<script src="http://www.johninux.com/js/jquery.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/theOne.js" type="text/javascript"></script>
+<!-- baidu tongji begin -->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2de4c656ec06b5b899ebb2b5148eb2e1' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<!-- baidu tongji end -->
+</body>
+</html>

@@ -42,6 +42,47 @@
         </header>
 		
 	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/ruby/2014/02/12/truncate-jekyll-html-for-archive-page.html" title="Truncating HTML while Preserving Structure" rel="bookmark">Truncating HTML while Preserving Structure</a></h2>
+        <p class="time"><time pubdate="2014-02-12 16:40:00 +0800">12 Feb 2014</time></p>
+        
+        <p>Truncating HTML is a bit of a pain - in a recent effory to change the layout of my site, I updated the index page to show the last five posts - truncated, of course.</p>
+
+<p>The problem with doing this is that the most common method of truncating a post is to remove all markup and truncate the remaining string. This would be fine, but for a site with a fair amount of colori...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/linux/2014/01/11/enable-rc-local-in-fedora-20.html" title="Enable rc-local in Fedora 20" rel="bookmark">Enable rc-local in Fedora 20</a></h2>
+        <p class="time"><time pubdate="2014-01-11 09:59:00 +0800">11 Jan 2014</time></p>
+        
+        <p>From http://joshua14.homelinux.org/blog/?p=1377</p>
+
+<p>As root:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">touch /etc/rc.local
+chmod +x /etc/rc.local</code></pre></div>
+
+<p>Next, open the file for editing:-</p>
+
+<p>vi /etc/rc.local
+As this is basically a bash script itself, you need to...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/sublime/2013/12/30/the-best-plugin-in-sublime.html" title="The Best Plugin in Sublime Text" rel="bookmark">The Best Plugin in Sublime Text</a></h2>
+        <p class="time"><time pubdate="2013-12-30 23:20:00 +0800">30 Dec 2013</time></p>
+        
+        <p>这是我用过 Sublime 最好用的插件，没有之一。</p>
+
+<p>CodeIntel 可以使一个简单的文本编辑器变成一个强大的 IDE。</p>
+
+<h3 id="installing">Installing</h3>
+<p>With the Package...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
         <h2 class="post-title"><a href="http://www.johninux.com/shell/2013/12/15/why-grep-is-so-fast.html" title="为什么 GNU grep 这么快" rel="bookmark">为什么 GNU grep 这么快</a></h2>
         <p class="time"><time pubdate="2013-12-15 17:39:00 +0800">15 Dec 2013</time></p>
         
@@ -66,60 +107,6 @@
         <p>Jekyll, a static site generator, is blog-aware. That means it tracks posts and publication dates. Working with such files can be tricky, but here is one way of using Rake to ease the pain.</p>
 
 <h4 id="what-we-need">What...</h4>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/ruby/2013/09/25/ruby-robust.html" title="提高 ruby script 的健壮性" rel="bookmark">提高 ruby script 的健壮性</a></h2>
-        <p class="time"><time pubdate="2013-09-25 10:49:00 +0800">25 Sep 2013</time></p>
-        
-        <p>首先必须承认 ruby 脚本确实是一个非常好用的工具。</p>
-
-<p>但是我们习惯了一个 script 解决所有的问题，比如</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># main.rb</span>
-<span class="nb">require</span> <span class="s1">'rubygems'</span>
-
-<span class="nb">system</span> <span class="s1">'rm -fr /tmp'</span></code></pre></div>
-
-<p>Soooooooo simple。</p>
-
-<p>但是上面的文件，在其他项目里面被 <code>require 'main'</code> 会有什么后果?</p>
-
-<p>代码就直接被执行了，后果可大可小，如果是 <code>system 'sudo rm...</code></p>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/linux/2013/03/22/why-only-four-main-partition-in-mbr.html" title="为什么磁盘只能分四个主分区" rel="bookmark">为什么磁盘只能分四个主分区</a></h2>
-        <p class="time"><time pubdate="2013-03-22 20:27:00 +0800">22 Mar 2013</time></p>
-        
-        <p>不知道大家有没有考虑过，为什么一块磁盘一般只能分四个主分区，或者三个主分区加一个拓展分区。</p>
-
-<p>为什么不能突破四个主分区的限制多分几个主分区呢？</p>
-
-<p>当年 Bill Gates 说 “无论对谁来说,640K内存都足够了”。</p>
-
-<p>硬盘的第一磁盘，第一磁道，第一扇区，是一个非常特殊的扇区，它是计算机的 Boot Sector。</p>
-
-<p>MBR（Master Boot Record），DPT（Disk Partition Table）和 Boot Record ID 三部分就放在 Boot...</p>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/linux/2013/02/22/my-bash-profile.html" title="我的 bash_profile" rel="bookmark">我的 bash_profile</a></h2>
-        <p class="time"><time pubdate="2013-02-22 15:56:00 +0800">22 Feb 2013</time></p>
-        
-        <h3 id="section">习惯</h3>
-
-<p>对于我这样才接触 git 的人，总是有一个不好的习惯，就是不看 branch 就修改提交，因为原来使用 svn 根本没有分支这个概念。</p>
-
-<h3 id="bashprofile">配置 .bash_profile</h3>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># show git branch</span>
-<span class="k">function</span> git_branch <span class="o">{</span>
-    <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>git symbolic-ref HEAD 2&gt; /dev/null<span class="k">)</span> <span class="o">||</span> <span class="k">return</span><span class="p">;</span>
-    <span class="nb">echo</span> <span class="s2">"("</span><span class="k">${...</span></code></pre></div>
         
     </article>
 
@@ -169,6 +156,10 @@
             
                 
                     <li><a href="http://www.johninux.com/page11/">11</a></li>
+                
+            
+                
+                    <li><a href="http://www.johninux.com/page12/">12</a></li>
                 
             
         </ul>
