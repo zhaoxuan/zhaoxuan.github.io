@@ -42,6 +42,26 @@
         </header>
 		
 	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/ruby/2014/06/12/vagrant-a-great-development-environment.html" title="Vagrant, a great VM development environment" rel="bookmark">Vagrant, a great VM development environment</a></h2>
+        <p class="time"><time pubdate="2014-06-12 18:23:00 +0800">12 Jun 2014</time></p>
+        
+        <p>Hadoop 生态圈的开发者不知道有没有这样的困惑，每次部署都会说：明明在我机子上面开发的没问题啊。</p>
+
+<p>单机开发的，一到线上分布式的系统里面就是一堆 bug。</p>
+
+<p>Vagrant 可以很好的解决这个问题。</p>
+
+<h3 id="vagrant">Vagrant安装</h3>
+
+<p>下载 <a href="https://www.virtualbox.org/">Virtual Box</a> 和 <a href="http://www.vagrantup.com/">Vagrant</a> 都不用说了。</p>
+
+<h3 id="vagrant-1">Vagrant配置</h3>
+
+<p>当我们安装好 VirtualBox 和 Vagrant 后，我们要开始考虑在VM上使用什么操作系统了，一个打包好的操作系统在 Vagrant 中称为 Box，即 Box 是一个...</p>
+        
+    </article>
+
+	<article class="post fn-clear">
         <h2 class="post-title"><a href="http://www.johninux.com/mac/2014/04/30/where-is-my-page-up-down.html" title="Where is my page up/down im my Macbook" rel="bookmark">Where is my page up/down im my Macbook</a></h2>
         <p class="time"><time pubdate="2014-04-30 15:38:00 +0800">30 Apr 2014</time></p>
         
@@ -86,18 +106,6 @@
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo nginx</code></pre></div>
 
 <p>Type in your web s...</p>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/hadoop/2014/03/17/hadoop-combiner.html" title="Hadoop Combine" rel="bookmark">Hadoop Combine</a></h2>
-        <p class="time"><time pubdate="2014-03-17 10:28:00 +0800">17 Mar 2014</time></p>
-        
-        <p>之前在面试的时候，有人突然问到了一个问题：Combine 是做什么的？</p>
-
-<p>引用官方的原话<a href="http://wiki.apache.org/hadoop/HadoopMapReduce" title="Title">原话</a></p>
-
-<p>When the map operation outputs its pairs they are already available in memory. For efficiency reasons, sometimes it makes sense to take advantage of this fact by supplying a combiner class to perform a reduce-type function. If a combiner is used then the map key-value pairs are not immediately written to the output. Instead they will be collected in lists, one list per each key value. When a certain number of key-value pairs have been written, this buffer is flushed by passing all the values of each ...</p>
         
     </article>
 

@@ -42,6 +42,29 @@
         </header>
 		
 	<article class="post fn-clear">
+        <h2 class="post-title"><a href="http://www.johninux.com/mac/2014/10/18/unpack-pkg.html" title="分析 pkg 文件" rel="bookmark">分析 pkg 文件</a></h2>
+        <p class="time"><time pubdate="2014-10-18 16:44:00 +0800">18 Oct 2014</time></p>
+        
+        <p><code>pkg</code> 文件是 OS X 上特有的安装文件，我感觉和 RedHat 上面 RPM Package 差不多，里面有安装程序，有解压出来的二进制文件和库文件。</p>
+
+<p>假设当前有一个 pkg 文件 “filename.pkg”，先使用以下命令解开 pkg：</p>
+
+<pre><code>$ xar -xf filename.pkg
+</code></pre>
+
+<p>如果是 Linux 系统，可以 Google 去下载安装 <a href="http://code.google.com/p/xar/" title="Title">xar</a>。</p>
+
+<p>解压后可以看见如下文件：</p>
+
+<pre><code>Distribution
+Resources
+filename1.pkg
+filename2.pkg
+...</code></pre>
+        
+    </article>
+
+	<article class="post fn-clear">
         <h2 class="post-title"><a href="http://www.johninux.com/2014/08/29/cpp-zipkin-client.html" title="cpp zipkin client" rel="bookmark">cpp zipkin client</a></h2>
         <p class="time"><time pubdate="2014-08-29 11:23:00 +0800">29 Aug 2014</time></p>
         
@@ -80,26 +103,6 @@
         <p class="time"><time pubdate="2014-07-29 13:42:00 +0800">29 Jul 2014</time></p>
         
         <p>Thrift 是...</p>
-        
-    </article>
-
-	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://www.johninux.com/ruby/2014/06/12/vagrant-a-great-development-environment.html" title="Vagrant, a great VM development environment" rel="bookmark">Vagrant, a great VM development environment</a></h2>
-        <p class="time"><time pubdate="2014-06-12 18:23:00 +0800">12 Jun 2014</time></p>
-        
-        <p>Hadoop 生态圈的开发者不知道有没有这样的困惑，每次部署都会说：明明在我机子上面开发的没问题啊。</p>
-
-<p>单机开发的，一到线上分布式的系统里面就是一堆 bug。</p>
-
-<p>Vagrant 可以很好的解决这个问题。</p>
-
-<h3 id="vagrant">Vagrant安装</h3>
-
-<p>下载 <a href="https://www.virtualbox.org/">Virtual Box</a> 和 <a href="http://www.vagrantup.com/">Vagrant</a> 都不用说了。</p>
-
-<h3 id="vagrant-1">Vagrant配置</h3>
-
-<p>当我们安装好 VirtualBox 和 Vagrant 后，我们要开始考虑在VM上使用什么操作系统了，一个打包好的操作系统在 Vagrant 中称为 Box，即 Box 是一个...</p>
         
     </article>
 
