@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>分析 pkg 文件 | The Simple</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="John" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="http://www.johninux.com/css/syntax.css" type="text/css" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://www.johninux.com/favicon.ico" type="image/x-icon" />
+    <!--[if lt IE 9]>
+    <script src="http://www.johninux.com/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <!-- mathjax js is been used for mathematical formula -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <img src="http://www.johninux.com/images/head_portrait.png" class="bio-photo" alt=" bio photo">
+            <h2>Simple</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://www.johninux.com" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="mailto:zhaoxuan1727@gmail.com"><i class="icon-envelope-alt"></i> Contact</a></li>
+                <li class="fn-clear"><a href="http://www.johninux.com/contact.html"><i class="icon-comments-alt"></i> About </a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <h1 class="post-title">分析 pkg 文件</h1>
+        </header>
+		<article class="post">
+    <!-- <h1 class="post-title">分析 pkg 文件</h1> -->
+    <p><code>pkg</code> 文件是 OS X 上特有的安装文件，我感觉和 RedHat 上面 RPM Package 差不多，里面有安装程序，有解压出来的二进制文件和库文件。</p>
+
+<p>假设当前有一个 pkg 文件 “filename.pkg”，先使用以下命令解开 pkg：</p>
+
+<pre><code>$ xar -xf filename.pkg
+</code></pre>
+
+<p>如果是 Linux 系统，可以 Google 去下载安装 <a href="http://code.google.com/p/xar/" title="Title">xar</a>。</p>
+
+<p>解压后可以看见如下文件：</p>
+
+<pre><code>Distribution
+Resources
+filename1.pkg
+filename2.pkg
+</code></pre>
+
+<p><code>Distribution</code> 是安装程序的 GUI 代码，<code>Resources</code> 这个目录还不了解。</p>
+
+<p>剩下若干 <code>*.pkg</code> 文件夹，就是我们要安装的程序的文件，随便进入一个 <code>.pkg</code> 目录，可以看见这样的 4 个文件：</p>
+
+<pre><code>Bom
+PackageInfo
+Payload
+Scripts
+</code></pre>
+
+<p>其中的 <code>Payload</code> 保存了我们需要的文件，需要使用以下命令对其进行处理：</p>
+
+<pre><code>$ mv Payload Payload.gz
+$ gunzip Payload.gz
+$ cat Payload | cpio -i
+</code></pre>
+
+<p>解压 <code>Payload</code> 以后我们就能看到和我们 OS X 类似的目录结构：</p>
+
+<pre><code>$ ls
+Applications
+Library
+System
+...
+</code></pre>
+
+<p>如果有 .app 就在 <code>Applications</code> 下面，如果有库文件就在 <code>Library</code> 下面，所以以后如果 pkg 安装的程序没有删除工具的话，可以用这样的方式删除。</p>
+
+
+
+    <nav class="pagination-published">Published by John — 18 Oct 2014</nav>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://www.johninux.com/2014/08/29/cpp-zipkin-client.html" rel="bookmark">&laquo;&nbsp;cpp zipkin client</a>
+        
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>
+
+<!-- disqus -->
+<!-- <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'johnzhao'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> -->
+<!-- end_disqus -->
+        <footer id="foot">
+            <p>&copy; 2014 John Zhao All rights reserved. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/">PIZn</a></p>
+        </footer>
+    </section>
+</div>
+<div id="foot-line"></div>
+<script src="http://www.johninux.com/js/jquery.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://www.johninux.com/js/theOne.js" type="text/javascript"></script>
+<!-- baidu tongji begin -->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2de4c656ec06b5b899ebb2b5148eb2e1' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<!-- baidu tongji end -->
+</body>
+</html>
