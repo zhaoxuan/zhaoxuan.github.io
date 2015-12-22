@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Fedora install php-fpm and nginx | The Simple</title>
+    <title>在 Http Response 里面设置 cookie | The Simple</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Jekyll" />
     <meta name="author" content="John" />
@@ -38,66 +38,35 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <h1 class="post-title">Fedora install php-fpm and nginx</h1>
+            <h1 class="post-title">在 Http Response 里面设置 cookie</h1>
         </header>
 		<article class="post">
-    <!-- <h1 class="post-title">Fedora install php-fpm and nginx</h1> -->
-    <h3 id="install-nginx-and-php-fpm">Install nginx and php-fpm</h3>
+    <!-- <h1 class="post-title">在 Http Response 里面设置 cookie</h1> -->
+    <p>想不到今年第一篇 Blog 竟然是年底的时候，今天感觉自己很惭愧啊，做 web 开发也有一段时间了，不敢说精通，至少应该是熟练，但是今天的一个东西让我突然傻了。</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo yum install nginx php-fpm</code></pre></div>
+<p>情况是这样的，为了给组内的伙伴做代码审查，我自己弄了 rietveld 做 codreview。但是发现组里好多人提交的代码总是出现账号不对，我就去排查原因，首先就看了看 rietveld 的缓存文件。</p>
 
-<h3 id="test-nginx">Test nginx</h3>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo nginx</code></pre></div>
-
-<p>Type in your web server’s IP address or hostname into a browser (e.g. http://127.0.0.1), and you should see the following page: nginx</p>
-
-<p>All right</p>
-
-<h3 id="my-nginx-conf">My nginx conf</h3>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo vim /etc/nginx/nginx.conf</code></pre></div>
-
-<p>Change user and group to john:john</p>
-
-<pre><code>user john john
+<pre><code>127.0.0.1   FALSE   /   FALSE   1451981472  sessionid   2bbdbd7e0ad9ab363fff7019a3ef3714
 </code></pre>
 
-<p>Set root path to my home path</p>
+<p>多熟悉的 sessionid 啊，马上就从 django 的源码开始查找问题，发现 login controller 里面返回的 response body 是空的，那就奇怪了，服务器是如何返回数据的呢？</p>
 
-<pre><code>root         /home/john/www;
+<p>不行还要继续找，再通过 chrome 的流量看了一下，response body 确实没有返回任何东西啊。</p>
+
+<p>好奇心实在挡不住，就在一刹那意间，发现 response header 里面发现了一个很奇怪的返回头，<code>Set-Cookie</code> 这个太熟悉了，再看里面的内容:</p>
+
+<pre><code>sessionid=cfa98e68c89f48501eb1c8de9a709312; expires=Tue, 05-Jan-2016 08:41:40 GMT; Max-Age=1209600; Path=/
 </code></pre>
 
-<p>Set php-fpm script</p>
-
-<pre><code>location ~ \.php$ {
-    root /home/john/www;
-    fastcgi_pass 127.0.0.1:9000;
-    fastcgi_index index.php;
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    include fastcgi_params;
-}
-</code></pre>
-
-<h3 id="my-php-fpm-conf">My php-fpm conf</h3>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo vim /etc/php-fpm.d/www.conf</code></pre></div>
-
-<p>Nginx choosed to be able to access my dir ad httpd</p>
-
-<pre><code>user = john
-group = john
-</code></pre>
+<p>一切都恍然大悟。</p>
 
 
-    <nav class="pagination-published">Published by John — 19 Mar 2014</nav>
+    <nav class="pagination-published">Published by John — 22 Dec 2015</nav>
 
     <nav class="pagination-link">
         
-        <a class="prev" href="http://localhost:4000/hadoop/2014/03/17/hadoop-combiner.html" rel="bookmark">&laquo;&nbsp;Hadoop Combine</a>
+        <a class="prev" href="http://localhost:4000/mac/2014/10/18/unpack-pkg.html" rel="bookmark">&laquo;&nbsp;分析 pkg 文件</a>
         
-        
-        <a class="next" href="http://localhost:4000/pi/2014/04/14/pptp-in-my-pi.html" rel="bookmark">Run all traffic through an...&nbsp;&raquo;</a>
         
      </nav>
      <div id="disqus_thread"></div>
